@@ -138,12 +138,53 @@ func (s *ServiceImpl) SelectCourse(ctx context.Context, req *server0.SelectCours
 // QueryScore implements the ServiceImpl interface.
 func (s *ServiceImpl) QueryScore(ctx context.Context, req *server0.StudentQueryScoreRequest) (resp *server0.StudentQueryScoreResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("SELECT courseinfo.courseid, courseinfo.coursename, courseinfo.credit, selectioninfo.score FROM courseinfo, selectioninfo WHERE courseinfo.courseid=selectioninfo.courseid AND selectioninfo.studentid='%s' AND selectioninfo.score IS NOT NULL", req.StudentId)
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("出错了，稍后重试")
+		return
+	}
+	resp = server0.NewStudentQueryScoreResponse()
+	resp.CourseScore = make([]*server0.StudentScoreResponse, 0)
+	for sqlResp.Next() {
+		var courseId, courseName string
+		var credit, score float64
+		sqlResp.Scan(&courseId, &courseName, &credit, &score)
+		resp.CourseScore = append(resp.CourseScore, &server0.StudentScoreResponse{
+			CourseId:   courseId,
+			CourseName: courseName,
+			Credit:     credit,
+			Score:      score,
+		})
+	}
+	err = nil
 	return
 }
 
 // QuerySelection implements the ServiceImpl interface.
 func (s *ServiceImpl) QuerySelection(ctx context.Context, req *server0.StudentQuerySelectionRequest) (resp *server0.StudentQuerySelectionResponse, err error) {
 	// TODO: Your code here...
+	// server0.ShowCourseResponse
+	query := fmt.Sprintf("SELECT courseinfo.courseid, courseinfo.coursename, teacherinfo.teachername, courseinfo.credit FROM courseinfo, teacherinfo, selectioninfo WHERE courseinfo.teacherid=teacherinfo.teacherid AND selectioninfo.courseid=courseinfo.courseid AND selectioninfo.studentid='%s'", req.StudentId)
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("出错了，稍后重试")
+		return
+	}
+	resp = server0.NewStudentQuerySelectionResponse()
+	resp.Courses = make([]*server0.ShowCourseResponse, 0)
+	for sqlResp.Next() {
+		var courseId, courseName, teacherName string
+		var credit float64
+		sqlResp.Scan(&courseId, &courseName, &teacherName, &credit)
+		resp.Courses = append(resp.Courses, &server0.ShowCourseResponse{
+			CourseId:    courseId,
+			CourseName:  courseName,
+			TeacherName: teacherName,
+			Credit:      credit,
+		})
+	}
+	err = nil
 	return
 }
 
