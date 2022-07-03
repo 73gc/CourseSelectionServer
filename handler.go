@@ -15,11 +15,11 @@ type ServiceImpl struct{}
 func (s *ServiceImpl) Login(ctx context.Context, req *server0.LoginRequest) (resp *server0.LoginResponse, err error) {
 	// TODO: Your code here...
 	query := fmt.Sprintf("SELECT passwd FROM userinfo WHERE userid=%s", req.Password)
-	queryResp, err := sqlcontroller.Db.Query(query)
+	queryResp, err_ := sqlcontroller.Db.Query(query)
 	resp = server0.NewLoginResponse()
-	if err != nil {
+	if err_ != nil {
 		resp.Message = "出错了"
-		log.Println(err.Error())
+		log.Println(err_.Error())
 		return
 	} else {
 		var passwd string
@@ -33,9 +33,10 @@ func (s *ServiceImpl) Login(ctx context.Context, req *server0.LoginRequest) (res
 		} else if passwd != req.Password {
 			resp.Message = "密码错误"
 		} else {
+			err = nil
 			resp.Message = "登录成功"
 			query = fmt.Sprintf("SELECT adminid FROM admininfo WHERE adminid=%s", req.Username)
-			queryResp, err = sqlcontroller.Db.Query(query)
+			queryResp, _ = sqlcontroller.Db.Query(query)
 			exist = false
 			for queryResp.Next() {
 				exist = true
@@ -46,7 +47,7 @@ func (s *ServiceImpl) Login(ctx context.Context, req *server0.LoginRequest) (res
 				return
 			}
 			query = fmt.Sprintf("SELECT teacherid FROM teacherinfo WHERE teacherid=%s", req.Username)
-			queryResp, err = sqlcontroller.Db.Query(query)
+			queryResp, _ = sqlcontroller.Db.Query(query)
 			exist = false
 			for queryResp.Next() {
 				exist = true
@@ -57,7 +58,7 @@ func (s *ServiceImpl) Login(ctx context.Context, req *server0.LoginRequest) (res
 				return
 			}
 			query = fmt.Sprintf("SELECT studentid FROM studentinfo WHERE studentid=%s", req.Username)
-			queryResp, err = sqlcontroller.Db.Query(query)
+			queryResp, _ = sqlcontroller.Db.Query(query)
 			exist = false
 			for queryResp.Next() {
 				exist = true
@@ -75,6 +76,18 @@ func (s *ServiceImpl) Login(ctx context.Context, req *server0.LoginRequest) (res
 // ChangePassword implements the ServiceImpl interface.
 func (s *ServiceImpl) ChangePassword(ctx context.Context, req *server0.ChangePasswordRequenst) (resp *server0.ChangePasswordReponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("UPDATE userinfo SET passwd='%s' WHERE userid=%s", req.NewPassword_, req.Username)
+	sqlResp, err_ := sqlcontroller.Db.Exec(query)
+	if err_ != nil {
+		resp.Message = "发生错误，请稍后重试"
+		return
+	}
+	if n, _ := sqlResp.RowsAffected(); n != 0 {
+		resp.Message = "修改成功"
+	} else {
+		resp.Message = "新密码和原密码相同"
+	}
+	err = nil
 	return
 }
 
