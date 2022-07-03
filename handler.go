@@ -130,6 +130,18 @@ func (s *ServiceImpl) SelectCourse(ctx context.Context, req *server0.SelectCours
 		resp.Message = "出错了，稍后重试"
 		return
 	}
+	query = fmt.Sprintf("SELECT teacherid FROM courseinfo WHERE courseid='%s'", req.CourseId)
+	sqlResp, _ := sqlcontroller.Db.Query(query)
+	var teacherId string
+	for sqlResp.Next() {
+		sqlResp.Scan(&teacherId)
+	}
+	query = fmt.Sprintf("INSERT INTO commentinfo (courseid, teacherid, studentid) VALUES ('%s', '%s', '%s')", req.CourseId, teacherId, req.StudentId)
+	_, err_ = sqlcontroller.Db.Exec(query)
+	if err_ != nil {
+		resp.Message = "出错了，稍后重试"
+		return
+	}
 	resp.Message = "添加成功"
 	err = nil
 	return
@@ -191,6 +203,7 @@ func (s *ServiceImpl) QuerySelection(ctx context.Context, req *server0.StudentQu
 // EvaluateRequest implements the ServiceImpl interface.
 func (s *ServiceImpl) EvaluateRequest(ctx context.Context, req *server0.StudentEvaluateRequest) (resp *server0.StudentEvaluateResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("UPDATE commentinfo SET score=%g WHERE ")
 	return
 }
 
