@@ -343,11 +343,28 @@ func (s *ServiceImpl) DeleteTeacher(ctx context.Context, req *server0.AdminDelet
 // AddCourse implements the ServiceImpl interface.
 func (s *ServiceImpl) AddCourse(ctx context.Context, req *server0.AdminAddCourseInfoRequest) (resp *server0.AdminAddCourseInfoResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("INSERT INTO courseinfo (courseid, coursename, teacherid, credit) VALUES ('%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE teacherid='%s'", req.CourseId, req.CourseName, req.TeacherId, req.Credit, req.TeacherId)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewAdminAddCourseInfoResponse()
+	if err_ != nil {
+		resp.Message = "添加失败，稍后重试"
+		return
+	}
+	resp.Message = "添加成功"
+	err = nil
 	return
 }
 
 // DeleteCourse implements the ServiceImpl interface.
 func (s *ServiceImpl) DeleteCourse(ctx context.Context, req *server0.AdminDeleteCourseInfoRequest) (resp *server0.AdminDeleteCourseInfoResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("DELETE FROM courseinfo WHERE courseid='%s'", req.CourseId)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewAdminDeleteCourseInfoResponse()
+	if err_ != nil {
+		resp.Message = "出错了，请稍后重试"
+	}
+	resp.Message = "删除成功"
+	err = nil
 	return
 }
