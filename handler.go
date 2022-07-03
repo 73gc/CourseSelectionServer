@@ -3,6 +3,9 @@ package main
 import (
 	"context"
 	server0 "courseselection/kitex_gen/Server"
+	"courseselection/sqlcontroller"
+	"fmt"
+	"log"
 )
 
 // ServiceImpl implements the last service interface defined in the IDL.
@@ -11,6 +14,61 @@ type ServiceImpl struct{}
 // Login implements the ServiceImpl interface.
 func (s *ServiceImpl) Login(ctx context.Context, req *server0.LoginRequest) (resp *server0.LoginResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("SELECT passwd FROM userinfo WHERE userid=%s", req.Password)
+	queryResp, err := sqlcontroller.Db.Query(query)
+	resp = server0.NewLoginResponse()
+	if err != nil {
+		resp.Message = "出错了"
+		log.Println(err.Error())
+		return
+	} else {
+		var passwd string
+		exist := false
+		for queryResp.Next() {
+			exist = true
+			queryResp.Scan(&passwd)
+		}
+		if !exist {
+			resp.Message = "用户不存在"
+		} else if passwd != req.Password {
+			resp.Message = "密码错误"
+		} else {
+			resp.Message = "登录成功"
+			query = fmt.Sprintf("SELECT adminid FROM admininfo WHERE adminid=%s", req.Username)
+			queryResp, err = sqlcontroller.Db.Query(query)
+			exist = false
+			for queryResp.Next() {
+				exist = true
+			}
+			if exist {
+				resp.Authority = new(int32)
+				*resp.Authority = 1
+				return
+			}
+			query = fmt.Sprintf("SELECT teacherid FROM teacherinfo WHERE teacherid=%s", req.Username)
+			queryResp, err = sqlcontroller.Db.Query(query)
+			exist = false
+			for queryResp.Next() {
+				exist = true
+			}
+			if exist {
+				resp.Authority = new(int32)
+				*resp.Authority = 2
+				return
+			}
+			query = fmt.Sprintf("SELECT studentid FROM studentinfo WHERE studentid=%s", req.Username)
+			queryResp, err = sqlcontroller.Db.Query(query)
+			exist = false
+			for queryResp.Next() {
+				exist = true
+			}
+			if exist {
+				resp.Authority = new(int32)
+				*resp.Authority = 3
+				return
+			}
+		}
+	}
 	return
 }
 
