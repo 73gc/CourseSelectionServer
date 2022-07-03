@@ -268,6 +268,15 @@ func (s *ServiceImpl) ShowStudentInfo(ctx context.Context, req *server0.ShowStud
 // InputScore implements the ServiceImpl interface.
 func (s *ServiceImpl) InputScore(ctx context.Context, req *server0.TeacherInputScoreRequest) (resp *server0.TeacherInputScoreResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("UPDATE selectioninfo SET score=%g WHERE studentid='%s' AND courseid='%s'", req.Score, req.StudentId, req.CourseId)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewTeacherInputScoreResponse()
+	if err_ != nil {
+		resp.Message = "出错了，请稍后再试"
+		return
+	}
+	resp.Message = "操作成功"
+	err = nil
 	return
 }
 
