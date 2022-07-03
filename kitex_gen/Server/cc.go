@@ -9496,59 +9496,11 @@ func (p *AdminDeleteCourseInfoResponse) Field1DeepEqual(src string) bool {
 	return true
 }
 
-type UserService interface {
+type Service interface {
 	Login(ctx context.Context, req *LoginRequest) (r *LoginResponse, err error)
 
 	ChangePassword(ctx context.Context, req *ChangePasswordRequenst) (r *ChangePasswordReponse, err error)
-}
 
-type UserServiceClient struct {
-	c thrift.TClient
-}
-
-func NewUserServiceClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *UserServiceClient {
-	return &UserServiceClient{
-		c: thrift.NewTStandardClient(f.GetProtocol(t), f.GetProtocol(t)),
-	}
-}
-
-func NewUserServiceClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *UserServiceClient {
-	return &UserServiceClient{
-		c: thrift.NewTStandardClient(iprot, oprot),
-	}
-}
-
-func NewUserServiceClient(c thrift.TClient) *UserServiceClient {
-	return &UserServiceClient{
-		c: c,
-	}
-}
-
-func (p *UserServiceClient) Client_() thrift.TClient {
-	return p.c
-}
-
-func (p *UserServiceClient) Login(ctx context.Context, req *LoginRequest) (r *LoginResponse, err error) {
-	var _args UserServiceLoginArgs
-	_args.Req = req
-	var _result UserServiceLoginResult
-	if err = p.Client_().Call(ctx, "Login", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *UserServiceClient) ChangePassword(ctx context.Context, req *ChangePasswordRequenst) (r *ChangePasswordReponse, err error) {
-	var _args UserServiceChangePasswordArgs
-	_args.Req = req
-	var _result UserServiceChangePasswordResult
-	if err = p.Client_().Call(ctx, "ChangePassword", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-type StudentService interface {
 	ShowCourse(ctx context.Context, req *StudentShowCourseRequest) (r *StudentShowCourseReponse, err error)
 
 	SelectCourse(ctx context.Context, req *SelectCourseRequest) (r *SelectCourseResponse, err error)
@@ -9558,85 +9510,7 @@ type StudentService interface {
 	QuerySelection(ctx context.Context, req *StudentQuerySelectionRequest) (r *StudentQuerySelectionResponse, err error)
 
 	EvaluateRequest(ctx context.Context, req *StudentEvaluateRequest) (r *StudentEvaluateResponse, err error)
-}
 
-type StudentServiceClient struct {
-	c thrift.TClient
-}
-
-func NewStudentServiceClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *StudentServiceClient {
-	return &StudentServiceClient{
-		c: thrift.NewTStandardClient(f.GetProtocol(t), f.GetProtocol(t)),
-	}
-}
-
-func NewStudentServiceClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *StudentServiceClient {
-	return &StudentServiceClient{
-		c: thrift.NewTStandardClient(iprot, oprot),
-	}
-}
-
-func NewStudentServiceClient(c thrift.TClient) *StudentServiceClient {
-	return &StudentServiceClient{
-		c: c,
-	}
-}
-
-func (p *StudentServiceClient) Client_() thrift.TClient {
-	return p.c
-}
-
-func (p *StudentServiceClient) ShowCourse(ctx context.Context, req *StudentShowCourseRequest) (r *StudentShowCourseReponse, err error) {
-	var _args StudentServiceShowCourseArgs
-	_args.Req = req
-	var _result StudentServiceShowCourseResult
-	if err = p.Client_().Call(ctx, "ShowCourse", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *StudentServiceClient) SelectCourse(ctx context.Context, req *SelectCourseRequest) (r *SelectCourseResponse, err error) {
-	var _args StudentServiceSelectCourseArgs
-	_args.Req = req
-	var _result StudentServiceSelectCourseResult
-	if err = p.Client_().Call(ctx, "SelectCourse", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *StudentServiceClient) QueryScore(ctx context.Context, req *StudentQueryScoreRequest) (r *StudentQueryScoreResponse, err error) {
-	var _args StudentServiceQueryScoreArgs
-	_args.Req = req
-	var _result StudentServiceQueryScoreResult
-	if err = p.Client_().Call(ctx, "QueryScore", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *StudentServiceClient) QuerySelection(ctx context.Context, req *StudentQuerySelectionRequest) (r *StudentQuerySelectionResponse, err error) {
-	var _args StudentServiceQuerySelectionArgs
-	_args.Req = req
-	var _result StudentServiceQuerySelectionResult
-	if err = p.Client_().Call(ctx, "QuerySelection", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *StudentServiceClient) EvaluateRequest(ctx context.Context, req *StudentEvaluateRequest) (r *StudentEvaluateResponse, err error) {
-	var _args StudentServiceEvaluateRequestArgs
-	_args.Req = req
-	var _result StudentServiceEvaluateRequestResult
-	if err = p.Client_().Call(ctx, "EvaluateRequest", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-type TeacherService interface {
 	ShowCourseToTeacher(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error)
 
 	ShowStudentInfo(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error)
@@ -9656,135 +9530,7 @@ type TeacherService interface {
 	ShowCourseSelection(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error)
 
 	StudentCourseSelection(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error)
-}
 
-type TeacherServiceClient struct {
-	c thrift.TClient
-}
-
-func NewTeacherServiceClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *TeacherServiceClient {
-	return &TeacherServiceClient{
-		c: thrift.NewTStandardClient(f.GetProtocol(t), f.GetProtocol(t)),
-	}
-}
-
-func NewTeacherServiceClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *TeacherServiceClient {
-	return &TeacherServiceClient{
-		c: thrift.NewTStandardClient(iprot, oprot),
-	}
-}
-
-func NewTeacherServiceClient(c thrift.TClient) *TeacherServiceClient {
-	return &TeacherServiceClient{
-		c: c,
-	}
-}
-
-func (p *TeacherServiceClient) Client_() thrift.TClient {
-	return p.c
-}
-
-func (p *TeacherServiceClient) ShowCourseToTeacher(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error) {
-	var _args TeacherServiceShowCourseToTeacherArgs
-	_args.Req = req
-	var _result TeacherServiceShowCourseToTeacherResult
-	if err = p.Client_().Call(ctx, "ShowCourseToTeacher", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *TeacherServiceClient) ShowStudentInfo(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error) {
-	var _args TeacherServiceShowStudentInfoArgs
-	_args.Req = req
-	var _result TeacherServiceShowStudentInfoResult
-	if err = p.Client_().Call(ctx, "ShowStudentInfo", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *TeacherServiceClient) InputScore(ctx context.Context, req *TeacherInputScoreRequest) (r *TeacherInputScoreResponse, err error) {
-	var _args TeacherServiceInputScoreArgs
-	_args.Req = req
-	var _result TeacherServiceInputScoreResult
-	if err = p.Client_().Call(ctx, "InputScore", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *TeacherServiceClient) ModifyShowCourse(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error) {
-	var _args TeacherServiceModifyShowCourseArgs
-	_args.Req = req
-	var _result TeacherServiceModifyShowCourseResult
-	if err = p.Client_().Call(ctx, "ModifyShowCourse", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *TeacherServiceClient) ModifyShowStudent(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error) {
-	var _args TeacherServiceModifyShowStudentArgs
-	_args.Req = req
-	var _result TeacherServiceModifyShowStudentResult
-	if err = p.Client_().Call(ctx, "ModifyShowStudent", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *TeacherServiceClient) ModifyScore(ctx context.Context, req *TeacherModifyScoreRequest) (r *TeacherModifyScoreResponse, err error) {
-	var _args TeacherServiceModifyScoreArgs
-	_args.Req = req
-	var _result TeacherServiceModifyScoreResult
-	if err = p.Client_().Call(ctx, "ModifyScore", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *TeacherServiceClient) QueryCourse(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error) {
-	var _args TeacherServiceQueryCourseArgs
-	_args.Req = req
-	var _result TeacherServiceQueryCourseResult
-	if err = p.Client_().Call(ctx, "QueryCourse", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *TeacherServiceClient) ShowStudentScore(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error) {
-	var _args TeacherServiceShowStudentScoreArgs
-	_args.Req = req
-	var _result TeacherServiceShowStudentScoreResult
-	if err = p.Client_().Call(ctx, "ShowStudentScore", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *TeacherServiceClient) ShowCourseSelection(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error) {
-	var _args TeacherServiceShowCourseSelectionArgs
-	_args.Req = req
-	var _result TeacherServiceShowCourseSelectionResult
-	if err = p.Client_().Call(ctx, "ShowCourseSelection", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *TeacherServiceClient) StudentCourseSelection(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error) {
-	var _args TeacherServiceStudentCourseSelectionArgs
-	_args.Req = req
-	var _result TeacherServiceStudentCourseSelectionResult
-	if err = p.Client_().Call(ctx, "StudentCourseSelection", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-type AdminService interface {
 	QueryStudentInfo(ctx context.Context) (r *AdminQueryStudentInfoResponse, err error)
 
 	QueryTeacherInfo(ctx context.Context) (r *AdminQueryTeacherInfoResponse, err error)
@@ -9804,144 +9550,338 @@ type AdminService interface {
 	DeleteCourse(ctx context.Context, req *AdminDeleteCourseInfoRequest) (r *AdminDeleteCourseInfoResponse, err error)
 }
 
-type AdminServiceClient struct {
+type ServiceClient struct {
 	c thrift.TClient
 }
 
-func NewAdminServiceClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *AdminServiceClient {
-	return &AdminServiceClient{
+func NewServiceClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *ServiceClient {
+	return &ServiceClient{
 		c: thrift.NewTStandardClient(f.GetProtocol(t), f.GetProtocol(t)),
 	}
 }
 
-func NewAdminServiceClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *AdminServiceClient {
-	return &AdminServiceClient{
+func NewServiceClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *ServiceClient {
+	return &ServiceClient{
 		c: thrift.NewTStandardClient(iprot, oprot),
 	}
 }
 
-func NewAdminServiceClient(c thrift.TClient) *AdminServiceClient {
-	return &AdminServiceClient{
+func NewServiceClient(c thrift.TClient) *ServiceClient {
+	return &ServiceClient{
 		c: c,
 	}
 }
 
-func (p *AdminServiceClient) Client_() thrift.TClient {
+func (p *ServiceClient) Client_() thrift.TClient {
 	return p.c
 }
 
-func (p *AdminServiceClient) QueryStudentInfo(ctx context.Context) (r *AdminQueryStudentInfoResponse, err error) {
-	var _args AdminServiceQueryStudentInfoArgs
-	var _result AdminServiceQueryStudentInfoResult
+func (p *ServiceClient) Login(ctx context.Context, req *LoginRequest) (r *LoginResponse, err error) {
+	var _args ServiceLoginArgs
+	_args.Req = req
+	var _result ServiceLoginResult
+	if err = p.Client_().Call(ctx, "Login", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) ChangePassword(ctx context.Context, req *ChangePasswordRequenst) (r *ChangePasswordReponse, err error) {
+	var _args ServiceChangePasswordArgs
+	_args.Req = req
+	var _result ServiceChangePasswordResult
+	if err = p.Client_().Call(ctx, "ChangePassword", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) ShowCourse(ctx context.Context, req *StudentShowCourseRequest) (r *StudentShowCourseReponse, err error) {
+	var _args ServiceShowCourseArgs
+	_args.Req = req
+	var _result ServiceShowCourseResult
+	if err = p.Client_().Call(ctx, "ShowCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) SelectCourse(ctx context.Context, req *SelectCourseRequest) (r *SelectCourseResponse, err error) {
+	var _args ServiceSelectCourseArgs
+	_args.Req = req
+	var _result ServiceSelectCourseResult
+	if err = p.Client_().Call(ctx, "SelectCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) QueryScore(ctx context.Context, req *StudentQueryScoreRequest) (r *StudentQueryScoreResponse, err error) {
+	var _args ServiceQueryScoreArgs
+	_args.Req = req
+	var _result ServiceQueryScoreResult
+	if err = p.Client_().Call(ctx, "QueryScore", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) QuerySelection(ctx context.Context, req *StudentQuerySelectionRequest) (r *StudentQuerySelectionResponse, err error) {
+	var _args ServiceQuerySelectionArgs
+	_args.Req = req
+	var _result ServiceQuerySelectionResult
+	if err = p.Client_().Call(ctx, "QuerySelection", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) EvaluateRequest(ctx context.Context, req *StudentEvaluateRequest) (r *StudentEvaluateResponse, err error) {
+	var _args ServiceEvaluateRequestArgs
+	_args.Req = req
+	var _result ServiceEvaluateRequestResult
+	if err = p.Client_().Call(ctx, "EvaluateRequest", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) ShowCourseToTeacher(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error) {
+	var _args ServiceShowCourseToTeacherArgs
+	_args.Req = req
+	var _result ServiceShowCourseToTeacherResult
+	if err = p.Client_().Call(ctx, "ShowCourseToTeacher", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) ShowStudentInfo(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error) {
+	var _args ServiceShowStudentInfoArgs
+	_args.Req = req
+	var _result ServiceShowStudentInfoResult
+	if err = p.Client_().Call(ctx, "ShowStudentInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) InputScore(ctx context.Context, req *TeacherInputScoreRequest) (r *TeacherInputScoreResponse, err error) {
+	var _args ServiceInputScoreArgs
+	_args.Req = req
+	var _result ServiceInputScoreResult
+	if err = p.Client_().Call(ctx, "InputScore", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) ModifyShowCourse(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error) {
+	var _args ServiceModifyShowCourseArgs
+	_args.Req = req
+	var _result ServiceModifyShowCourseResult
+	if err = p.Client_().Call(ctx, "ModifyShowCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) ModifyShowStudent(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error) {
+	var _args ServiceModifyShowStudentArgs
+	_args.Req = req
+	var _result ServiceModifyShowStudentResult
+	if err = p.Client_().Call(ctx, "ModifyShowStudent", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) ModifyScore(ctx context.Context, req *TeacherModifyScoreRequest) (r *TeacherModifyScoreResponse, err error) {
+	var _args ServiceModifyScoreArgs
+	_args.Req = req
+	var _result ServiceModifyScoreResult
+	if err = p.Client_().Call(ctx, "ModifyScore", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) QueryCourse(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error) {
+	var _args ServiceQueryCourseArgs
+	_args.Req = req
+	var _result ServiceQueryCourseResult
+	if err = p.Client_().Call(ctx, "QueryCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) ShowStudentScore(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error) {
+	var _args ServiceShowStudentScoreArgs
+	_args.Req = req
+	var _result ServiceShowStudentScoreResult
+	if err = p.Client_().Call(ctx, "ShowStudentScore", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) ShowCourseSelection(ctx context.Context, req *TeacherQueryCourseRequest) (r *TeacherQueryCourseResponse, err error) {
+	var _args ServiceShowCourseSelectionArgs
+	_args.Req = req
+	var _result ServiceShowCourseSelectionResult
+	if err = p.Client_().Call(ctx, "ShowCourseSelection", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) StudentCourseSelection(ctx context.Context, req *ShowStudentInfoRequest) (r *ShowStudentInfoResponse, err error) {
+	var _args ServiceStudentCourseSelectionArgs
+	_args.Req = req
+	var _result ServiceStudentCourseSelectionResult
+	if err = p.Client_().Call(ctx, "StudentCourseSelection", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *ServiceClient) QueryStudentInfo(ctx context.Context) (r *AdminQueryStudentInfoResponse, err error) {
+	var _args ServiceQueryStudentInfoArgs
+	var _result ServiceQueryStudentInfoResult
 	if err = p.Client_().Call(ctx, "QueryStudentInfo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *AdminServiceClient) QueryTeacherInfo(ctx context.Context) (r *AdminQueryTeacherInfoResponse, err error) {
-	var _args AdminServiceQueryTeacherInfoArgs
-	var _result AdminServiceQueryTeacherInfoResult
+func (p *ServiceClient) QueryTeacherInfo(ctx context.Context) (r *AdminQueryTeacherInfoResponse, err error) {
+	var _args ServiceQueryTeacherInfoArgs
+	var _result ServiceQueryTeacherInfoResult
 	if err = p.Client_().Call(ctx, "QueryTeacherInfo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *AdminServiceClient) QueryCourseInfo(ctx context.Context) (r *AdminQueryCourseInfoResponse, err error) {
-	var _args AdminServiceQueryCourseInfoArgs
-	var _result AdminServiceQueryCourseInfoResult
+func (p *ServiceClient) QueryCourseInfo(ctx context.Context) (r *AdminQueryCourseInfoResponse, err error) {
+	var _args ServiceQueryCourseInfoArgs
+	var _result ServiceQueryCourseInfoResult
 	if err = p.Client_().Call(ctx, "QueryCourseInfo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *AdminServiceClient) AddStudent(ctx context.Context, req *AdminAddStudentInfoRequest) (r *AdminAddStudentInfoResponse, err error) {
-	var _args AdminServiceAddStudentArgs
+func (p *ServiceClient) AddStudent(ctx context.Context, req *AdminAddStudentInfoRequest) (r *AdminAddStudentInfoResponse, err error) {
+	var _args ServiceAddStudentArgs
 	_args.Req = req
-	var _result AdminServiceAddStudentResult
+	var _result ServiceAddStudentResult
 	if err = p.Client_().Call(ctx, "AddStudent", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *AdminServiceClient) DeleteStudent(ctx context.Context, req *AdminDeleteStudentInfoRequest) (r *AdminDeleteStudentInfoResponse, err error) {
-	var _args AdminServiceDeleteStudentArgs
+func (p *ServiceClient) DeleteStudent(ctx context.Context, req *AdminDeleteStudentInfoRequest) (r *AdminDeleteStudentInfoResponse, err error) {
+	var _args ServiceDeleteStudentArgs
 	_args.Req = req
-	var _result AdminServiceDeleteStudentResult
+	var _result ServiceDeleteStudentResult
 	if err = p.Client_().Call(ctx, "DeleteStudent", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *AdminServiceClient) AddTeacher(ctx context.Context, req *AdminAddTeacherInfoRequest) (r *AdminAddTeacherInfoResponse, err error) {
-	var _args AdminServiceAddTeacherArgs
+func (p *ServiceClient) AddTeacher(ctx context.Context, req *AdminAddTeacherInfoRequest) (r *AdminAddTeacherInfoResponse, err error) {
+	var _args ServiceAddTeacherArgs
 	_args.Req = req
-	var _result AdminServiceAddTeacherResult
+	var _result ServiceAddTeacherResult
 	if err = p.Client_().Call(ctx, "AddTeacher", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *AdminServiceClient) DeleteTeacher(ctx context.Context, req *AdminDeleteTeacherInfoRequest) (r *AdminDeleteStudentInfoResponse, err error) {
-	var _args AdminServiceDeleteTeacherArgs
+func (p *ServiceClient) DeleteTeacher(ctx context.Context, req *AdminDeleteTeacherInfoRequest) (r *AdminDeleteStudentInfoResponse, err error) {
+	var _args ServiceDeleteTeacherArgs
 	_args.Req = req
-	var _result AdminServiceDeleteTeacherResult
+	var _result ServiceDeleteTeacherResult
 	if err = p.Client_().Call(ctx, "DeleteTeacher", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *AdminServiceClient) AddCourse(ctx context.Context, req *AdminAddCourseInfoRequest) (r *AdminAddCourseInfoResponse, err error) {
-	var _args AdminServiceAddCourseArgs
+func (p *ServiceClient) AddCourse(ctx context.Context, req *AdminAddCourseInfoRequest) (r *AdminAddCourseInfoResponse, err error) {
+	var _args ServiceAddCourseArgs
 	_args.Req = req
-	var _result AdminServiceAddCourseResult
+	var _result ServiceAddCourseResult
 	if err = p.Client_().Call(ctx, "AddCourse", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *AdminServiceClient) DeleteCourse(ctx context.Context, req *AdminDeleteCourseInfoRequest) (r *AdminDeleteCourseInfoResponse, err error) {
-	var _args AdminServiceDeleteCourseArgs
+func (p *ServiceClient) DeleteCourse(ctx context.Context, req *AdminDeleteCourseInfoRequest) (r *AdminDeleteCourseInfoResponse, err error) {
+	var _args ServiceDeleteCourseArgs
 	_args.Req = req
-	var _result AdminServiceDeleteCourseResult
+	var _result ServiceDeleteCourseResult
 	if err = p.Client_().Call(ctx, "DeleteCourse", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-type UserServiceProcessor struct {
+type ServiceProcessor struct {
 	processorMap map[string]thrift.TProcessorFunction
-	handler      UserService
+	handler      Service
 }
 
-func (p *UserServiceProcessor) AddToProcessorMap(key string, processor thrift.TProcessorFunction) {
+func (p *ServiceProcessor) AddToProcessorMap(key string, processor thrift.TProcessorFunction) {
 	p.processorMap[key] = processor
 }
 
-func (p *UserServiceProcessor) GetProcessorFunction(key string) (processor thrift.TProcessorFunction, ok bool) {
+func (p *ServiceProcessor) GetProcessorFunction(key string) (processor thrift.TProcessorFunction, ok bool) {
 	processor, ok = p.processorMap[key]
 	return processor, ok
 }
 
-func (p *UserServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
+func (p *ServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
 	return p.processorMap
 }
 
-func NewUserServiceProcessor(handler UserService) *UserServiceProcessor {
-	self := &UserServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("Login", &userServiceProcessorLogin{handler: handler})
-	self.AddToProcessorMap("ChangePassword", &userServiceProcessorChangePassword{handler: handler})
+func NewServiceProcessor(handler Service) *ServiceProcessor {
+	self := &ServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
+	self.AddToProcessorMap("Login", &serviceProcessorLogin{handler: handler})
+	self.AddToProcessorMap("ChangePassword", &serviceProcessorChangePassword{handler: handler})
+	self.AddToProcessorMap("ShowCourse", &serviceProcessorShowCourse{handler: handler})
+	self.AddToProcessorMap("SelectCourse", &serviceProcessorSelectCourse{handler: handler})
+	self.AddToProcessorMap("QueryScore", &serviceProcessorQueryScore{handler: handler})
+	self.AddToProcessorMap("QuerySelection", &serviceProcessorQuerySelection{handler: handler})
+	self.AddToProcessorMap("EvaluateRequest", &serviceProcessorEvaluateRequest{handler: handler})
+	self.AddToProcessorMap("ShowCourseToTeacher", &serviceProcessorShowCourseToTeacher{handler: handler})
+	self.AddToProcessorMap("ShowStudentInfo", &serviceProcessorShowStudentInfo{handler: handler})
+	self.AddToProcessorMap("InputScore", &serviceProcessorInputScore{handler: handler})
+	self.AddToProcessorMap("ModifyShowCourse", &serviceProcessorModifyShowCourse{handler: handler})
+	self.AddToProcessorMap("ModifyShowStudent", &serviceProcessorModifyShowStudent{handler: handler})
+	self.AddToProcessorMap("ModifyScore", &serviceProcessorModifyScore{handler: handler})
+	self.AddToProcessorMap("QueryCourse", &serviceProcessorQueryCourse{handler: handler})
+	self.AddToProcessorMap("ShowStudentScore", &serviceProcessorShowStudentScore{handler: handler})
+	self.AddToProcessorMap("ShowCourseSelection", &serviceProcessorShowCourseSelection{handler: handler})
+	self.AddToProcessorMap("StudentCourseSelection", &serviceProcessorStudentCourseSelection{handler: handler})
+	self.AddToProcessorMap("QueryStudentInfo", &serviceProcessorQueryStudentInfo{handler: handler})
+	self.AddToProcessorMap("QueryTeacherInfo", &serviceProcessorQueryTeacherInfo{handler: handler})
+	self.AddToProcessorMap("QueryCourseInfo", &serviceProcessorQueryCourseInfo{handler: handler})
+	self.AddToProcessorMap("AddStudent", &serviceProcessorAddStudent{handler: handler})
+	self.AddToProcessorMap("DeleteStudent", &serviceProcessorDeleteStudent{handler: handler})
+	self.AddToProcessorMap("AddTeacher", &serviceProcessorAddTeacher{handler: handler})
+	self.AddToProcessorMap("DeleteTeacher", &serviceProcessorDeleteTeacher{handler: handler})
+	self.AddToProcessorMap("AddCourse", &serviceProcessorAddCourse{handler: handler})
+	self.AddToProcessorMap("DeleteCourse", &serviceProcessorDeleteCourse{handler: handler})
 	return self
 }
-func (p *UserServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+func (p *ServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	name, _, seqId, err := iprot.ReadMessageBegin()
 	if err != nil {
 		return false, err
@@ -9959,12 +9899,12 @@ func (p *UserServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.
 	return false, x
 }
 
-type userServiceProcessorLogin struct {
-	handler UserService
+type serviceProcessorLogin struct {
+	handler Service
 }
 
-func (p *userServiceProcessorLogin) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := UserServiceLoginArgs{}
+func (p *serviceProcessorLogin) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceLoginArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -9977,7 +9917,7 @@ func (p *userServiceProcessorLogin) Process(ctx context.Context, seqId int32, ip
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := UserServiceLoginResult{}
+	result := ServiceLoginResult{}
 	var retval *LoginResponse
 	if retval, err2 = p.handler.Login(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Login: "+err2.Error())
@@ -10007,12 +9947,12 @@ func (p *userServiceProcessorLogin) Process(ctx context.Context, seqId int32, ip
 	return true, err
 }
 
-type userServiceProcessorChangePassword struct {
-	handler UserService
+type serviceProcessorChangePassword struct {
+	handler Service
 }
 
-func (p *userServiceProcessorChangePassword) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := UserServiceChangePasswordArgs{}
+func (p *serviceProcessorChangePassword) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceChangePasswordArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -10025,7 +9965,7 @@ func (p *userServiceProcessorChangePassword) Process(ctx context.Context, seqId 
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := UserServiceChangePasswordResult{}
+	result := ServiceChangePasswordResult{}
 	var retval *ChangePasswordReponse
 	if retval, err2 = p.handler.ChangePassword(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ChangePassword: "+err2.Error())
@@ -10055,733 +9995,12 @@ func (p *userServiceProcessorChangePassword) Process(ctx context.Context, seqId 
 	return true, err
 }
 
-type UserServiceLoginArgs struct {
-	Req *LoginRequest `thrift:"req,1" json:"req"`
+type serviceProcessorShowCourse struct {
+	handler Service
 }
 
-func NewUserServiceLoginArgs() *UserServiceLoginArgs {
-	return &UserServiceLoginArgs{}
-}
-
-var UserServiceLoginArgs_Req_DEFAULT *LoginRequest
-
-func (p *UserServiceLoginArgs) GetReq() (v *LoginRequest) {
-	if !p.IsSetReq() {
-		return UserServiceLoginArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *UserServiceLoginArgs) SetReq(val *LoginRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_UserServiceLoginArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *UserServiceLoginArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *UserServiceLoginArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceLoginArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *UserServiceLoginArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewLoginRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *UserServiceLoginArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("Login_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *UserServiceLoginArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *UserServiceLoginArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("UserServiceLoginArgs(%+v)", *p)
-}
-
-func (p *UserServiceLoginArgs) DeepEqual(ano *UserServiceLoginArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *UserServiceLoginArgs) Field1DeepEqual(src *LoginRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type UserServiceLoginResult struct {
-	Success *LoginResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewUserServiceLoginResult() *UserServiceLoginResult {
-	return &UserServiceLoginResult{}
-}
-
-var UserServiceLoginResult_Success_DEFAULT *LoginResponse
-
-func (p *UserServiceLoginResult) GetSuccess() (v *LoginResponse) {
-	if !p.IsSetSuccess() {
-		return UserServiceLoginResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *UserServiceLoginResult) SetSuccess(x interface{}) {
-	p.Success = x.(*LoginResponse)
-}
-
-var fieldIDToName_UserServiceLoginResult = map[int16]string{
-	0: "success",
-}
-
-func (p *UserServiceLoginResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *UserServiceLoginResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceLoginResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *UserServiceLoginResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewLoginResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *UserServiceLoginResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("Login_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *UserServiceLoginResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *UserServiceLoginResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("UserServiceLoginResult(%+v)", *p)
-}
-
-func (p *UserServiceLoginResult) DeepEqual(ano *UserServiceLoginResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *UserServiceLoginResult) Field0DeepEqual(src *LoginResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type UserServiceChangePasswordArgs struct {
-	Req *ChangePasswordRequenst `thrift:"req,1" json:"req"`
-}
-
-func NewUserServiceChangePasswordArgs() *UserServiceChangePasswordArgs {
-	return &UserServiceChangePasswordArgs{}
-}
-
-var UserServiceChangePasswordArgs_Req_DEFAULT *ChangePasswordRequenst
-
-func (p *UserServiceChangePasswordArgs) GetReq() (v *ChangePasswordRequenst) {
-	if !p.IsSetReq() {
-		return UserServiceChangePasswordArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *UserServiceChangePasswordArgs) SetReq(val *ChangePasswordRequenst) {
-	p.Req = val
-}
-
-var fieldIDToName_UserServiceChangePasswordArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *UserServiceChangePasswordArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *UserServiceChangePasswordArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceChangePasswordArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *UserServiceChangePasswordArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewChangePasswordRequenst()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *UserServiceChangePasswordArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ChangePassword_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *UserServiceChangePasswordArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *UserServiceChangePasswordArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("UserServiceChangePasswordArgs(%+v)", *p)
-}
-
-func (p *UserServiceChangePasswordArgs) DeepEqual(ano *UserServiceChangePasswordArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *UserServiceChangePasswordArgs) Field1DeepEqual(src *ChangePasswordRequenst) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type UserServiceChangePasswordResult struct {
-	Success *ChangePasswordReponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewUserServiceChangePasswordResult() *UserServiceChangePasswordResult {
-	return &UserServiceChangePasswordResult{}
-}
-
-var UserServiceChangePasswordResult_Success_DEFAULT *ChangePasswordReponse
-
-func (p *UserServiceChangePasswordResult) GetSuccess() (v *ChangePasswordReponse) {
-	if !p.IsSetSuccess() {
-		return UserServiceChangePasswordResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *UserServiceChangePasswordResult) SetSuccess(x interface{}) {
-	p.Success = x.(*ChangePasswordReponse)
-}
-
-var fieldIDToName_UserServiceChangePasswordResult = map[int16]string{
-	0: "success",
-}
-
-func (p *UserServiceChangePasswordResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *UserServiceChangePasswordResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceChangePasswordResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *UserServiceChangePasswordResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewChangePasswordReponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *UserServiceChangePasswordResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ChangePassword_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *UserServiceChangePasswordResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *UserServiceChangePasswordResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("UserServiceChangePasswordResult(%+v)", *p)
-}
-
-func (p *UserServiceChangePasswordResult) DeepEqual(ano *UserServiceChangePasswordResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *UserServiceChangePasswordResult) Field0DeepEqual(src *ChangePasswordReponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceProcessor struct {
-	processorMap map[string]thrift.TProcessorFunction
-	handler      StudentService
-}
-
-func (p *StudentServiceProcessor) AddToProcessorMap(key string, processor thrift.TProcessorFunction) {
-	p.processorMap[key] = processor
-}
-
-func (p *StudentServiceProcessor) GetProcessorFunction(key string) (processor thrift.TProcessorFunction, ok bool) {
-	processor, ok = p.processorMap[key]
-	return processor, ok
-}
-
-func (p *StudentServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
-	return p.processorMap
-}
-
-func NewStudentServiceProcessor(handler StudentService) *StudentServiceProcessor {
-	self := &StudentServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("ShowCourse", &studentServiceProcessorShowCourse{handler: handler})
-	self.AddToProcessorMap("SelectCourse", &studentServiceProcessorSelectCourse{handler: handler})
-	self.AddToProcessorMap("QueryScore", &studentServiceProcessorQueryScore{handler: handler})
-	self.AddToProcessorMap("QuerySelection", &studentServiceProcessorQuerySelection{handler: handler})
-	self.AddToProcessorMap("EvaluateRequest", &studentServiceProcessorEvaluateRequest{handler: handler})
-	return self
-}
-func (p *StudentServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	name, _, seqId, err := iprot.ReadMessageBegin()
-	if err != nil {
-		return false, err
-	}
-	if processor, ok := p.GetProcessorFunction(name); ok {
-		return processor.Process(ctx, seqId, iprot, oprot)
-	}
-	iprot.Skip(thrift.STRUCT)
-	iprot.ReadMessageEnd()
-	x := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function "+name)
-	oprot.WriteMessageBegin(name, thrift.EXCEPTION, seqId)
-	x.Write(oprot)
-	oprot.WriteMessageEnd()
-	oprot.Flush(ctx)
-	return false, x
-}
-
-type studentServiceProcessorShowCourse struct {
-	handler StudentService
-}
-
-func (p *studentServiceProcessorShowCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := StudentServiceShowCourseArgs{}
+func (p *serviceProcessorShowCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceShowCourseArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -10794,7 +10013,7 @@ func (p *studentServiceProcessorShowCourse) Process(ctx context.Context, seqId i
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := StudentServiceShowCourseResult{}
+	result := ServiceShowCourseResult{}
 	var retval *StudentShowCourseReponse
 	if retval, err2 = p.handler.ShowCourse(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ShowCourse: "+err2.Error())
@@ -10824,12 +10043,12 @@ func (p *studentServiceProcessorShowCourse) Process(ctx context.Context, seqId i
 	return true, err
 }
 
-type studentServiceProcessorSelectCourse struct {
-	handler StudentService
+type serviceProcessorSelectCourse struct {
+	handler Service
 }
 
-func (p *studentServiceProcessorSelectCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := StudentServiceSelectCourseArgs{}
+func (p *serviceProcessorSelectCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceSelectCourseArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -10842,7 +10061,7 @@ func (p *studentServiceProcessorSelectCourse) Process(ctx context.Context, seqId
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := StudentServiceSelectCourseResult{}
+	result := ServiceSelectCourseResult{}
 	var retval *SelectCourseResponse
 	if retval, err2 = p.handler.SelectCourse(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing SelectCourse: "+err2.Error())
@@ -10872,12 +10091,12 @@ func (p *studentServiceProcessorSelectCourse) Process(ctx context.Context, seqId
 	return true, err
 }
 
-type studentServiceProcessorQueryScore struct {
-	handler StudentService
+type serviceProcessorQueryScore struct {
+	handler Service
 }
 
-func (p *studentServiceProcessorQueryScore) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := StudentServiceQueryScoreArgs{}
+func (p *serviceProcessorQueryScore) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceQueryScoreArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -10890,7 +10109,7 @@ func (p *studentServiceProcessorQueryScore) Process(ctx context.Context, seqId i
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := StudentServiceQueryScoreResult{}
+	result := ServiceQueryScoreResult{}
 	var retval *StudentQueryScoreResponse
 	if retval, err2 = p.handler.QueryScore(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing QueryScore: "+err2.Error())
@@ -10920,12 +10139,12 @@ func (p *studentServiceProcessorQueryScore) Process(ctx context.Context, seqId i
 	return true, err
 }
 
-type studentServiceProcessorQuerySelection struct {
-	handler StudentService
+type serviceProcessorQuerySelection struct {
+	handler Service
 }
 
-func (p *studentServiceProcessorQuerySelection) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := StudentServiceQuerySelectionArgs{}
+func (p *serviceProcessorQuerySelection) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceQuerySelectionArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -10938,7 +10157,7 @@ func (p *studentServiceProcessorQuerySelection) Process(ctx context.Context, seq
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := StudentServiceQuerySelectionResult{}
+	result := ServiceQuerySelectionResult{}
 	var retval *StudentQuerySelectionResponse
 	if retval, err2 = p.handler.QuerySelection(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing QuerySelection: "+err2.Error())
@@ -10968,12 +10187,12 @@ func (p *studentServiceProcessorQuerySelection) Process(ctx context.Context, seq
 	return true, err
 }
 
-type studentServiceProcessorEvaluateRequest struct {
-	handler StudentService
+type serviceProcessorEvaluateRequest struct {
+	handler Service
 }
 
-func (p *studentServiceProcessorEvaluateRequest) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := StudentServiceEvaluateRequestArgs{}
+func (p *serviceProcessorEvaluateRequest) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceEvaluateRequestArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -10986,7 +10205,7 @@ func (p *studentServiceProcessorEvaluateRequest) Process(ctx context.Context, se
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := StudentServiceEvaluateRequestResult{}
+	result := ServiceEvaluateRequestResult{}
 	var retval *StudentEvaluateResponse
 	if retval, err2 = p.handler.EvaluateRequest(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing EvaluateRequest: "+err2.Error())
@@ -11016,1752 +10235,12 @@ func (p *studentServiceProcessorEvaluateRequest) Process(ctx context.Context, se
 	return true, err
 }
 
-type StudentServiceShowCourseArgs struct {
-	Req *StudentShowCourseRequest `thrift:"req,1" json:"req"`
+type serviceProcessorShowCourseToTeacher struct {
+	handler Service
 }
 
-func NewStudentServiceShowCourseArgs() *StudentServiceShowCourseArgs {
-	return &StudentServiceShowCourseArgs{}
-}
-
-var StudentServiceShowCourseArgs_Req_DEFAULT *StudentShowCourseRequest
-
-func (p *StudentServiceShowCourseArgs) GetReq() (v *StudentShowCourseRequest) {
-	if !p.IsSetReq() {
-		return StudentServiceShowCourseArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *StudentServiceShowCourseArgs) SetReq(val *StudentShowCourseRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_StudentServiceShowCourseArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *StudentServiceShowCourseArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *StudentServiceShowCourseArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceShowCourseArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceShowCourseArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewStudentShowCourseRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceShowCourseArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowCourse_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceShowCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *StudentServiceShowCourseArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceShowCourseArgs(%+v)", *p)
-}
-
-func (p *StudentServiceShowCourseArgs) DeepEqual(ano *StudentServiceShowCourseArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceShowCourseArgs) Field1DeepEqual(src *StudentShowCourseRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceShowCourseResult struct {
-	Success *StudentShowCourseReponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewStudentServiceShowCourseResult() *StudentServiceShowCourseResult {
-	return &StudentServiceShowCourseResult{}
-}
-
-var StudentServiceShowCourseResult_Success_DEFAULT *StudentShowCourseReponse
-
-func (p *StudentServiceShowCourseResult) GetSuccess() (v *StudentShowCourseReponse) {
-	if !p.IsSetSuccess() {
-		return StudentServiceShowCourseResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *StudentServiceShowCourseResult) SetSuccess(x interface{}) {
-	p.Success = x.(*StudentShowCourseReponse)
-}
-
-var fieldIDToName_StudentServiceShowCourseResult = map[int16]string{
-	0: "success",
-}
-
-func (p *StudentServiceShowCourseResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *StudentServiceShowCourseResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceShowCourseResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceShowCourseResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewStudentShowCourseReponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceShowCourseResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowCourse_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceShowCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *StudentServiceShowCourseResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceShowCourseResult(%+v)", *p)
-}
-
-func (p *StudentServiceShowCourseResult) DeepEqual(ano *StudentServiceShowCourseResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceShowCourseResult) Field0DeepEqual(src *StudentShowCourseReponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceSelectCourseArgs struct {
-	Req *SelectCourseRequest `thrift:"req,1" json:"req"`
-}
-
-func NewStudentServiceSelectCourseArgs() *StudentServiceSelectCourseArgs {
-	return &StudentServiceSelectCourseArgs{}
-}
-
-var StudentServiceSelectCourseArgs_Req_DEFAULT *SelectCourseRequest
-
-func (p *StudentServiceSelectCourseArgs) GetReq() (v *SelectCourseRequest) {
-	if !p.IsSetReq() {
-		return StudentServiceSelectCourseArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *StudentServiceSelectCourseArgs) SetReq(val *SelectCourseRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_StudentServiceSelectCourseArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *StudentServiceSelectCourseArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *StudentServiceSelectCourseArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceSelectCourseArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceSelectCourseArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewSelectCourseRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceSelectCourseArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("SelectCourse_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceSelectCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *StudentServiceSelectCourseArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceSelectCourseArgs(%+v)", *p)
-}
-
-func (p *StudentServiceSelectCourseArgs) DeepEqual(ano *StudentServiceSelectCourseArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceSelectCourseArgs) Field1DeepEqual(src *SelectCourseRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceSelectCourseResult struct {
-	Success *SelectCourseResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewStudentServiceSelectCourseResult() *StudentServiceSelectCourseResult {
-	return &StudentServiceSelectCourseResult{}
-}
-
-var StudentServiceSelectCourseResult_Success_DEFAULT *SelectCourseResponse
-
-func (p *StudentServiceSelectCourseResult) GetSuccess() (v *SelectCourseResponse) {
-	if !p.IsSetSuccess() {
-		return StudentServiceSelectCourseResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *StudentServiceSelectCourseResult) SetSuccess(x interface{}) {
-	p.Success = x.(*SelectCourseResponse)
-}
-
-var fieldIDToName_StudentServiceSelectCourseResult = map[int16]string{
-	0: "success",
-}
-
-func (p *StudentServiceSelectCourseResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *StudentServiceSelectCourseResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceSelectCourseResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceSelectCourseResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewSelectCourseResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceSelectCourseResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("SelectCourse_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceSelectCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *StudentServiceSelectCourseResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceSelectCourseResult(%+v)", *p)
-}
-
-func (p *StudentServiceSelectCourseResult) DeepEqual(ano *StudentServiceSelectCourseResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceSelectCourseResult) Field0DeepEqual(src *SelectCourseResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceQueryScoreArgs struct {
-	Req *StudentQueryScoreRequest `thrift:"req,1" json:"req"`
-}
-
-func NewStudentServiceQueryScoreArgs() *StudentServiceQueryScoreArgs {
-	return &StudentServiceQueryScoreArgs{}
-}
-
-var StudentServiceQueryScoreArgs_Req_DEFAULT *StudentQueryScoreRequest
-
-func (p *StudentServiceQueryScoreArgs) GetReq() (v *StudentQueryScoreRequest) {
-	if !p.IsSetReq() {
-		return StudentServiceQueryScoreArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *StudentServiceQueryScoreArgs) SetReq(val *StudentQueryScoreRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_StudentServiceQueryScoreArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *StudentServiceQueryScoreArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *StudentServiceQueryScoreArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceQueryScoreArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceQueryScoreArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewStudentQueryScoreRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceQueryScoreArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("QueryScore_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceQueryScoreArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *StudentServiceQueryScoreArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceQueryScoreArgs(%+v)", *p)
-}
-
-func (p *StudentServiceQueryScoreArgs) DeepEqual(ano *StudentServiceQueryScoreArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceQueryScoreArgs) Field1DeepEqual(src *StudentQueryScoreRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceQueryScoreResult struct {
-	Success *StudentQueryScoreResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewStudentServiceQueryScoreResult() *StudentServiceQueryScoreResult {
-	return &StudentServiceQueryScoreResult{}
-}
-
-var StudentServiceQueryScoreResult_Success_DEFAULT *StudentQueryScoreResponse
-
-func (p *StudentServiceQueryScoreResult) GetSuccess() (v *StudentQueryScoreResponse) {
-	if !p.IsSetSuccess() {
-		return StudentServiceQueryScoreResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *StudentServiceQueryScoreResult) SetSuccess(x interface{}) {
-	p.Success = x.(*StudentQueryScoreResponse)
-}
-
-var fieldIDToName_StudentServiceQueryScoreResult = map[int16]string{
-	0: "success",
-}
-
-func (p *StudentServiceQueryScoreResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *StudentServiceQueryScoreResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceQueryScoreResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceQueryScoreResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewStudentQueryScoreResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceQueryScoreResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("QueryScore_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceQueryScoreResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *StudentServiceQueryScoreResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceQueryScoreResult(%+v)", *p)
-}
-
-func (p *StudentServiceQueryScoreResult) DeepEqual(ano *StudentServiceQueryScoreResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceQueryScoreResult) Field0DeepEqual(src *StudentQueryScoreResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceQuerySelectionArgs struct {
-	Req *StudentQuerySelectionRequest `thrift:"req,1" json:"req"`
-}
-
-func NewStudentServiceQuerySelectionArgs() *StudentServiceQuerySelectionArgs {
-	return &StudentServiceQuerySelectionArgs{}
-}
-
-var StudentServiceQuerySelectionArgs_Req_DEFAULT *StudentQuerySelectionRequest
-
-func (p *StudentServiceQuerySelectionArgs) GetReq() (v *StudentQuerySelectionRequest) {
-	if !p.IsSetReq() {
-		return StudentServiceQuerySelectionArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *StudentServiceQuerySelectionArgs) SetReq(val *StudentQuerySelectionRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_StudentServiceQuerySelectionArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *StudentServiceQuerySelectionArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *StudentServiceQuerySelectionArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceQuerySelectionArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceQuerySelectionArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewStudentQuerySelectionRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceQuerySelectionArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("QuerySelection_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceQuerySelectionArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *StudentServiceQuerySelectionArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceQuerySelectionArgs(%+v)", *p)
-}
-
-func (p *StudentServiceQuerySelectionArgs) DeepEqual(ano *StudentServiceQuerySelectionArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceQuerySelectionArgs) Field1DeepEqual(src *StudentQuerySelectionRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceQuerySelectionResult struct {
-	Success *StudentQuerySelectionResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewStudentServiceQuerySelectionResult() *StudentServiceQuerySelectionResult {
-	return &StudentServiceQuerySelectionResult{}
-}
-
-var StudentServiceQuerySelectionResult_Success_DEFAULT *StudentQuerySelectionResponse
-
-func (p *StudentServiceQuerySelectionResult) GetSuccess() (v *StudentQuerySelectionResponse) {
-	if !p.IsSetSuccess() {
-		return StudentServiceQuerySelectionResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *StudentServiceQuerySelectionResult) SetSuccess(x interface{}) {
-	p.Success = x.(*StudentQuerySelectionResponse)
-}
-
-var fieldIDToName_StudentServiceQuerySelectionResult = map[int16]string{
-	0: "success",
-}
-
-func (p *StudentServiceQuerySelectionResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *StudentServiceQuerySelectionResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceQuerySelectionResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceQuerySelectionResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewStudentQuerySelectionResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceQuerySelectionResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("QuerySelection_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceQuerySelectionResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *StudentServiceQuerySelectionResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceQuerySelectionResult(%+v)", *p)
-}
-
-func (p *StudentServiceQuerySelectionResult) DeepEqual(ano *StudentServiceQuerySelectionResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceQuerySelectionResult) Field0DeepEqual(src *StudentQuerySelectionResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceEvaluateRequestArgs struct {
-	Req *StudentEvaluateRequest `thrift:"req,1" json:"req"`
-}
-
-func NewStudentServiceEvaluateRequestArgs() *StudentServiceEvaluateRequestArgs {
-	return &StudentServiceEvaluateRequestArgs{}
-}
-
-var StudentServiceEvaluateRequestArgs_Req_DEFAULT *StudentEvaluateRequest
-
-func (p *StudentServiceEvaluateRequestArgs) GetReq() (v *StudentEvaluateRequest) {
-	if !p.IsSetReq() {
-		return StudentServiceEvaluateRequestArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *StudentServiceEvaluateRequestArgs) SetReq(val *StudentEvaluateRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_StudentServiceEvaluateRequestArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *StudentServiceEvaluateRequestArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *StudentServiceEvaluateRequestArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceEvaluateRequestArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceEvaluateRequestArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewStudentEvaluateRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceEvaluateRequestArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("EvaluateRequest_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceEvaluateRequestArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *StudentServiceEvaluateRequestArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceEvaluateRequestArgs(%+v)", *p)
-}
-
-func (p *StudentServiceEvaluateRequestArgs) DeepEqual(ano *StudentServiceEvaluateRequestArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceEvaluateRequestArgs) Field1DeepEqual(src *StudentEvaluateRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type StudentServiceEvaluateRequestResult struct {
-	Success *StudentEvaluateResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewStudentServiceEvaluateRequestResult() *StudentServiceEvaluateRequestResult {
-	return &StudentServiceEvaluateRequestResult{}
-}
-
-var StudentServiceEvaluateRequestResult_Success_DEFAULT *StudentEvaluateResponse
-
-func (p *StudentServiceEvaluateRequestResult) GetSuccess() (v *StudentEvaluateResponse) {
-	if !p.IsSetSuccess() {
-		return StudentServiceEvaluateRequestResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *StudentServiceEvaluateRequestResult) SetSuccess(x interface{}) {
-	p.Success = x.(*StudentEvaluateResponse)
-}
-
-var fieldIDToName_StudentServiceEvaluateRequestResult = map[int16]string{
-	0: "success",
-}
-
-func (p *StudentServiceEvaluateRequestResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *StudentServiceEvaluateRequestResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_StudentServiceEvaluateRequestResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *StudentServiceEvaluateRequestResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewStudentEvaluateResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *StudentServiceEvaluateRequestResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("EvaluateRequest_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *StudentServiceEvaluateRequestResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *StudentServiceEvaluateRequestResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("StudentServiceEvaluateRequestResult(%+v)", *p)
-}
-
-func (p *StudentServiceEvaluateRequestResult) DeepEqual(ano *StudentServiceEvaluateRequestResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *StudentServiceEvaluateRequestResult) Field0DeepEqual(src *StudentEvaluateResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceProcessor struct {
-	processorMap map[string]thrift.TProcessorFunction
-	handler      TeacherService
-}
-
-func (p *TeacherServiceProcessor) AddToProcessorMap(key string, processor thrift.TProcessorFunction) {
-	p.processorMap[key] = processor
-}
-
-func (p *TeacherServiceProcessor) GetProcessorFunction(key string) (processor thrift.TProcessorFunction, ok bool) {
-	processor, ok = p.processorMap[key]
-	return processor, ok
-}
-
-func (p *TeacherServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
-	return p.processorMap
-}
-
-func NewTeacherServiceProcessor(handler TeacherService) *TeacherServiceProcessor {
-	self := &TeacherServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("ShowCourseToTeacher", &teacherServiceProcessorShowCourseToTeacher{handler: handler})
-	self.AddToProcessorMap("ShowStudentInfo", &teacherServiceProcessorShowStudentInfo{handler: handler})
-	self.AddToProcessorMap("InputScore", &teacherServiceProcessorInputScore{handler: handler})
-	self.AddToProcessorMap("ModifyShowCourse", &teacherServiceProcessorModifyShowCourse{handler: handler})
-	self.AddToProcessorMap("ModifyShowStudent", &teacherServiceProcessorModifyShowStudent{handler: handler})
-	self.AddToProcessorMap("ModifyScore", &teacherServiceProcessorModifyScore{handler: handler})
-	self.AddToProcessorMap("QueryCourse", &teacherServiceProcessorQueryCourse{handler: handler})
-	self.AddToProcessorMap("ShowStudentScore", &teacherServiceProcessorShowStudentScore{handler: handler})
-	self.AddToProcessorMap("ShowCourseSelection", &teacherServiceProcessorShowCourseSelection{handler: handler})
-	self.AddToProcessorMap("StudentCourseSelection", &teacherServiceProcessorStudentCourseSelection{handler: handler})
-	return self
-}
-func (p *TeacherServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	name, _, seqId, err := iprot.ReadMessageBegin()
-	if err != nil {
-		return false, err
-	}
-	if processor, ok := p.GetProcessorFunction(name); ok {
-		return processor.Process(ctx, seqId, iprot, oprot)
-	}
-	iprot.Skip(thrift.STRUCT)
-	iprot.ReadMessageEnd()
-	x := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function "+name)
-	oprot.WriteMessageBegin(name, thrift.EXCEPTION, seqId)
-	x.Write(oprot)
-	oprot.WriteMessageEnd()
-	oprot.Flush(ctx)
-	return false, x
-}
-
-type teacherServiceProcessorShowCourseToTeacher struct {
-	handler TeacherService
-}
-
-func (p *teacherServiceProcessorShowCourseToTeacher) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceShowCourseToTeacherArgs{}
+func (p *serviceProcessorShowCourseToTeacher) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceShowCourseToTeacherArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -12774,7 +10253,7 @@ func (p *teacherServiceProcessorShowCourseToTeacher) Process(ctx context.Context
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceShowCourseToTeacherResult{}
+	result := ServiceShowCourseToTeacherResult{}
 	var retval *TeacherQueryCourseResponse
 	if retval, err2 = p.handler.ShowCourseToTeacher(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ShowCourseToTeacher: "+err2.Error())
@@ -12804,12 +10283,12 @@ func (p *teacherServiceProcessorShowCourseToTeacher) Process(ctx context.Context
 	return true, err
 }
 
-type teacherServiceProcessorShowStudentInfo struct {
-	handler TeacherService
+type serviceProcessorShowStudentInfo struct {
+	handler Service
 }
 
-func (p *teacherServiceProcessorShowStudentInfo) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceShowStudentInfoArgs{}
+func (p *serviceProcessorShowStudentInfo) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceShowStudentInfoArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -12822,7 +10301,7 @@ func (p *teacherServiceProcessorShowStudentInfo) Process(ctx context.Context, se
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceShowStudentInfoResult{}
+	result := ServiceShowStudentInfoResult{}
 	var retval *ShowStudentInfoResponse
 	if retval, err2 = p.handler.ShowStudentInfo(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ShowStudentInfo: "+err2.Error())
@@ -12852,12 +10331,12 @@ func (p *teacherServiceProcessorShowStudentInfo) Process(ctx context.Context, se
 	return true, err
 }
 
-type teacherServiceProcessorInputScore struct {
-	handler TeacherService
+type serviceProcessorInputScore struct {
+	handler Service
 }
 
-func (p *teacherServiceProcessorInputScore) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceInputScoreArgs{}
+func (p *serviceProcessorInputScore) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceInputScoreArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -12870,7 +10349,7 @@ func (p *teacherServiceProcessorInputScore) Process(ctx context.Context, seqId i
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceInputScoreResult{}
+	result := ServiceInputScoreResult{}
 	var retval *TeacherInputScoreResponse
 	if retval, err2 = p.handler.InputScore(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing InputScore: "+err2.Error())
@@ -12900,12 +10379,12 @@ func (p *teacherServiceProcessorInputScore) Process(ctx context.Context, seqId i
 	return true, err
 }
 
-type teacherServiceProcessorModifyShowCourse struct {
-	handler TeacherService
+type serviceProcessorModifyShowCourse struct {
+	handler Service
 }
 
-func (p *teacherServiceProcessorModifyShowCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceModifyShowCourseArgs{}
+func (p *serviceProcessorModifyShowCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceModifyShowCourseArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -12918,7 +10397,7 @@ func (p *teacherServiceProcessorModifyShowCourse) Process(ctx context.Context, s
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceModifyShowCourseResult{}
+	result := ServiceModifyShowCourseResult{}
 	var retval *TeacherQueryCourseResponse
 	if retval, err2 = p.handler.ModifyShowCourse(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ModifyShowCourse: "+err2.Error())
@@ -12948,12 +10427,12 @@ func (p *teacherServiceProcessorModifyShowCourse) Process(ctx context.Context, s
 	return true, err
 }
 
-type teacherServiceProcessorModifyShowStudent struct {
-	handler TeacherService
+type serviceProcessorModifyShowStudent struct {
+	handler Service
 }
 
-func (p *teacherServiceProcessorModifyShowStudent) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceModifyShowStudentArgs{}
+func (p *serviceProcessorModifyShowStudent) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceModifyShowStudentArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -12966,7 +10445,7 @@ func (p *teacherServiceProcessorModifyShowStudent) Process(ctx context.Context, 
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceModifyShowStudentResult{}
+	result := ServiceModifyShowStudentResult{}
 	var retval *ShowStudentInfoResponse
 	if retval, err2 = p.handler.ModifyShowStudent(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ModifyShowStudent: "+err2.Error())
@@ -12996,12 +10475,12 @@ func (p *teacherServiceProcessorModifyShowStudent) Process(ctx context.Context, 
 	return true, err
 }
 
-type teacherServiceProcessorModifyScore struct {
-	handler TeacherService
+type serviceProcessorModifyScore struct {
+	handler Service
 }
 
-func (p *teacherServiceProcessorModifyScore) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceModifyScoreArgs{}
+func (p *serviceProcessorModifyScore) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceModifyScoreArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -13014,7 +10493,7 @@ func (p *teacherServiceProcessorModifyScore) Process(ctx context.Context, seqId 
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceModifyScoreResult{}
+	result := ServiceModifyScoreResult{}
 	var retval *TeacherModifyScoreResponse
 	if retval, err2 = p.handler.ModifyScore(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ModifyScore: "+err2.Error())
@@ -13044,12 +10523,12 @@ func (p *teacherServiceProcessorModifyScore) Process(ctx context.Context, seqId 
 	return true, err
 }
 
-type teacherServiceProcessorQueryCourse struct {
-	handler TeacherService
+type serviceProcessorQueryCourse struct {
+	handler Service
 }
 
-func (p *teacherServiceProcessorQueryCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceQueryCourseArgs{}
+func (p *serviceProcessorQueryCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceQueryCourseArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -13062,7 +10541,7 @@ func (p *teacherServiceProcessorQueryCourse) Process(ctx context.Context, seqId 
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceQueryCourseResult{}
+	result := ServiceQueryCourseResult{}
 	var retval *TeacherQueryCourseResponse
 	if retval, err2 = p.handler.QueryCourse(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing QueryCourse: "+err2.Error())
@@ -13092,12 +10571,12 @@ func (p *teacherServiceProcessorQueryCourse) Process(ctx context.Context, seqId 
 	return true, err
 }
 
-type teacherServiceProcessorShowStudentScore struct {
-	handler TeacherService
+type serviceProcessorShowStudentScore struct {
+	handler Service
 }
 
-func (p *teacherServiceProcessorShowStudentScore) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceShowStudentScoreArgs{}
+func (p *serviceProcessorShowStudentScore) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceShowStudentScoreArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -13110,7 +10589,7 @@ func (p *teacherServiceProcessorShowStudentScore) Process(ctx context.Context, s
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceShowStudentScoreResult{}
+	result := ServiceShowStudentScoreResult{}
 	var retval *ShowStudentInfoResponse
 	if retval, err2 = p.handler.ShowStudentScore(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ShowStudentScore: "+err2.Error())
@@ -13140,12 +10619,12 @@ func (p *teacherServiceProcessorShowStudentScore) Process(ctx context.Context, s
 	return true, err
 }
 
-type teacherServiceProcessorShowCourseSelection struct {
-	handler TeacherService
+type serviceProcessorShowCourseSelection struct {
+	handler Service
 }
 
-func (p *teacherServiceProcessorShowCourseSelection) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceShowCourseSelectionArgs{}
+func (p *serviceProcessorShowCourseSelection) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceShowCourseSelectionArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -13158,7 +10637,7 @@ func (p *teacherServiceProcessorShowCourseSelection) Process(ctx context.Context
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceShowCourseSelectionResult{}
+	result := ServiceShowCourseSelectionResult{}
 	var retval *TeacherQueryCourseResponse
 	if retval, err2 = p.handler.ShowCourseSelection(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ShowCourseSelection: "+err2.Error())
@@ -13188,12 +10667,12 @@ func (p *teacherServiceProcessorShowCourseSelection) Process(ctx context.Context
 	return true, err
 }
 
-type teacherServiceProcessorStudentCourseSelection struct {
-	handler TeacherService
+type serviceProcessorStudentCourseSelection struct {
+	handler Service
 }
 
-func (p *teacherServiceProcessorStudentCourseSelection) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := TeacherServiceStudentCourseSelectionArgs{}
+func (p *serviceProcessorStudentCourseSelection) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceStudentCourseSelectionArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -13206,7 +10685,7 @@ func (p *teacherServiceProcessorStudentCourseSelection) Process(ctx context.Cont
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := TeacherServiceStudentCourseSelectionResult{}
+	result := ServiceStudentCourseSelectionResult{}
 	var retval *ShowStudentInfoResponse
 	if retval, err2 = p.handler.StudentCourseSelection(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing StudentCourseSelection: "+err2.Error())
@@ -13236,3441 +10715,12 @@ func (p *teacherServiceProcessorStudentCourseSelection) Process(ctx context.Cont
 	return true, err
 }
 
-type TeacherServiceShowCourseToTeacherArgs struct {
-	Req *TeacherQueryCourseRequest `thrift:"req,1" json:"req"`
+type serviceProcessorQueryStudentInfo struct {
+	handler Service
 }
 
-func NewTeacherServiceShowCourseToTeacherArgs() *TeacherServiceShowCourseToTeacherArgs {
-	return &TeacherServiceShowCourseToTeacherArgs{}
-}
-
-var TeacherServiceShowCourseToTeacherArgs_Req_DEFAULT *TeacherQueryCourseRequest
-
-func (p *TeacherServiceShowCourseToTeacherArgs) GetReq() (v *TeacherQueryCourseRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceShowCourseToTeacherArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceShowCourseToTeacherArgs) SetReq(val *TeacherQueryCourseRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceShowCourseToTeacherArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceShowCourseToTeacherArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceShowCourseToTeacherArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceShowCourseToTeacherArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseToTeacherArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewTeacherQueryCourseRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceShowCourseToTeacherArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowCourseToTeacher_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseToTeacherArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseToTeacherArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceShowCourseToTeacherArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceShowCourseToTeacherArgs) DeepEqual(ano *TeacherServiceShowCourseToTeacherArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceShowCourseToTeacherArgs) Field1DeepEqual(src *TeacherQueryCourseRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceShowCourseToTeacherResult struct {
-	Success *TeacherQueryCourseResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceShowCourseToTeacherResult() *TeacherServiceShowCourseToTeacherResult {
-	return &TeacherServiceShowCourseToTeacherResult{}
-}
-
-var TeacherServiceShowCourseToTeacherResult_Success_DEFAULT *TeacherQueryCourseResponse
-
-func (p *TeacherServiceShowCourseToTeacherResult) GetSuccess() (v *TeacherQueryCourseResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceShowCourseToTeacherResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceShowCourseToTeacherResult) SetSuccess(x interface{}) {
-	p.Success = x.(*TeacherQueryCourseResponse)
-}
-
-var fieldIDToName_TeacherServiceShowCourseToTeacherResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceShowCourseToTeacherResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceShowCourseToTeacherResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceShowCourseToTeacherResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseToTeacherResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewTeacherQueryCourseResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceShowCourseToTeacherResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowCourseToTeacher_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseToTeacherResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseToTeacherResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceShowCourseToTeacherResult(%+v)", *p)
-}
-
-func (p *TeacherServiceShowCourseToTeacherResult) DeepEqual(ano *TeacherServiceShowCourseToTeacherResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceShowCourseToTeacherResult) Field0DeepEqual(src *TeacherQueryCourseResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceShowStudentInfoArgs struct {
-	Req *ShowStudentInfoRequest `thrift:"req,1" json:"req"`
-}
-
-func NewTeacherServiceShowStudentInfoArgs() *TeacherServiceShowStudentInfoArgs {
-	return &TeacherServiceShowStudentInfoArgs{}
-}
-
-var TeacherServiceShowStudentInfoArgs_Req_DEFAULT *ShowStudentInfoRequest
-
-func (p *TeacherServiceShowStudentInfoArgs) GetReq() (v *ShowStudentInfoRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceShowStudentInfoArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceShowStudentInfoArgs) SetReq(val *ShowStudentInfoRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceShowStudentInfoArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceShowStudentInfoArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceShowStudentInfoArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceShowStudentInfoArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentInfoArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewShowStudentInfoRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceShowStudentInfoArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowStudentInfo_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentInfoArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentInfoArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceShowStudentInfoArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceShowStudentInfoArgs) DeepEqual(ano *TeacherServiceShowStudentInfoArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceShowStudentInfoArgs) Field1DeepEqual(src *ShowStudentInfoRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceShowStudentInfoResult struct {
-	Success *ShowStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceShowStudentInfoResult() *TeacherServiceShowStudentInfoResult {
-	return &TeacherServiceShowStudentInfoResult{}
-}
-
-var TeacherServiceShowStudentInfoResult_Success_DEFAULT *ShowStudentInfoResponse
-
-func (p *TeacherServiceShowStudentInfoResult) GetSuccess() (v *ShowStudentInfoResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceShowStudentInfoResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceShowStudentInfoResult) SetSuccess(x interface{}) {
-	p.Success = x.(*ShowStudentInfoResponse)
-}
-
-var fieldIDToName_TeacherServiceShowStudentInfoResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceShowStudentInfoResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceShowStudentInfoResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceShowStudentInfoResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentInfoResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewShowStudentInfoResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceShowStudentInfoResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowStudentInfo_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentInfoResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceShowStudentInfoResult(%+v)", *p)
-}
-
-func (p *TeacherServiceShowStudentInfoResult) DeepEqual(ano *TeacherServiceShowStudentInfoResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceShowStudentInfoResult) Field0DeepEqual(src *ShowStudentInfoResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceInputScoreArgs struct {
-	Req *TeacherInputScoreRequest `thrift:"req,1" json:"req"`
-}
-
-func NewTeacherServiceInputScoreArgs() *TeacherServiceInputScoreArgs {
-	return &TeacherServiceInputScoreArgs{}
-}
-
-var TeacherServiceInputScoreArgs_Req_DEFAULT *TeacherInputScoreRequest
-
-func (p *TeacherServiceInputScoreArgs) GetReq() (v *TeacherInputScoreRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceInputScoreArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceInputScoreArgs) SetReq(val *TeacherInputScoreRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceInputScoreArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceInputScoreArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceInputScoreArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceInputScoreArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceInputScoreArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewTeacherInputScoreRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceInputScoreArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("InputScore_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceInputScoreArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceInputScoreArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceInputScoreArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceInputScoreArgs) DeepEqual(ano *TeacherServiceInputScoreArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceInputScoreArgs) Field1DeepEqual(src *TeacherInputScoreRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceInputScoreResult struct {
-	Success *TeacherInputScoreResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceInputScoreResult() *TeacherServiceInputScoreResult {
-	return &TeacherServiceInputScoreResult{}
-}
-
-var TeacherServiceInputScoreResult_Success_DEFAULT *TeacherInputScoreResponse
-
-func (p *TeacherServiceInputScoreResult) GetSuccess() (v *TeacherInputScoreResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceInputScoreResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceInputScoreResult) SetSuccess(x interface{}) {
-	p.Success = x.(*TeacherInputScoreResponse)
-}
-
-var fieldIDToName_TeacherServiceInputScoreResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceInputScoreResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceInputScoreResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceInputScoreResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceInputScoreResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewTeacherInputScoreResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceInputScoreResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("InputScore_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceInputScoreResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceInputScoreResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceInputScoreResult(%+v)", *p)
-}
-
-func (p *TeacherServiceInputScoreResult) DeepEqual(ano *TeacherServiceInputScoreResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceInputScoreResult) Field0DeepEqual(src *TeacherInputScoreResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceModifyShowCourseArgs struct {
-	Req *TeacherQueryCourseRequest `thrift:"req,1" json:"req"`
-}
-
-func NewTeacherServiceModifyShowCourseArgs() *TeacherServiceModifyShowCourseArgs {
-	return &TeacherServiceModifyShowCourseArgs{}
-}
-
-var TeacherServiceModifyShowCourseArgs_Req_DEFAULT *TeacherQueryCourseRequest
-
-func (p *TeacherServiceModifyShowCourseArgs) GetReq() (v *TeacherQueryCourseRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceModifyShowCourseArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceModifyShowCourseArgs) SetReq(val *TeacherQueryCourseRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceModifyShowCourseArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceModifyShowCourseArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceModifyShowCourseArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceModifyShowCourseArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowCourseArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewTeacherQueryCourseRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceModifyShowCourseArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ModifyShowCourse_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowCourseArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceModifyShowCourseArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceModifyShowCourseArgs) DeepEqual(ano *TeacherServiceModifyShowCourseArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceModifyShowCourseArgs) Field1DeepEqual(src *TeacherQueryCourseRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceModifyShowCourseResult struct {
-	Success *TeacherQueryCourseResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceModifyShowCourseResult() *TeacherServiceModifyShowCourseResult {
-	return &TeacherServiceModifyShowCourseResult{}
-}
-
-var TeacherServiceModifyShowCourseResult_Success_DEFAULT *TeacherQueryCourseResponse
-
-func (p *TeacherServiceModifyShowCourseResult) GetSuccess() (v *TeacherQueryCourseResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceModifyShowCourseResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceModifyShowCourseResult) SetSuccess(x interface{}) {
-	p.Success = x.(*TeacherQueryCourseResponse)
-}
-
-var fieldIDToName_TeacherServiceModifyShowCourseResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceModifyShowCourseResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceModifyShowCourseResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceModifyShowCourseResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowCourseResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewTeacherQueryCourseResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceModifyShowCourseResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ModifyShowCourse_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowCourseResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceModifyShowCourseResult(%+v)", *p)
-}
-
-func (p *TeacherServiceModifyShowCourseResult) DeepEqual(ano *TeacherServiceModifyShowCourseResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceModifyShowCourseResult) Field0DeepEqual(src *TeacherQueryCourseResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceModifyShowStudentArgs struct {
-	Req *ShowStudentInfoRequest `thrift:"req,1" json:"req"`
-}
-
-func NewTeacherServiceModifyShowStudentArgs() *TeacherServiceModifyShowStudentArgs {
-	return &TeacherServiceModifyShowStudentArgs{}
-}
-
-var TeacherServiceModifyShowStudentArgs_Req_DEFAULT *ShowStudentInfoRequest
-
-func (p *TeacherServiceModifyShowStudentArgs) GetReq() (v *ShowStudentInfoRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceModifyShowStudentArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceModifyShowStudentArgs) SetReq(val *ShowStudentInfoRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceModifyShowStudentArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceModifyShowStudentArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceModifyShowStudentArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceModifyShowStudentArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowStudentArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewShowStudentInfoRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceModifyShowStudentArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ModifyShowStudent_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowStudentArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowStudentArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceModifyShowStudentArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceModifyShowStudentArgs) DeepEqual(ano *TeacherServiceModifyShowStudentArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceModifyShowStudentArgs) Field1DeepEqual(src *ShowStudentInfoRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceModifyShowStudentResult struct {
-	Success *ShowStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceModifyShowStudentResult() *TeacherServiceModifyShowStudentResult {
-	return &TeacherServiceModifyShowStudentResult{}
-}
-
-var TeacherServiceModifyShowStudentResult_Success_DEFAULT *ShowStudentInfoResponse
-
-func (p *TeacherServiceModifyShowStudentResult) GetSuccess() (v *ShowStudentInfoResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceModifyShowStudentResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceModifyShowStudentResult) SetSuccess(x interface{}) {
-	p.Success = x.(*ShowStudentInfoResponse)
-}
-
-var fieldIDToName_TeacherServiceModifyShowStudentResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceModifyShowStudentResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceModifyShowStudentResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceModifyShowStudentResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowStudentResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewShowStudentInfoResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceModifyShowStudentResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ModifyShowStudent_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowStudentResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyShowStudentResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceModifyShowStudentResult(%+v)", *p)
-}
-
-func (p *TeacherServiceModifyShowStudentResult) DeepEqual(ano *TeacherServiceModifyShowStudentResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceModifyShowStudentResult) Field0DeepEqual(src *ShowStudentInfoResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceModifyScoreArgs struct {
-	Req *TeacherModifyScoreRequest `thrift:"req,1" json:"req"`
-}
-
-func NewTeacherServiceModifyScoreArgs() *TeacherServiceModifyScoreArgs {
-	return &TeacherServiceModifyScoreArgs{}
-}
-
-var TeacherServiceModifyScoreArgs_Req_DEFAULT *TeacherModifyScoreRequest
-
-func (p *TeacherServiceModifyScoreArgs) GetReq() (v *TeacherModifyScoreRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceModifyScoreArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceModifyScoreArgs) SetReq(val *TeacherModifyScoreRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceModifyScoreArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceModifyScoreArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceModifyScoreArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceModifyScoreArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyScoreArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewTeacherModifyScoreRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceModifyScoreArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ModifyScore_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyScoreArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyScoreArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceModifyScoreArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceModifyScoreArgs) DeepEqual(ano *TeacherServiceModifyScoreArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceModifyScoreArgs) Field1DeepEqual(src *TeacherModifyScoreRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceModifyScoreResult struct {
-	Success *TeacherModifyScoreResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceModifyScoreResult() *TeacherServiceModifyScoreResult {
-	return &TeacherServiceModifyScoreResult{}
-}
-
-var TeacherServiceModifyScoreResult_Success_DEFAULT *TeacherModifyScoreResponse
-
-func (p *TeacherServiceModifyScoreResult) GetSuccess() (v *TeacherModifyScoreResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceModifyScoreResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceModifyScoreResult) SetSuccess(x interface{}) {
-	p.Success = x.(*TeacherModifyScoreResponse)
-}
-
-var fieldIDToName_TeacherServiceModifyScoreResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceModifyScoreResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceModifyScoreResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceModifyScoreResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyScoreResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewTeacherModifyScoreResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceModifyScoreResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ModifyScore_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyScoreResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceModifyScoreResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceModifyScoreResult(%+v)", *p)
-}
-
-func (p *TeacherServiceModifyScoreResult) DeepEqual(ano *TeacherServiceModifyScoreResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceModifyScoreResult) Field0DeepEqual(src *TeacherModifyScoreResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceQueryCourseArgs struct {
-	Req *TeacherQueryCourseRequest `thrift:"req,1" json:"req"`
-}
-
-func NewTeacherServiceQueryCourseArgs() *TeacherServiceQueryCourseArgs {
-	return &TeacherServiceQueryCourseArgs{}
-}
-
-var TeacherServiceQueryCourseArgs_Req_DEFAULT *TeacherQueryCourseRequest
-
-func (p *TeacherServiceQueryCourseArgs) GetReq() (v *TeacherQueryCourseRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceQueryCourseArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceQueryCourseArgs) SetReq(val *TeacherQueryCourseRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceQueryCourseArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceQueryCourseArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceQueryCourseArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceQueryCourseArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceQueryCourseArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewTeacherQueryCourseRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceQueryCourseArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("QueryCourse_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceQueryCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceQueryCourseArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceQueryCourseArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceQueryCourseArgs) DeepEqual(ano *TeacherServiceQueryCourseArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceQueryCourseArgs) Field1DeepEqual(src *TeacherQueryCourseRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceQueryCourseResult struct {
-	Success *TeacherQueryCourseResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceQueryCourseResult() *TeacherServiceQueryCourseResult {
-	return &TeacherServiceQueryCourseResult{}
-}
-
-var TeacherServiceQueryCourseResult_Success_DEFAULT *TeacherQueryCourseResponse
-
-func (p *TeacherServiceQueryCourseResult) GetSuccess() (v *TeacherQueryCourseResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceQueryCourseResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceQueryCourseResult) SetSuccess(x interface{}) {
-	p.Success = x.(*TeacherQueryCourseResponse)
-}
-
-var fieldIDToName_TeacherServiceQueryCourseResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceQueryCourseResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceQueryCourseResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceQueryCourseResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceQueryCourseResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewTeacherQueryCourseResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceQueryCourseResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("QueryCourse_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceQueryCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceQueryCourseResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceQueryCourseResult(%+v)", *p)
-}
-
-func (p *TeacherServiceQueryCourseResult) DeepEqual(ano *TeacherServiceQueryCourseResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceQueryCourseResult) Field0DeepEqual(src *TeacherQueryCourseResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceShowStudentScoreArgs struct {
-	Req *ShowStudentInfoRequest `thrift:"req,1" json:"req"`
-}
-
-func NewTeacherServiceShowStudentScoreArgs() *TeacherServiceShowStudentScoreArgs {
-	return &TeacherServiceShowStudentScoreArgs{}
-}
-
-var TeacherServiceShowStudentScoreArgs_Req_DEFAULT *ShowStudentInfoRequest
-
-func (p *TeacherServiceShowStudentScoreArgs) GetReq() (v *ShowStudentInfoRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceShowStudentScoreArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceShowStudentScoreArgs) SetReq(val *ShowStudentInfoRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceShowStudentScoreArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceShowStudentScoreArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceShowStudentScoreArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceShowStudentScoreArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentScoreArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewShowStudentInfoRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceShowStudentScoreArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowStudentScore_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentScoreArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentScoreArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceShowStudentScoreArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceShowStudentScoreArgs) DeepEqual(ano *TeacherServiceShowStudentScoreArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceShowStudentScoreArgs) Field1DeepEqual(src *ShowStudentInfoRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceShowStudentScoreResult struct {
-	Success *ShowStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceShowStudentScoreResult() *TeacherServiceShowStudentScoreResult {
-	return &TeacherServiceShowStudentScoreResult{}
-}
-
-var TeacherServiceShowStudentScoreResult_Success_DEFAULT *ShowStudentInfoResponse
-
-func (p *TeacherServiceShowStudentScoreResult) GetSuccess() (v *ShowStudentInfoResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceShowStudentScoreResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceShowStudentScoreResult) SetSuccess(x interface{}) {
-	p.Success = x.(*ShowStudentInfoResponse)
-}
-
-var fieldIDToName_TeacherServiceShowStudentScoreResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceShowStudentScoreResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceShowStudentScoreResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceShowStudentScoreResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentScoreResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewShowStudentInfoResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceShowStudentScoreResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowStudentScore_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentScoreResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceShowStudentScoreResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceShowStudentScoreResult(%+v)", *p)
-}
-
-func (p *TeacherServiceShowStudentScoreResult) DeepEqual(ano *TeacherServiceShowStudentScoreResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceShowStudentScoreResult) Field0DeepEqual(src *ShowStudentInfoResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceShowCourseSelectionArgs struct {
-	Req *TeacherQueryCourseRequest `thrift:"req,1" json:"req"`
-}
-
-func NewTeacherServiceShowCourseSelectionArgs() *TeacherServiceShowCourseSelectionArgs {
-	return &TeacherServiceShowCourseSelectionArgs{}
-}
-
-var TeacherServiceShowCourseSelectionArgs_Req_DEFAULT *TeacherQueryCourseRequest
-
-func (p *TeacherServiceShowCourseSelectionArgs) GetReq() (v *TeacherQueryCourseRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceShowCourseSelectionArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceShowCourseSelectionArgs) SetReq(val *TeacherQueryCourseRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceShowCourseSelectionArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceShowCourseSelectionArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceShowCourseSelectionArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceShowCourseSelectionArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseSelectionArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewTeacherQueryCourseRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceShowCourseSelectionArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowCourseSelection_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseSelectionArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseSelectionArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceShowCourseSelectionArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceShowCourseSelectionArgs) DeepEqual(ano *TeacherServiceShowCourseSelectionArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceShowCourseSelectionArgs) Field1DeepEqual(src *TeacherQueryCourseRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceShowCourseSelectionResult struct {
-	Success *TeacherQueryCourseResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceShowCourseSelectionResult() *TeacherServiceShowCourseSelectionResult {
-	return &TeacherServiceShowCourseSelectionResult{}
-}
-
-var TeacherServiceShowCourseSelectionResult_Success_DEFAULT *TeacherQueryCourseResponse
-
-func (p *TeacherServiceShowCourseSelectionResult) GetSuccess() (v *TeacherQueryCourseResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceShowCourseSelectionResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceShowCourseSelectionResult) SetSuccess(x interface{}) {
-	p.Success = x.(*TeacherQueryCourseResponse)
-}
-
-var fieldIDToName_TeacherServiceShowCourseSelectionResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceShowCourseSelectionResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceShowCourseSelectionResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceShowCourseSelectionResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseSelectionResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewTeacherQueryCourseResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceShowCourseSelectionResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("ShowCourseSelection_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseSelectionResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceShowCourseSelectionResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceShowCourseSelectionResult(%+v)", *p)
-}
-
-func (p *TeacherServiceShowCourseSelectionResult) DeepEqual(ano *TeacherServiceShowCourseSelectionResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceShowCourseSelectionResult) Field0DeepEqual(src *TeacherQueryCourseResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceStudentCourseSelectionArgs struct {
-	Req *ShowStudentInfoRequest `thrift:"req,1" json:"req"`
-}
-
-func NewTeacherServiceStudentCourseSelectionArgs() *TeacherServiceStudentCourseSelectionArgs {
-	return &TeacherServiceStudentCourseSelectionArgs{}
-}
-
-var TeacherServiceStudentCourseSelectionArgs_Req_DEFAULT *ShowStudentInfoRequest
-
-func (p *TeacherServiceStudentCourseSelectionArgs) GetReq() (v *ShowStudentInfoRequest) {
-	if !p.IsSetReq() {
-		return TeacherServiceStudentCourseSelectionArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TeacherServiceStudentCourseSelectionArgs) SetReq(val *ShowStudentInfoRequest) {
-	p.Req = val
-}
-
-var fieldIDToName_TeacherServiceStudentCourseSelectionArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *TeacherServiceStudentCourseSelectionArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TeacherServiceStudentCourseSelectionArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceStudentCourseSelectionArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceStudentCourseSelectionArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewShowStudentInfoRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceStudentCourseSelectionArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("StudentCourseSelection_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceStudentCourseSelectionArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *TeacherServiceStudentCourseSelectionArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceStudentCourseSelectionArgs(%+v)", *p)
-}
-
-func (p *TeacherServiceStudentCourseSelectionArgs) DeepEqual(ano *TeacherServiceStudentCourseSelectionArgs) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Req) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceStudentCourseSelectionArgs) Field1DeepEqual(src *ShowStudentInfoRequest) bool {
-
-	if !p.Req.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type TeacherServiceStudentCourseSelectionResult struct {
-	Success *ShowStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
-}
-
-func NewTeacherServiceStudentCourseSelectionResult() *TeacherServiceStudentCourseSelectionResult {
-	return &TeacherServiceStudentCourseSelectionResult{}
-}
-
-var TeacherServiceStudentCourseSelectionResult_Success_DEFAULT *ShowStudentInfoResponse
-
-func (p *TeacherServiceStudentCourseSelectionResult) GetSuccess() (v *ShowStudentInfoResponse) {
-	if !p.IsSetSuccess() {
-		return TeacherServiceStudentCourseSelectionResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TeacherServiceStudentCourseSelectionResult) SetSuccess(x interface{}) {
-	p.Success = x.(*ShowStudentInfoResponse)
-}
-
-var fieldIDToName_TeacherServiceStudentCourseSelectionResult = map[int16]string{
-	0: "success",
-}
-
-func (p *TeacherServiceStudentCourseSelectionResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TeacherServiceStudentCourseSelectionResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TeacherServiceStudentCourseSelectionResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *TeacherServiceStudentCourseSelectionResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewShowStudentInfoResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *TeacherServiceStudentCourseSelectionResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("StudentCourseSelection_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *TeacherServiceStudentCourseSelectionResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *TeacherServiceStudentCourseSelectionResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TeacherServiceStudentCourseSelectionResult(%+v)", *p)
-}
-
-func (p *TeacherServiceStudentCourseSelectionResult) DeepEqual(ano *TeacherServiceStudentCourseSelectionResult) bool {
-	if p == ano {
-		return true
-	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field0DeepEqual(ano.Success) {
-		return false
-	}
-	return true
-}
-
-func (p *TeacherServiceStudentCourseSelectionResult) Field0DeepEqual(src *ShowStudentInfoResponse) bool {
-
-	if !p.Success.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-
-type AdminServiceProcessor struct {
-	processorMap map[string]thrift.TProcessorFunction
-	handler      AdminService
-}
-
-func (p *AdminServiceProcessor) AddToProcessorMap(key string, processor thrift.TProcessorFunction) {
-	p.processorMap[key] = processor
-}
-
-func (p *AdminServiceProcessor) GetProcessorFunction(key string) (processor thrift.TProcessorFunction, ok bool) {
-	processor, ok = p.processorMap[key]
-	return processor, ok
-}
-
-func (p *AdminServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
-	return p.processorMap
-}
-
-func NewAdminServiceProcessor(handler AdminService) *AdminServiceProcessor {
-	self := &AdminServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("QueryStudentInfo", &adminServiceProcessorQueryStudentInfo{handler: handler})
-	self.AddToProcessorMap("QueryTeacherInfo", &adminServiceProcessorQueryTeacherInfo{handler: handler})
-	self.AddToProcessorMap("QueryCourseInfo", &adminServiceProcessorQueryCourseInfo{handler: handler})
-	self.AddToProcessorMap("AddStudent", &adminServiceProcessorAddStudent{handler: handler})
-	self.AddToProcessorMap("DeleteStudent", &adminServiceProcessorDeleteStudent{handler: handler})
-	self.AddToProcessorMap("AddTeacher", &adminServiceProcessorAddTeacher{handler: handler})
-	self.AddToProcessorMap("DeleteTeacher", &adminServiceProcessorDeleteTeacher{handler: handler})
-	self.AddToProcessorMap("AddCourse", &adminServiceProcessorAddCourse{handler: handler})
-	self.AddToProcessorMap("DeleteCourse", &adminServiceProcessorDeleteCourse{handler: handler})
-	return self
-}
-func (p *AdminServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	name, _, seqId, err := iprot.ReadMessageBegin()
-	if err != nil {
-		return false, err
-	}
-	if processor, ok := p.GetProcessorFunction(name); ok {
-		return processor.Process(ctx, seqId, iprot, oprot)
-	}
-	iprot.Skip(thrift.STRUCT)
-	iprot.ReadMessageEnd()
-	x := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function "+name)
-	oprot.WriteMessageBegin(name, thrift.EXCEPTION, seqId)
-	x.Write(oprot)
-	oprot.WriteMessageEnd()
-	oprot.Flush(ctx)
-	return false, x
-}
-
-type adminServiceProcessorQueryStudentInfo struct {
-	handler AdminService
-}
-
-func (p *adminServiceProcessorQueryStudentInfo) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := AdminServiceQueryStudentInfoArgs{}
+func (p *serviceProcessorQueryStudentInfo) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceQueryStudentInfoArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -16683,7 +10733,7 @@ func (p *adminServiceProcessorQueryStudentInfo) Process(ctx context.Context, seq
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := AdminServiceQueryStudentInfoResult{}
+	result := ServiceQueryStudentInfoResult{}
 	var retval *AdminQueryStudentInfoResponse
 	if retval, err2 = p.handler.QueryStudentInfo(ctx); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing QueryStudentInfo: "+err2.Error())
@@ -16713,12 +10763,12 @@ func (p *adminServiceProcessorQueryStudentInfo) Process(ctx context.Context, seq
 	return true, err
 }
 
-type adminServiceProcessorQueryTeacherInfo struct {
-	handler AdminService
+type serviceProcessorQueryTeacherInfo struct {
+	handler Service
 }
 
-func (p *adminServiceProcessorQueryTeacherInfo) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := AdminServiceQueryTeacherInfoArgs{}
+func (p *serviceProcessorQueryTeacherInfo) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceQueryTeacherInfoArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -16731,7 +10781,7 @@ func (p *adminServiceProcessorQueryTeacherInfo) Process(ctx context.Context, seq
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := AdminServiceQueryTeacherInfoResult{}
+	result := ServiceQueryTeacherInfoResult{}
 	var retval *AdminQueryTeacherInfoResponse
 	if retval, err2 = p.handler.QueryTeacherInfo(ctx); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing QueryTeacherInfo: "+err2.Error())
@@ -16761,12 +10811,12 @@ func (p *adminServiceProcessorQueryTeacherInfo) Process(ctx context.Context, seq
 	return true, err
 }
 
-type adminServiceProcessorQueryCourseInfo struct {
-	handler AdminService
+type serviceProcessorQueryCourseInfo struct {
+	handler Service
 }
 
-func (p *adminServiceProcessorQueryCourseInfo) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := AdminServiceQueryCourseInfoArgs{}
+func (p *serviceProcessorQueryCourseInfo) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceQueryCourseInfoArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -16779,7 +10829,7 @@ func (p *adminServiceProcessorQueryCourseInfo) Process(ctx context.Context, seqI
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := AdminServiceQueryCourseInfoResult{}
+	result := ServiceQueryCourseInfoResult{}
 	var retval *AdminQueryCourseInfoResponse
 	if retval, err2 = p.handler.QueryCourseInfo(ctx); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing QueryCourseInfo: "+err2.Error())
@@ -16809,12 +10859,12 @@ func (p *adminServiceProcessorQueryCourseInfo) Process(ctx context.Context, seqI
 	return true, err
 }
 
-type adminServiceProcessorAddStudent struct {
-	handler AdminService
+type serviceProcessorAddStudent struct {
+	handler Service
 }
 
-func (p *adminServiceProcessorAddStudent) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := AdminServiceAddStudentArgs{}
+func (p *serviceProcessorAddStudent) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceAddStudentArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -16827,7 +10877,7 @@ func (p *adminServiceProcessorAddStudent) Process(ctx context.Context, seqId int
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := AdminServiceAddStudentResult{}
+	result := ServiceAddStudentResult{}
 	var retval *AdminAddStudentInfoResponse
 	if retval, err2 = p.handler.AddStudent(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing AddStudent: "+err2.Error())
@@ -16857,12 +10907,12 @@ func (p *adminServiceProcessorAddStudent) Process(ctx context.Context, seqId int
 	return true, err
 }
 
-type adminServiceProcessorDeleteStudent struct {
-	handler AdminService
+type serviceProcessorDeleteStudent struct {
+	handler Service
 }
 
-func (p *adminServiceProcessorDeleteStudent) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := AdminServiceDeleteStudentArgs{}
+func (p *serviceProcessorDeleteStudent) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceDeleteStudentArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -16875,7 +10925,7 @@ func (p *adminServiceProcessorDeleteStudent) Process(ctx context.Context, seqId 
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := AdminServiceDeleteStudentResult{}
+	result := ServiceDeleteStudentResult{}
 	var retval *AdminDeleteStudentInfoResponse
 	if retval, err2 = p.handler.DeleteStudent(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing DeleteStudent: "+err2.Error())
@@ -16905,12 +10955,12 @@ func (p *adminServiceProcessorDeleteStudent) Process(ctx context.Context, seqId 
 	return true, err
 }
 
-type adminServiceProcessorAddTeacher struct {
-	handler AdminService
+type serviceProcessorAddTeacher struct {
+	handler Service
 }
 
-func (p *adminServiceProcessorAddTeacher) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := AdminServiceAddTeacherArgs{}
+func (p *serviceProcessorAddTeacher) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceAddTeacherArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -16923,7 +10973,7 @@ func (p *adminServiceProcessorAddTeacher) Process(ctx context.Context, seqId int
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := AdminServiceAddTeacherResult{}
+	result := ServiceAddTeacherResult{}
 	var retval *AdminAddTeacherInfoResponse
 	if retval, err2 = p.handler.AddTeacher(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing AddTeacher: "+err2.Error())
@@ -16953,12 +11003,12 @@ func (p *adminServiceProcessorAddTeacher) Process(ctx context.Context, seqId int
 	return true, err
 }
 
-type adminServiceProcessorDeleteTeacher struct {
-	handler AdminService
+type serviceProcessorDeleteTeacher struct {
+	handler Service
 }
 
-func (p *adminServiceProcessorDeleteTeacher) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := AdminServiceDeleteTeacherArgs{}
+func (p *serviceProcessorDeleteTeacher) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceDeleteTeacherArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -16971,7 +11021,7 @@ func (p *adminServiceProcessorDeleteTeacher) Process(ctx context.Context, seqId 
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := AdminServiceDeleteTeacherResult{}
+	result := ServiceDeleteTeacherResult{}
 	var retval *AdminDeleteStudentInfoResponse
 	if retval, err2 = p.handler.DeleteTeacher(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing DeleteTeacher: "+err2.Error())
@@ -17001,12 +11051,12 @@ func (p *adminServiceProcessorDeleteTeacher) Process(ctx context.Context, seqId 
 	return true, err
 }
 
-type adminServiceProcessorAddCourse struct {
-	handler AdminService
+type serviceProcessorAddCourse struct {
+	handler Service
 }
 
-func (p *adminServiceProcessorAddCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := AdminServiceAddCourseArgs{}
+func (p *serviceProcessorAddCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceAddCourseArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -17019,7 +11069,7 @@ func (p *adminServiceProcessorAddCourse) Process(ctx context.Context, seqId int3
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := AdminServiceAddCourseResult{}
+	result := ServiceAddCourseResult{}
 	var retval *AdminAddCourseInfoResponse
 	if retval, err2 = p.handler.AddCourse(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing AddCourse: "+err2.Error())
@@ -17049,12 +11099,12 @@ func (p *adminServiceProcessorAddCourse) Process(ctx context.Context, seqId int3
 	return true, err
 }
 
-type adminServiceProcessorDeleteCourse struct {
-	handler AdminService
+type serviceProcessorDeleteCourse struct {
+	handler Service
 }
 
-func (p *adminServiceProcessorDeleteCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := AdminServiceDeleteCourseArgs{}
+func (p *serviceProcessorDeleteCourse) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ServiceDeleteCourseArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -17067,7 +11117,7 @@ func (p *adminServiceProcessorDeleteCourse) Process(ctx context.Context, seqId i
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := AdminServiceDeleteCourseResult{}
+	result := ServiceDeleteCourseResult{}
 	var retval *AdminDeleteCourseInfoResponse
 	if retval, err2 = p.handler.DeleteCourse(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing DeleteCourse: "+err2.Error())
@@ -17097,16 +11147,35 @@ func (p *adminServiceProcessorDeleteCourse) Process(ctx context.Context, seqId i
 	return true, err
 }
 
-type AdminServiceQueryStudentInfoArgs struct {
+type ServiceLoginArgs struct {
+	Req *LoginRequest `thrift:"req,1" json:"req"`
 }
 
-func NewAdminServiceQueryStudentInfoArgs() *AdminServiceQueryStudentInfoArgs {
-	return &AdminServiceQueryStudentInfoArgs{}
+func NewServiceLoginArgs() *ServiceLoginArgs {
+	return &ServiceLoginArgs{}
 }
 
-var fieldIDToName_AdminServiceQueryStudentInfoArgs = map[int16]string{}
+var ServiceLoginArgs_Req_DEFAULT *LoginRequest
 
-func (p *AdminServiceQueryStudentInfoArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceLoginArgs) GetReq() (v *LoginRequest) {
+	if !p.IsSetReq() {
+		return ServiceLoginArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceLoginArgs) SetReq(val *LoginRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceLoginArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceLoginArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceLoginArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -17123,8 +11192,22 @@ func (p *AdminServiceQueryStudentInfoArgs) Read(iprot thrift.TProtocol) (err err
 		if fieldTypeId == thrift.STOP {
 			break
 		}
-		if err = iprot.Skip(fieldTypeId); err != nil {
-			goto SkipFieldTypeError
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
 		}
 
 		if err = iprot.ReadFieldEnd(); err != nil {
@@ -17140,8 +11223,10 @@ ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-SkipFieldTypeError:
-	return thrift.PrependError(fmt.Sprintf("%T skip field type %d error", p, fieldTypeId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceLoginArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
 ReadFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
@@ -17149,11 +11234,24 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryStudentInfoArgs) Write(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteStructBegin("QueryStudentInfo_args"); err != nil {
+func (p *ServiceLoginArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewLoginRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceLoginArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("Login_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
 
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
@@ -17165,57 +11263,87 @@ func (p *AdminServiceQueryStudentInfoArgs) Write(oprot thrift.TProtocol) (err er
 	return nil
 WriteStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
 WriteFieldStopError:
 	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
 WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryStudentInfoArgs) String() string {
+func (p *ServiceLoginArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceLoginArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceQueryStudentInfoArgs(%+v)", *p)
+	return fmt.Sprintf("ServiceLoginArgs(%+v)", *p)
 }
 
-func (p *AdminServiceQueryStudentInfoArgs) DeepEqual(ano *AdminServiceQueryStudentInfoArgs) bool {
+func (p *ServiceLoginArgs) DeepEqual(ano *ServiceLoginArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
 		return false
 	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
 	return true
 }
 
-type AdminServiceQueryStudentInfoResult struct {
-	Success *AdminQueryStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
+func (p *ServiceLoginArgs) Field1DeepEqual(src *LoginRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
 }
 
-func NewAdminServiceQueryStudentInfoResult() *AdminServiceQueryStudentInfoResult {
-	return &AdminServiceQueryStudentInfoResult{}
+type ServiceLoginResult struct {
+	Success *LoginResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-var AdminServiceQueryStudentInfoResult_Success_DEFAULT *AdminQueryStudentInfoResponse
+func NewServiceLoginResult() *ServiceLoginResult {
+	return &ServiceLoginResult{}
+}
 
-func (p *AdminServiceQueryStudentInfoResult) GetSuccess() (v *AdminQueryStudentInfoResponse) {
+var ServiceLoginResult_Success_DEFAULT *LoginResponse
+
+func (p *ServiceLoginResult) GetSuccess() (v *LoginResponse) {
 	if !p.IsSetSuccess() {
-		return AdminServiceQueryStudentInfoResult_Success_DEFAULT
+		return ServiceLoginResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *AdminServiceQueryStudentInfoResult) SetSuccess(x interface{}) {
-	p.Success = x.(*AdminQueryStudentInfoResponse)
+func (p *ServiceLoginResult) SetSuccess(x interface{}) {
+	p.Success = x.(*LoginResponse)
 }
 
-var fieldIDToName_AdminServiceQueryStudentInfoResult = map[int16]string{
+var fieldIDToName_ServiceLoginResult = map[int16]string{
 	0: "success",
 }
 
-func (p *AdminServiceQueryStudentInfoResult) IsSetSuccess() bool {
+func (p *ServiceLoginResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *AdminServiceQueryStudentInfoResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceLoginResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -17264,7 +11392,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceQueryStudentInfoResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceLoginResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -17274,7 +11402,5675 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryStudentInfoResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ServiceLoginResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewLoginResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceLoginResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("Login_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceLoginResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceLoginResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceLoginResult(%+v)", *p)
+}
+
+func (p *ServiceLoginResult) DeepEqual(ano *ServiceLoginResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceLoginResult) Field0DeepEqual(src *LoginResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceChangePasswordArgs struct {
+	Req *ChangePasswordRequenst `thrift:"req,1" json:"req"`
+}
+
+func NewServiceChangePasswordArgs() *ServiceChangePasswordArgs {
+	return &ServiceChangePasswordArgs{}
+}
+
+var ServiceChangePasswordArgs_Req_DEFAULT *ChangePasswordRequenst
+
+func (p *ServiceChangePasswordArgs) GetReq() (v *ChangePasswordRequenst) {
+	if !p.IsSetReq() {
+		return ServiceChangePasswordArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceChangePasswordArgs) SetReq(val *ChangePasswordRequenst) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceChangePasswordArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceChangePasswordArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceChangePasswordArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceChangePasswordArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceChangePasswordArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewChangePasswordRequenst()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceChangePasswordArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ChangePassword_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceChangePasswordArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceChangePasswordArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceChangePasswordArgs(%+v)", *p)
+}
+
+func (p *ServiceChangePasswordArgs) DeepEqual(ano *ServiceChangePasswordArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceChangePasswordArgs) Field1DeepEqual(src *ChangePasswordRequenst) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceChangePasswordResult struct {
+	Success *ChangePasswordReponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceChangePasswordResult() *ServiceChangePasswordResult {
+	return &ServiceChangePasswordResult{}
+}
+
+var ServiceChangePasswordResult_Success_DEFAULT *ChangePasswordReponse
+
+func (p *ServiceChangePasswordResult) GetSuccess() (v *ChangePasswordReponse) {
+	if !p.IsSetSuccess() {
+		return ServiceChangePasswordResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceChangePasswordResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ChangePasswordReponse)
+}
+
+var fieldIDToName_ServiceChangePasswordResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceChangePasswordResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceChangePasswordResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceChangePasswordResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceChangePasswordResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewChangePasswordReponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceChangePasswordResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ChangePassword_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceChangePasswordResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceChangePasswordResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceChangePasswordResult(%+v)", *p)
+}
+
+func (p *ServiceChangePasswordResult) DeepEqual(ano *ServiceChangePasswordResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceChangePasswordResult) Field0DeepEqual(src *ChangePasswordReponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowCourseArgs struct {
+	Req *StudentShowCourseRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceShowCourseArgs() *ServiceShowCourseArgs {
+	return &ServiceShowCourseArgs{}
+}
+
+var ServiceShowCourseArgs_Req_DEFAULT *StudentShowCourseRequest
+
+func (p *ServiceShowCourseArgs) GetReq() (v *StudentShowCourseRequest) {
+	if !p.IsSetReq() {
+		return ServiceShowCourseArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceShowCourseArgs) SetReq(val *StudentShowCourseRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceShowCourseArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceShowCourseArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceShowCourseArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowCourseArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewStudentShowCourseRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowCourseArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowCourse_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceShowCourseArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowCourseArgs(%+v)", *p)
+}
+
+func (p *ServiceShowCourseArgs) DeepEqual(ano *ServiceShowCourseArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowCourseArgs) Field1DeepEqual(src *StudentShowCourseRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowCourseResult struct {
+	Success *StudentShowCourseReponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceShowCourseResult() *ServiceShowCourseResult {
+	return &ServiceShowCourseResult{}
+}
+
+var ServiceShowCourseResult_Success_DEFAULT *StudentShowCourseReponse
+
+func (p *ServiceShowCourseResult) GetSuccess() (v *StudentShowCourseReponse) {
+	if !p.IsSetSuccess() {
+		return ServiceShowCourseResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceShowCourseResult) SetSuccess(x interface{}) {
+	p.Success = x.(*StudentShowCourseReponse)
+}
+
+var fieldIDToName_ServiceShowCourseResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceShowCourseResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceShowCourseResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowCourseResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewStudentShowCourseReponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowCourseResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowCourse_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceShowCourseResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowCourseResult(%+v)", *p)
+}
+
+func (p *ServiceShowCourseResult) DeepEqual(ano *ServiceShowCourseResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowCourseResult) Field0DeepEqual(src *StudentShowCourseReponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceSelectCourseArgs struct {
+	Req *SelectCourseRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceSelectCourseArgs() *ServiceSelectCourseArgs {
+	return &ServiceSelectCourseArgs{}
+}
+
+var ServiceSelectCourseArgs_Req_DEFAULT *SelectCourseRequest
+
+func (p *ServiceSelectCourseArgs) GetReq() (v *SelectCourseRequest) {
+	if !p.IsSetReq() {
+		return ServiceSelectCourseArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceSelectCourseArgs) SetReq(val *SelectCourseRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceSelectCourseArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceSelectCourseArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceSelectCourseArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceSelectCourseArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceSelectCourseArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewSelectCourseRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceSelectCourseArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("SelectCourse_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceSelectCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceSelectCourseArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceSelectCourseArgs(%+v)", *p)
+}
+
+func (p *ServiceSelectCourseArgs) DeepEqual(ano *ServiceSelectCourseArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceSelectCourseArgs) Field1DeepEqual(src *SelectCourseRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceSelectCourseResult struct {
+	Success *SelectCourseResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceSelectCourseResult() *ServiceSelectCourseResult {
+	return &ServiceSelectCourseResult{}
+}
+
+var ServiceSelectCourseResult_Success_DEFAULT *SelectCourseResponse
+
+func (p *ServiceSelectCourseResult) GetSuccess() (v *SelectCourseResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceSelectCourseResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceSelectCourseResult) SetSuccess(x interface{}) {
+	p.Success = x.(*SelectCourseResponse)
+}
+
+var fieldIDToName_ServiceSelectCourseResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceSelectCourseResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceSelectCourseResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceSelectCourseResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceSelectCourseResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewSelectCourseResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceSelectCourseResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("SelectCourse_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceSelectCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceSelectCourseResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceSelectCourseResult(%+v)", *p)
+}
+
+func (p *ServiceSelectCourseResult) DeepEqual(ano *ServiceSelectCourseResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceSelectCourseResult) Field0DeepEqual(src *SelectCourseResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceQueryScoreArgs struct {
+	Req *StudentQueryScoreRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceQueryScoreArgs() *ServiceQueryScoreArgs {
+	return &ServiceQueryScoreArgs{}
+}
+
+var ServiceQueryScoreArgs_Req_DEFAULT *StudentQueryScoreRequest
+
+func (p *ServiceQueryScoreArgs) GetReq() (v *StudentQueryScoreRequest) {
+	if !p.IsSetReq() {
+		return ServiceQueryScoreArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceQueryScoreArgs) SetReq(val *StudentQueryScoreRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceQueryScoreArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceQueryScoreArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceQueryScoreArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceQueryScoreArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceQueryScoreArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewStudentQueryScoreRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceQueryScoreArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("QueryScore_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceQueryScoreArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceQueryScoreArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceQueryScoreArgs(%+v)", *p)
+}
+
+func (p *ServiceQueryScoreArgs) DeepEqual(ano *ServiceQueryScoreArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceQueryScoreArgs) Field1DeepEqual(src *StudentQueryScoreRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceQueryScoreResult struct {
+	Success *StudentQueryScoreResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceQueryScoreResult() *ServiceQueryScoreResult {
+	return &ServiceQueryScoreResult{}
+}
+
+var ServiceQueryScoreResult_Success_DEFAULT *StudentQueryScoreResponse
+
+func (p *ServiceQueryScoreResult) GetSuccess() (v *StudentQueryScoreResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceQueryScoreResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceQueryScoreResult) SetSuccess(x interface{}) {
+	p.Success = x.(*StudentQueryScoreResponse)
+}
+
+var fieldIDToName_ServiceQueryScoreResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceQueryScoreResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceQueryScoreResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceQueryScoreResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceQueryScoreResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewStudentQueryScoreResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceQueryScoreResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("QueryScore_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceQueryScoreResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceQueryScoreResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceQueryScoreResult(%+v)", *p)
+}
+
+func (p *ServiceQueryScoreResult) DeepEqual(ano *ServiceQueryScoreResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceQueryScoreResult) Field0DeepEqual(src *StudentQueryScoreResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceQuerySelectionArgs struct {
+	Req *StudentQuerySelectionRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceQuerySelectionArgs() *ServiceQuerySelectionArgs {
+	return &ServiceQuerySelectionArgs{}
+}
+
+var ServiceQuerySelectionArgs_Req_DEFAULT *StudentQuerySelectionRequest
+
+func (p *ServiceQuerySelectionArgs) GetReq() (v *StudentQuerySelectionRequest) {
+	if !p.IsSetReq() {
+		return ServiceQuerySelectionArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceQuerySelectionArgs) SetReq(val *StudentQuerySelectionRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceQuerySelectionArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceQuerySelectionArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceQuerySelectionArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceQuerySelectionArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceQuerySelectionArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewStudentQuerySelectionRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceQuerySelectionArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("QuerySelection_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceQuerySelectionArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceQuerySelectionArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceQuerySelectionArgs(%+v)", *p)
+}
+
+func (p *ServiceQuerySelectionArgs) DeepEqual(ano *ServiceQuerySelectionArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceQuerySelectionArgs) Field1DeepEqual(src *StudentQuerySelectionRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceQuerySelectionResult struct {
+	Success *StudentQuerySelectionResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceQuerySelectionResult() *ServiceQuerySelectionResult {
+	return &ServiceQuerySelectionResult{}
+}
+
+var ServiceQuerySelectionResult_Success_DEFAULT *StudentQuerySelectionResponse
+
+func (p *ServiceQuerySelectionResult) GetSuccess() (v *StudentQuerySelectionResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceQuerySelectionResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceQuerySelectionResult) SetSuccess(x interface{}) {
+	p.Success = x.(*StudentQuerySelectionResponse)
+}
+
+var fieldIDToName_ServiceQuerySelectionResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceQuerySelectionResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceQuerySelectionResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceQuerySelectionResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceQuerySelectionResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewStudentQuerySelectionResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceQuerySelectionResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("QuerySelection_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceQuerySelectionResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceQuerySelectionResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceQuerySelectionResult(%+v)", *p)
+}
+
+func (p *ServiceQuerySelectionResult) DeepEqual(ano *ServiceQuerySelectionResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceQuerySelectionResult) Field0DeepEqual(src *StudentQuerySelectionResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceEvaluateRequestArgs struct {
+	Req *StudentEvaluateRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceEvaluateRequestArgs() *ServiceEvaluateRequestArgs {
+	return &ServiceEvaluateRequestArgs{}
+}
+
+var ServiceEvaluateRequestArgs_Req_DEFAULT *StudentEvaluateRequest
+
+func (p *ServiceEvaluateRequestArgs) GetReq() (v *StudentEvaluateRequest) {
+	if !p.IsSetReq() {
+		return ServiceEvaluateRequestArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceEvaluateRequestArgs) SetReq(val *StudentEvaluateRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceEvaluateRequestArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceEvaluateRequestArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceEvaluateRequestArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceEvaluateRequestArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceEvaluateRequestArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewStudentEvaluateRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceEvaluateRequestArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("EvaluateRequest_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceEvaluateRequestArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceEvaluateRequestArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceEvaluateRequestArgs(%+v)", *p)
+}
+
+func (p *ServiceEvaluateRequestArgs) DeepEqual(ano *ServiceEvaluateRequestArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceEvaluateRequestArgs) Field1DeepEqual(src *StudentEvaluateRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceEvaluateRequestResult struct {
+	Success *StudentEvaluateResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceEvaluateRequestResult() *ServiceEvaluateRequestResult {
+	return &ServiceEvaluateRequestResult{}
+}
+
+var ServiceEvaluateRequestResult_Success_DEFAULT *StudentEvaluateResponse
+
+func (p *ServiceEvaluateRequestResult) GetSuccess() (v *StudentEvaluateResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceEvaluateRequestResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceEvaluateRequestResult) SetSuccess(x interface{}) {
+	p.Success = x.(*StudentEvaluateResponse)
+}
+
+var fieldIDToName_ServiceEvaluateRequestResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceEvaluateRequestResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceEvaluateRequestResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceEvaluateRequestResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceEvaluateRequestResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewStudentEvaluateResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceEvaluateRequestResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("EvaluateRequest_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceEvaluateRequestResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceEvaluateRequestResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceEvaluateRequestResult(%+v)", *p)
+}
+
+func (p *ServiceEvaluateRequestResult) DeepEqual(ano *ServiceEvaluateRequestResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceEvaluateRequestResult) Field0DeepEqual(src *StudentEvaluateResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowCourseToTeacherArgs struct {
+	Req *TeacherQueryCourseRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceShowCourseToTeacherArgs() *ServiceShowCourseToTeacherArgs {
+	return &ServiceShowCourseToTeacherArgs{}
+}
+
+var ServiceShowCourseToTeacherArgs_Req_DEFAULT *TeacherQueryCourseRequest
+
+func (p *ServiceShowCourseToTeacherArgs) GetReq() (v *TeacherQueryCourseRequest) {
+	if !p.IsSetReq() {
+		return ServiceShowCourseToTeacherArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceShowCourseToTeacherArgs) SetReq(val *TeacherQueryCourseRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceShowCourseToTeacherArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceShowCourseToTeacherArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceShowCourseToTeacherArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowCourseToTeacherArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseToTeacherArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewTeacherQueryCourseRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowCourseToTeacherArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowCourseToTeacher_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseToTeacherArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceShowCourseToTeacherArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowCourseToTeacherArgs(%+v)", *p)
+}
+
+func (p *ServiceShowCourseToTeacherArgs) DeepEqual(ano *ServiceShowCourseToTeacherArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowCourseToTeacherArgs) Field1DeepEqual(src *TeacherQueryCourseRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowCourseToTeacherResult struct {
+	Success *TeacherQueryCourseResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceShowCourseToTeacherResult() *ServiceShowCourseToTeacherResult {
+	return &ServiceShowCourseToTeacherResult{}
+}
+
+var ServiceShowCourseToTeacherResult_Success_DEFAULT *TeacherQueryCourseResponse
+
+func (p *ServiceShowCourseToTeacherResult) GetSuccess() (v *TeacherQueryCourseResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceShowCourseToTeacherResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceShowCourseToTeacherResult) SetSuccess(x interface{}) {
+	p.Success = x.(*TeacherQueryCourseResponse)
+}
+
+var fieldIDToName_ServiceShowCourseToTeacherResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceShowCourseToTeacherResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceShowCourseToTeacherResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowCourseToTeacherResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseToTeacherResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewTeacherQueryCourseResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowCourseToTeacherResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowCourseToTeacher_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseToTeacherResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceShowCourseToTeacherResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowCourseToTeacherResult(%+v)", *p)
+}
+
+func (p *ServiceShowCourseToTeacherResult) DeepEqual(ano *ServiceShowCourseToTeacherResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowCourseToTeacherResult) Field0DeepEqual(src *TeacherQueryCourseResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowStudentInfoArgs struct {
+	Req *ShowStudentInfoRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceShowStudentInfoArgs() *ServiceShowStudentInfoArgs {
+	return &ServiceShowStudentInfoArgs{}
+}
+
+var ServiceShowStudentInfoArgs_Req_DEFAULT *ShowStudentInfoRequest
+
+func (p *ServiceShowStudentInfoArgs) GetReq() (v *ShowStudentInfoRequest) {
+	if !p.IsSetReq() {
+		return ServiceShowStudentInfoArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceShowStudentInfoArgs) SetReq(val *ShowStudentInfoRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceShowStudentInfoArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceShowStudentInfoArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceShowStudentInfoArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowStudentInfoArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowStudentInfoArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewShowStudentInfoRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowStudentInfoArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowStudentInfo_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowStudentInfoArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceShowStudentInfoArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowStudentInfoArgs(%+v)", *p)
+}
+
+func (p *ServiceShowStudentInfoArgs) DeepEqual(ano *ServiceShowStudentInfoArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowStudentInfoArgs) Field1DeepEqual(src *ShowStudentInfoRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowStudentInfoResult struct {
+	Success *ShowStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceShowStudentInfoResult() *ServiceShowStudentInfoResult {
+	return &ServiceShowStudentInfoResult{}
+}
+
+var ServiceShowStudentInfoResult_Success_DEFAULT *ShowStudentInfoResponse
+
+func (p *ServiceShowStudentInfoResult) GetSuccess() (v *ShowStudentInfoResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceShowStudentInfoResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceShowStudentInfoResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ShowStudentInfoResponse)
+}
+
+var fieldIDToName_ServiceShowStudentInfoResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceShowStudentInfoResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceShowStudentInfoResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowStudentInfoResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowStudentInfoResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewShowStudentInfoResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowStudentInfoResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowStudentInfo_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowStudentInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceShowStudentInfoResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowStudentInfoResult(%+v)", *p)
+}
+
+func (p *ServiceShowStudentInfoResult) DeepEqual(ano *ServiceShowStudentInfoResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowStudentInfoResult) Field0DeepEqual(src *ShowStudentInfoResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceInputScoreArgs struct {
+	Req *TeacherInputScoreRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceInputScoreArgs() *ServiceInputScoreArgs {
+	return &ServiceInputScoreArgs{}
+}
+
+var ServiceInputScoreArgs_Req_DEFAULT *TeacherInputScoreRequest
+
+func (p *ServiceInputScoreArgs) GetReq() (v *TeacherInputScoreRequest) {
+	if !p.IsSetReq() {
+		return ServiceInputScoreArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceInputScoreArgs) SetReq(val *TeacherInputScoreRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceInputScoreArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceInputScoreArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceInputScoreArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceInputScoreArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceInputScoreArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewTeacherInputScoreRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceInputScoreArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("InputScore_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceInputScoreArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceInputScoreArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceInputScoreArgs(%+v)", *p)
+}
+
+func (p *ServiceInputScoreArgs) DeepEqual(ano *ServiceInputScoreArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceInputScoreArgs) Field1DeepEqual(src *TeacherInputScoreRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceInputScoreResult struct {
+	Success *TeacherInputScoreResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceInputScoreResult() *ServiceInputScoreResult {
+	return &ServiceInputScoreResult{}
+}
+
+var ServiceInputScoreResult_Success_DEFAULT *TeacherInputScoreResponse
+
+func (p *ServiceInputScoreResult) GetSuccess() (v *TeacherInputScoreResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceInputScoreResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceInputScoreResult) SetSuccess(x interface{}) {
+	p.Success = x.(*TeacherInputScoreResponse)
+}
+
+var fieldIDToName_ServiceInputScoreResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceInputScoreResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceInputScoreResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceInputScoreResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceInputScoreResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewTeacherInputScoreResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceInputScoreResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("InputScore_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceInputScoreResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceInputScoreResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceInputScoreResult(%+v)", *p)
+}
+
+func (p *ServiceInputScoreResult) DeepEqual(ano *ServiceInputScoreResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceInputScoreResult) Field0DeepEqual(src *TeacherInputScoreResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceModifyShowCourseArgs struct {
+	Req *TeacherQueryCourseRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceModifyShowCourseArgs() *ServiceModifyShowCourseArgs {
+	return &ServiceModifyShowCourseArgs{}
+}
+
+var ServiceModifyShowCourseArgs_Req_DEFAULT *TeacherQueryCourseRequest
+
+func (p *ServiceModifyShowCourseArgs) GetReq() (v *TeacherQueryCourseRequest) {
+	if !p.IsSetReq() {
+		return ServiceModifyShowCourseArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceModifyShowCourseArgs) SetReq(val *TeacherQueryCourseRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceModifyShowCourseArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceModifyShowCourseArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceModifyShowCourseArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceModifyShowCourseArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceModifyShowCourseArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewTeacherQueryCourseRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceModifyShowCourseArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ModifyShowCourse_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceModifyShowCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceModifyShowCourseArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceModifyShowCourseArgs(%+v)", *p)
+}
+
+func (p *ServiceModifyShowCourseArgs) DeepEqual(ano *ServiceModifyShowCourseArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceModifyShowCourseArgs) Field1DeepEqual(src *TeacherQueryCourseRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceModifyShowCourseResult struct {
+	Success *TeacherQueryCourseResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceModifyShowCourseResult() *ServiceModifyShowCourseResult {
+	return &ServiceModifyShowCourseResult{}
+}
+
+var ServiceModifyShowCourseResult_Success_DEFAULT *TeacherQueryCourseResponse
+
+func (p *ServiceModifyShowCourseResult) GetSuccess() (v *TeacherQueryCourseResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceModifyShowCourseResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceModifyShowCourseResult) SetSuccess(x interface{}) {
+	p.Success = x.(*TeacherQueryCourseResponse)
+}
+
+var fieldIDToName_ServiceModifyShowCourseResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceModifyShowCourseResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceModifyShowCourseResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceModifyShowCourseResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceModifyShowCourseResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewTeacherQueryCourseResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceModifyShowCourseResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ModifyShowCourse_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceModifyShowCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceModifyShowCourseResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceModifyShowCourseResult(%+v)", *p)
+}
+
+func (p *ServiceModifyShowCourseResult) DeepEqual(ano *ServiceModifyShowCourseResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceModifyShowCourseResult) Field0DeepEqual(src *TeacherQueryCourseResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceModifyShowStudentArgs struct {
+	Req *ShowStudentInfoRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceModifyShowStudentArgs() *ServiceModifyShowStudentArgs {
+	return &ServiceModifyShowStudentArgs{}
+}
+
+var ServiceModifyShowStudentArgs_Req_DEFAULT *ShowStudentInfoRequest
+
+func (p *ServiceModifyShowStudentArgs) GetReq() (v *ShowStudentInfoRequest) {
+	if !p.IsSetReq() {
+		return ServiceModifyShowStudentArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceModifyShowStudentArgs) SetReq(val *ShowStudentInfoRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceModifyShowStudentArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceModifyShowStudentArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceModifyShowStudentArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceModifyShowStudentArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceModifyShowStudentArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewShowStudentInfoRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceModifyShowStudentArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ModifyShowStudent_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceModifyShowStudentArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceModifyShowStudentArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceModifyShowStudentArgs(%+v)", *p)
+}
+
+func (p *ServiceModifyShowStudentArgs) DeepEqual(ano *ServiceModifyShowStudentArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceModifyShowStudentArgs) Field1DeepEqual(src *ShowStudentInfoRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceModifyShowStudentResult struct {
+	Success *ShowStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceModifyShowStudentResult() *ServiceModifyShowStudentResult {
+	return &ServiceModifyShowStudentResult{}
+}
+
+var ServiceModifyShowStudentResult_Success_DEFAULT *ShowStudentInfoResponse
+
+func (p *ServiceModifyShowStudentResult) GetSuccess() (v *ShowStudentInfoResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceModifyShowStudentResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceModifyShowStudentResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ShowStudentInfoResponse)
+}
+
+var fieldIDToName_ServiceModifyShowStudentResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceModifyShowStudentResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceModifyShowStudentResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceModifyShowStudentResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceModifyShowStudentResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewShowStudentInfoResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceModifyShowStudentResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ModifyShowStudent_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceModifyShowStudentResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceModifyShowStudentResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceModifyShowStudentResult(%+v)", *p)
+}
+
+func (p *ServiceModifyShowStudentResult) DeepEqual(ano *ServiceModifyShowStudentResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceModifyShowStudentResult) Field0DeepEqual(src *ShowStudentInfoResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceModifyScoreArgs struct {
+	Req *TeacherModifyScoreRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceModifyScoreArgs() *ServiceModifyScoreArgs {
+	return &ServiceModifyScoreArgs{}
+}
+
+var ServiceModifyScoreArgs_Req_DEFAULT *TeacherModifyScoreRequest
+
+func (p *ServiceModifyScoreArgs) GetReq() (v *TeacherModifyScoreRequest) {
+	if !p.IsSetReq() {
+		return ServiceModifyScoreArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceModifyScoreArgs) SetReq(val *TeacherModifyScoreRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceModifyScoreArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceModifyScoreArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceModifyScoreArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceModifyScoreArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceModifyScoreArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewTeacherModifyScoreRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceModifyScoreArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ModifyScore_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceModifyScoreArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceModifyScoreArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceModifyScoreArgs(%+v)", *p)
+}
+
+func (p *ServiceModifyScoreArgs) DeepEqual(ano *ServiceModifyScoreArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceModifyScoreArgs) Field1DeepEqual(src *TeacherModifyScoreRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceModifyScoreResult struct {
+	Success *TeacherModifyScoreResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceModifyScoreResult() *ServiceModifyScoreResult {
+	return &ServiceModifyScoreResult{}
+}
+
+var ServiceModifyScoreResult_Success_DEFAULT *TeacherModifyScoreResponse
+
+func (p *ServiceModifyScoreResult) GetSuccess() (v *TeacherModifyScoreResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceModifyScoreResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceModifyScoreResult) SetSuccess(x interface{}) {
+	p.Success = x.(*TeacherModifyScoreResponse)
+}
+
+var fieldIDToName_ServiceModifyScoreResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceModifyScoreResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceModifyScoreResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceModifyScoreResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceModifyScoreResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewTeacherModifyScoreResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceModifyScoreResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ModifyScore_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceModifyScoreResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceModifyScoreResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceModifyScoreResult(%+v)", *p)
+}
+
+func (p *ServiceModifyScoreResult) DeepEqual(ano *ServiceModifyScoreResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceModifyScoreResult) Field0DeepEqual(src *TeacherModifyScoreResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceQueryCourseArgs struct {
+	Req *TeacherQueryCourseRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceQueryCourseArgs() *ServiceQueryCourseArgs {
+	return &ServiceQueryCourseArgs{}
+}
+
+var ServiceQueryCourseArgs_Req_DEFAULT *TeacherQueryCourseRequest
+
+func (p *ServiceQueryCourseArgs) GetReq() (v *TeacherQueryCourseRequest) {
+	if !p.IsSetReq() {
+		return ServiceQueryCourseArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceQueryCourseArgs) SetReq(val *TeacherQueryCourseRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceQueryCourseArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceQueryCourseArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceQueryCourseArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceQueryCourseArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceQueryCourseArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewTeacherQueryCourseRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceQueryCourseArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("QueryCourse_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceQueryCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceQueryCourseArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceQueryCourseArgs(%+v)", *p)
+}
+
+func (p *ServiceQueryCourseArgs) DeepEqual(ano *ServiceQueryCourseArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceQueryCourseArgs) Field1DeepEqual(src *TeacherQueryCourseRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceQueryCourseResult struct {
+	Success *TeacherQueryCourseResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceQueryCourseResult() *ServiceQueryCourseResult {
+	return &ServiceQueryCourseResult{}
+}
+
+var ServiceQueryCourseResult_Success_DEFAULT *TeacherQueryCourseResponse
+
+func (p *ServiceQueryCourseResult) GetSuccess() (v *TeacherQueryCourseResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceQueryCourseResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceQueryCourseResult) SetSuccess(x interface{}) {
+	p.Success = x.(*TeacherQueryCourseResponse)
+}
+
+var fieldIDToName_ServiceQueryCourseResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceQueryCourseResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceQueryCourseResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceQueryCourseResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceQueryCourseResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewTeacherQueryCourseResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceQueryCourseResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("QueryCourse_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceQueryCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceQueryCourseResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceQueryCourseResult(%+v)", *p)
+}
+
+func (p *ServiceQueryCourseResult) DeepEqual(ano *ServiceQueryCourseResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceQueryCourseResult) Field0DeepEqual(src *TeacherQueryCourseResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowStudentScoreArgs struct {
+	Req *ShowStudentInfoRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceShowStudentScoreArgs() *ServiceShowStudentScoreArgs {
+	return &ServiceShowStudentScoreArgs{}
+}
+
+var ServiceShowStudentScoreArgs_Req_DEFAULT *ShowStudentInfoRequest
+
+func (p *ServiceShowStudentScoreArgs) GetReq() (v *ShowStudentInfoRequest) {
+	if !p.IsSetReq() {
+		return ServiceShowStudentScoreArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceShowStudentScoreArgs) SetReq(val *ShowStudentInfoRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceShowStudentScoreArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceShowStudentScoreArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceShowStudentScoreArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowStudentScoreArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowStudentScoreArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewShowStudentInfoRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowStudentScoreArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowStudentScore_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowStudentScoreArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceShowStudentScoreArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowStudentScoreArgs(%+v)", *p)
+}
+
+func (p *ServiceShowStudentScoreArgs) DeepEqual(ano *ServiceShowStudentScoreArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowStudentScoreArgs) Field1DeepEqual(src *ShowStudentInfoRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowStudentScoreResult struct {
+	Success *ShowStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceShowStudentScoreResult() *ServiceShowStudentScoreResult {
+	return &ServiceShowStudentScoreResult{}
+}
+
+var ServiceShowStudentScoreResult_Success_DEFAULT *ShowStudentInfoResponse
+
+func (p *ServiceShowStudentScoreResult) GetSuccess() (v *ShowStudentInfoResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceShowStudentScoreResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceShowStudentScoreResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ShowStudentInfoResponse)
+}
+
+var fieldIDToName_ServiceShowStudentScoreResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceShowStudentScoreResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceShowStudentScoreResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowStudentScoreResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowStudentScoreResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewShowStudentInfoResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowStudentScoreResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowStudentScore_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowStudentScoreResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceShowStudentScoreResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowStudentScoreResult(%+v)", *p)
+}
+
+func (p *ServiceShowStudentScoreResult) DeepEqual(ano *ServiceShowStudentScoreResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowStudentScoreResult) Field0DeepEqual(src *ShowStudentInfoResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowCourseSelectionArgs struct {
+	Req *TeacherQueryCourseRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceShowCourseSelectionArgs() *ServiceShowCourseSelectionArgs {
+	return &ServiceShowCourseSelectionArgs{}
+}
+
+var ServiceShowCourseSelectionArgs_Req_DEFAULT *TeacherQueryCourseRequest
+
+func (p *ServiceShowCourseSelectionArgs) GetReq() (v *TeacherQueryCourseRequest) {
+	if !p.IsSetReq() {
+		return ServiceShowCourseSelectionArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceShowCourseSelectionArgs) SetReq(val *TeacherQueryCourseRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceShowCourseSelectionArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceShowCourseSelectionArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceShowCourseSelectionArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowCourseSelectionArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseSelectionArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewTeacherQueryCourseRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowCourseSelectionArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowCourseSelection_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseSelectionArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceShowCourseSelectionArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowCourseSelectionArgs(%+v)", *p)
+}
+
+func (p *ServiceShowCourseSelectionArgs) DeepEqual(ano *ServiceShowCourseSelectionArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowCourseSelectionArgs) Field1DeepEqual(src *TeacherQueryCourseRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceShowCourseSelectionResult struct {
+	Success *TeacherQueryCourseResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceShowCourseSelectionResult() *ServiceShowCourseSelectionResult {
+	return &ServiceShowCourseSelectionResult{}
+}
+
+var ServiceShowCourseSelectionResult_Success_DEFAULT *TeacherQueryCourseResponse
+
+func (p *ServiceShowCourseSelectionResult) GetSuccess() (v *TeacherQueryCourseResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceShowCourseSelectionResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceShowCourseSelectionResult) SetSuccess(x interface{}) {
+	p.Success = x.(*TeacherQueryCourseResponse)
+}
+
+var fieldIDToName_ServiceShowCourseSelectionResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceShowCourseSelectionResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceShowCourseSelectionResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceShowCourseSelectionResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseSelectionResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewTeacherQueryCourseResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceShowCourseSelectionResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ShowCourseSelection_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceShowCourseSelectionResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceShowCourseSelectionResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceShowCourseSelectionResult(%+v)", *p)
+}
+
+func (p *ServiceShowCourseSelectionResult) DeepEqual(ano *ServiceShowCourseSelectionResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceShowCourseSelectionResult) Field0DeepEqual(src *TeacherQueryCourseResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceStudentCourseSelectionArgs struct {
+	Req *ShowStudentInfoRequest `thrift:"req,1" json:"req"`
+}
+
+func NewServiceStudentCourseSelectionArgs() *ServiceStudentCourseSelectionArgs {
+	return &ServiceStudentCourseSelectionArgs{}
+}
+
+var ServiceStudentCourseSelectionArgs_Req_DEFAULT *ShowStudentInfoRequest
+
+func (p *ServiceStudentCourseSelectionArgs) GetReq() (v *ShowStudentInfoRequest) {
+	if !p.IsSetReq() {
+		return ServiceStudentCourseSelectionArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ServiceStudentCourseSelectionArgs) SetReq(val *ShowStudentInfoRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_ServiceStudentCourseSelectionArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ServiceStudentCourseSelectionArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ServiceStudentCourseSelectionArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceStudentCourseSelectionArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceStudentCourseSelectionArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewShowStudentInfoRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceStudentCourseSelectionArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("StudentCourseSelection_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceStudentCourseSelectionArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ServiceStudentCourseSelectionArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceStudentCourseSelectionArgs(%+v)", *p)
+}
+
+func (p *ServiceStudentCourseSelectionArgs) DeepEqual(ano *ServiceStudentCourseSelectionArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceStudentCourseSelectionArgs) Field1DeepEqual(src *ShowStudentInfoRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceStudentCourseSelectionResult struct {
+	Success *ShowStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceStudentCourseSelectionResult() *ServiceStudentCourseSelectionResult {
+	return &ServiceStudentCourseSelectionResult{}
+}
+
+var ServiceStudentCourseSelectionResult_Success_DEFAULT *ShowStudentInfoResponse
+
+func (p *ServiceStudentCourseSelectionResult) GetSuccess() (v *ShowStudentInfoResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceStudentCourseSelectionResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceStudentCourseSelectionResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ShowStudentInfoResponse)
+}
+
+var fieldIDToName_ServiceStudentCourseSelectionResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceStudentCourseSelectionResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceStudentCourseSelectionResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceStudentCourseSelectionResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceStudentCourseSelectionResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewShowStudentInfoResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ServiceStudentCourseSelectionResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("StudentCourseSelection_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceStudentCourseSelectionResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ServiceStudentCourseSelectionResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceStudentCourseSelectionResult(%+v)", *p)
+}
+
+func (p *ServiceStudentCourseSelectionResult) DeepEqual(ano *ServiceStudentCourseSelectionResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *ServiceStudentCourseSelectionResult) Field0DeepEqual(src *ShowStudentInfoResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type ServiceQueryStudentInfoArgs struct {
+}
+
+func NewServiceQueryStudentInfoArgs() *ServiceQueryStudentInfoArgs {
+	return &ServiceQueryStudentInfoArgs{}
+}
+
+var fieldIDToName_ServiceQueryStudentInfoArgs = map[int16]string{}
+
+func (p *ServiceQueryStudentInfoArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		if err = iprot.Skip(fieldTypeId); err != nil {
+			goto SkipFieldTypeError
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+SkipFieldTypeError:
+	return thrift.PrependError(fmt.Sprintf("%T skip field type %d error", p, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceQueryStudentInfoArgs) Write(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteStructBegin("QueryStudentInfo_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ServiceQueryStudentInfoArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ServiceQueryStudentInfoArgs(%+v)", *p)
+}
+
+func (p *ServiceQueryStudentInfoArgs) DeepEqual(ano *ServiceQueryStudentInfoArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	return true
+}
+
+type ServiceQueryStudentInfoResult struct {
+	Success *AdminQueryStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
+}
+
+func NewServiceQueryStudentInfoResult() *ServiceQueryStudentInfoResult {
+	return &ServiceQueryStudentInfoResult{}
+}
+
+var ServiceQueryStudentInfoResult_Success_DEFAULT *AdminQueryStudentInfoResponse
+
+func (p *ServiceQueryStudentInfoResult) GetSuccess() (v *AdminQueryStudentInfoResponse) {
+	if !p.IsSetSuccess() {
+		return ServiceQueryStudentInfoResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ServiceQueryStudentInfoResult) SetSuccess(x interface{}) {
+	p.Success = x.(*AdminQueryStudentInfoResponse)
+}
+
+var fieldIDToName_ServiceQueryStudentInfoResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ServiceQueryStudentInfoResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ServiceQueryStudentInfoResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceQueryStudentInfoResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ServiceQueryStudentInfoResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewAdminQueryStudentInfoResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -17282,7 +17078,7 @@ func (p *AdminServiceQueryStudentInfoResult) ReadField0(iprot thrift.TProtocol) 
 	return nil
 }
 
-func (p *AdminServiceQueryStudentInfoResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryStudentInfoResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("QueryStudentInfo_result"); err != nil {
 		goto WriteStructBeginError
@@ -17311,7 +17107,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryStudentInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryStudentInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -17330,14 +17126,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *AdminServiceQueryStudentInfoResult) String() string {
+func (p *ServiceQueryStudentInfoResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceQueryStudentInfoResult(%+v)", *p)
+	return fmt.Sprintf("ServiceQueryStudentInfoResult(%+v)", *p)
 }
 
-func (p *AdminServiceQueryStudentInfoResult) DeepEqual(ano *AdminServiceQueryStudentInfoResult) bool {
+func (p *ServiceQueryStudentInfoResult) DeepEqual(ano *ServiceQueryStudentInfoResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -17349,7 +17145,7 @@ func (p *AdminServiceQueryStudentInfoResult) DeepEqual(ano *AdminServiceQueryStu
 	return true
 }
 
-func (p *AdminServiceQueryStudentInfoResult) Field0DeepEqual(src *AdminQueryStudentInfoResponse) bool {
+func (p *ServiceQueryStudentInfoResult) Field0DeepEqual(src *AdminQueryStudentInfoResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -17357,16 +17153,16 @@ func (p *AdminServiceQueryStudentInfoResult) Field0DeepEqual(src *AdminQueryStud
 	return true
 }
 
-type AdminServiceQueryTeacherInfoArgs struct {
+type ServiceQueryTeacherInfoArgs struct {
 }
 
-func NewAdminServiceQueryTeacherInfoArgs() *AdminServiceQueryTeacherInfoArgs {
-	return &AdminServiceQueryTeacherInfoArgs{}
+func NewServiceQueryTeacherInfoArgs() *ServiceQueryTeacherInfoArgs {
+	return &ServiceQueryTeacherInfoArgs{}
 }
 
-var fieldIDToName_AdminServiceQueryTeacherInfoArgs = map[int16]string{}
+var fieldIDToName_ServiceQueryTeacherInfoArgs = map[int16]string{}
 
-func (p *AdminServiceQueryTeacherInfoArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryTeacherInfoArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -17409,7 +17205,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryTeacherInfoArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryTeacherInfoArgs) Write(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteStructBegin("QueryTeacherInfo_args"); err != nil {
 		goto WriteStructBeginError
 	}
@@ -17431,14 +17227,14 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryTeacherInfoArgs) String() string {
+func (p *ServiceQueryTeacherInfoArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceQueryTeacherInfoArgs(%+v)", *p)
+	return fmt.Sprintf("ServiceQueryTeacherInfoArgs(%+v)", *p)
 }
 
-func (p *AdminServiceQueryTeacherInfoArgs) DeepEqual(ano *AdminServiceQueryTeacherInfoArgs) bool {
+func (p *ServiceQueryTeacherInfoArgs) DeepEqual(ano *ServiceQueryTeacherInfoArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -17447,35 +17243,35 @@ func (p *AdminServiceQueryTeacherInfoArgs) DeepEqual(ano *AdminServiceQueryTeach
 	return true
 }
 
-type AdminServiceQueryTeacherInfoResult struct {
+type ServiceQueryTeacherInfoResult struct {
 	Success *AdminQueryTeacherInfoResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-func NewAdminServiceQueryTeacherInfoResult() *AdminServiceQueryTeacherInfoResult {
-	return &AdminServiceQueryTeacherInfoResult{}
+func NewServiceQueryTeacherInfoResult() *ServiceQueryTeacherInfoResult {
+	return &ServiceQueryTeacherInfoResult{}
 }
 
-var AdminServiceQueryTeacherInfoResult_Success_DEFAULT *AdminQueryTeacherInfoResponse
+var ServiceQueryTeacherInfoResult_Success_DEFAULT *AdminQueryTeacherInfoResponse
 
-func (p *AdminServiceQueryTeacherInfoResult) GetSuccess() (v *AdminQueryTeacherInfoResponse) {
+func (p *ServiceQueryTeacherInfoResult) GetSuccess() (v *AdminQueryTeacherInfoResponse) {
 	if !p.IsSetSuccess() {
-		return AdminServiceQueryTeacherInfoResult_Success_DEFAULT
+		return ServiceQueryTeacherInfoResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *AdminServiceQueryTeacherInfoResult) SetSuccess(x interface{}) {
+func (p *ServiceQueryTeacherInfoResult) SetSuccess(x interface{}) {
 	p.Success = x.(*AdminQueryTeacherInfoResponse)
 }
 
-var fieldIDToName_AdminServiceQueryTeacherInfoResult = map[int16]string{
+var fieldIDToName_ServiceQueryTeacherInfoResult = map[int16]string{
 	0: "success",
 }
 
-func (p *AdminServiceQueryTeacherInfoResult) IsSetSuccess() bool {
+func (p *ServiceQueryTeacherInfoResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *AdminServiceQueryTeacherInfoResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryTeacherInfoResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -17524,7 +17320,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceQueryTeacherInfoResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceQueryTeacherInfoResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -17534,7 +17330,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryTeacherInfoResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ServiceQueryTeacherInfoResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewAdminQueryTeacherInfoResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -17542,7 +17338,7 @@ func (p *AdminServiceQueryTeacherInfoResult) ReadField0(iprot thrift.TProtocol) 
 	return nil
 }
 
-func (p *AdminServiceQueryTeacherInfoResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryTeacherInfoResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("QueryTeacherInfo_result"); err != nil {
 		goto WriteStructBeginError
@@ -17571,7 +17367,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryTeacherInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryTeacherInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -17590,14 +17386,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *AdminServiceQueryTeacherInfoResult) String() string {
+func (p *ServiceQueryTeacherInfoResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceQueryTeacherInfoResult(%+v)", *p)
+	return fmt.Sprintf("ServiceQueryTeacherInfoResult(%+v)", *p)
 }
 
-func (p *AdminServiceQueryTeacherInfoResult) DeepEqual(ano *AdminServiceQueryTeacherInfoResult) bool {
+func (p *ServiceQueryTeacherInfoResult) DeepEqual(ano *ServiceQueryTeacherInfoResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -17609,7 +17405,7 @@ func (p *AdminServiceQueryTeacherInfoResult) DeepEqual(ano *AdminServiceQueryTea
 	return true
 }
 
-func (p *AdminServiceQueryTeacherInfoResult) Field0DeepEqual(src *AdminQueryTeacherInfoResponse) bool {
+func (p *ServiceQueryTeacherInfoResult) Field0DeepEqual(src *AdminQueryTeacherInfoResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -17617,16 +17413,16 @@ func (p *AdminServiceQueryTeacherInfoResult) Field0DeepEqual(src *AdminQueryTeac
 	return true
 }
 
-type AdminServiceQueryCourseInfoArgs struct {
+type ServiceQueryCourseInfoArgs struct {
 }
 
-func NewAdminServiceQueryCourseInfoArgs() *AdminServiceQueryCourseInfoArgs {
-	return &AdminServiceQueryCourseInfoArgs{}
+func NewServiceQueryCourseInfoArgs() *ServiceQueryCourseInfoArgs {
+	return &ServiceQueryCourseInfoArgs{}
 }
 
-var fieldIDToName_AdminServiceQueryCourseInfoArgs = map[int16]string{}
+var fieldIDToName_ServiceQueryCourseInfoArgs = map[int16]string{}
 
-func (p *AdminServiceQueryCourseInfoArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryCourseInfoArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -17669,7 +17465,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryCourseInfoArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryCourseInfoArgs) Write(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteStructBegin("QueryCourseInfo_args"); err != nil {
 		goto WriteStructBeginError
 	}
@@ -17691,14 +17487,14 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryCourseInfoArgs) String() string {
+func (p *ServiceQueryCourseInfoArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceQueryCourseInfoArgs(%+v)", *p)
+	return fmt.Sprintf("ServiceQueryCourseInfoArgs(%+v)", *p)
 }
 
-func (p *AdminServiceQueryCourseInfoArgs) DeepEqual(ano *AdminServiceQueryCourseInfoArgs) bool {
+func (p *ServiceQueryCourseInfoArgs) DeepEqual(ano *ServiceQueryCourseInfoArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -17707,35 +17503,35 @@ func (p *AdminServiceQueryCourseInfoArgs) DeepEqual(ano *AdminServiceQueryCourse
 	return true
 }
 
-type AdminServiceQueryCourseInfoResult struct {
+type ServiceQueryCourseInfoResult struct {
 	Success *AdminQueryCourseInfoResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-func NewAdminServiceQueryCourseInfoResult() *AdminServiceQueryCourseInfoResult {
-	return &AdminServiceQueryCourseInfoResult{}
+func NewServiceQueryCourseInfoResult() *ServiceQueryCourseInfoResult {
+	return &ServiceQueryCourseInfoResult{}
 }
 
-var AdminServiceQueryCourseInfoResult_Success_DEFAULT *AdminQueryCourseInfoResponse
+var ServiceQueryCourseInfoResult_Success_DEFAULT *AdminQueryCourseInfoResponse
 
-func (p *AdminServiceQueryCourseInfoResult) GetSuccess() (v *AdminQueryCourseInfoResponse) {
+func (p *ServiceQueryCourseInfoResult) GetSuccess() (v *AdminQueryCourseInfoResponse) {
 	if !p.IsSetSuccess() {
-		return AdminServiceQueryCourseInfoResult_Success_DEFAULT
+		return ServiceQueryCourseInfoResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *AdminServiceQueryCourseInfoResult) SetSuccess(x interface{}) {
+func (p *ServiceQueryCourseInfoResult) SetSuccess(x interface{}) {
 	p.Success = x.(*AdminQueryCourseInfoResponse)
 }
 
-var fieldIDToName_AdminServiceQueryCourseInfoResult = map[int16]string{
+var fieldIDToName_ServiceQueryCourseInfoResult = map[int16]string{
 	0: "success",
 }
 
-func (p *AdminServiceQueryCourseInfoResult) IsSetSuccess() bool {
+func (p *ServiceQueryCourseInfoResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *AdminServiceQueryCourseInfoResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryCourseInfoResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -17784,7 +17580,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceQueryCourseInfoResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceQueryCourseInfoResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -17794,7 +17590,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryCourseInfoResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ServiceQueryCourseInfoResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewAdminQueryCourseInfoResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -17802,7 +17598,7 @@ func (p *AdminServiceQueryCourseInfoResult) ReadField0(iprot thrift.TProtocol) e
 	return nil
 }
 
-func (p *AdminServiceQueryCourseInfoResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryCourseInfoResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("QueryCourseInfo_result"); err != nil {
 		goto WriteStructBeginError
@@ -17831,7 +17627,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceQueryCourseInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ServiceQueryCourseInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -17850,14 +17646,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *AdminServiceQueryCourseInfoResult) String() string {
+func (p *ServiceQueryCourseInfoResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceQueryCourseInfoResult(%+v)", *p)
+	return fmt.Sprintf("ServiceQueryCourseInfoResult(%+v)", *p)
 }
 
-func (p *AdminServiceQueryCourseInfoResult) DeepEqual(ano *AdminServiceQueryCourseInfoResult) bool {
+func (p *ServiceQueryCourseInfoResult) DeepEqual(ano *ServiceQueryCourseInfoResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -17869,7 +17665,7 @@ func (p *AdminServiceQueryCourseInfoResult) DeepEqual(ano *AdminServiceQueryCour
 	return true
 }
 
-func (p *AdminServiceQueryCourseInfoResult) Field0DeepEqual(src *AdminQueryCourseInfoResponse) bool {
+func (p *ServiceQueryCourseInfoResult) Field0DeepEqual(src *AdminQueryCourseInfoResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -17877,35 +17673,35 @@ func (p *AdminServiceQueryCourseInfoResult) Field0DeepEqual(src *AdminQueryCours
 	return true
 }
 
-type AdminServiceAddStudentArgs struct {
+type ServiceAddStudentArgs struct {
 	Req *AdminAddStudentInfoRequest `thrift:"req,1" json:"req"`
 }
 
-func NewAdminServiceAddStudentArgs() *AdminServiceAddStudentArgs {
-	return &AdminServiceAddStudentArgs{}
+func NewServiceAddStudentArgs() *ServiceAddStudentArgs {
+	return &ServiceAddStudentArgs{}
 }
 
-var AdminServiceAddStudentArgs_Req_DEFAULT *AdminAddStudentInfoRequest
+var ServiceAddStudentArgs_Req_DEFAULT *AdminAddStudentInfoRequest
 
-func (p *AdminServiceAddStudentArgs) GetReq() (v *AdminAddStudentInfoRequest) {
+func (p *ServiceAddStudentArgs) GetReq() (v *AdminAddStudentInfoRequest) {
 	if !p.IsSetReq() {
-		return AdminServiceAddStudentArgs_Req_DEFAULT
+		return ServiceAddStudentArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *AdminServiceAddStudentArgs) SetReq(val *AdminAddStudentInfoRequest) {
+func (p *ServiceAddStudentArgs) SetReq(val *AdminAddStudentInfoRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_AdminServiceAddStudentArgs = map[int16]string{
+var fieldIDToName_ServiceAddStudentArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *AdminServiceAddStudentArgs) IsSetReq() bool {
+func (p *ServiceAddStudentArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *AdminServiceAddStudentArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceAddStudentArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -17954,7 +17750,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceAddStudentArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceAddStudentArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -17964,7 +17760,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddStudentArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ServiceAddStudentArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewAdminAddStudentInfoRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -17972,7 +17768,7 @@ func (p *AdminServiceAddStudentArgs) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *AdminServiceAddStudentArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddStudentArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("AddStudent_args"); err != nil {
 		goto WriteStructBeginError
@@ -18001,7 +17797,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddStudentArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddStudentArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -18018,14 +17814,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *AdminServiceAddStudentArgs) String() string {
+func (p *ServiceAddStudentArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceAddStudentArgs(%+v)", *p)
+	return fmt.Sprintf("ServiceAddStudentArgs(%+v)", *p)
 }
 
-func (p *AdminServiceAddStudentArgs) DeepEqual(ano *AdminServiceAddStudentArgs) bool {
+func (p *ServiceAddStudentArgs) DeepEqual(ano *ServiceAddStudentArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -18037,7 +17833,7 @@ func (p *AdminServiceAddStudentArgs) DeepEqual(ano *AdminServiceAddStudentArgs) 
 	return true
 }
 
-func (p *AdminServiceAddStudentArgs) Field1DeepEqual(src *AdminAddStudentInfoRequest) bool {
+func (p *ServiceAddStudentArgs) Field1DeepEqual(src *AdminAddStudentInfoRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -18045,35 +17841,35 @@ func (p *AdminServiceAddStudentArgs) Field1DeepEqual(src *AdminAddStudentInfoReq
 	return true
 }
 
-type AdminServiceAddStudentResult struct {
+type ServiceAddStudentResult struct {
 	Success *AdminAddStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-func NewAdminServiceAddStudentResult() *AdminServiceAddStudentResult {
-	return &AdminServiceAddStudentResult{}
+func NewServiceAddStudentResult() *ServiceAddStudentResult {
+	return &ServiceAddStudentResult{}
 }
 
-var AdminServiceAddStudentResult_Success_DEFAULT *AdminAddStudentInfoResponse
+var ServiceAddStudentResult_Success_DEFAULT *AdminAddStudentInfoResponse
 
-func (p *AdminServiceAddStudentResult) GetSuccess() (v *AdminAddStudentInfoResponse) {
+func (p *ServiceAddStudentResult) GetSuccess() (v *AdminAddStudentInfoResponse) {
 	if !p.IsSetSuccess() {
-		return AdminServiceAddStudentResult_Success_DEFAULT
+		return ServiceAddStudentResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *AdminServiceAddStudentResult) SetSuccess(x interface{}) {
+func (p *ServiceAddStudentResult) SetSuccess(x interface{}) {
 	p.Success = x.(*AdminAddStudentInfoResponse)
 }
 
-var fieldIDToName_AdminServiceAddStudentResult = map[int16]string{
+var fieldIDToName_ServiceAddStudentResult = map[int16]string{
 	0: "success",
 }
 
-func (p *AdminServiceAddStudentResult) IsSetSuccess() bool {
+func (p *ServiceAddStudentResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *AdminServiceAddStudentResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceAddStudentResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -18122,7 +17918,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceAddStudentResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceAddStudentResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -18132,7 +17928,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddStudentResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ServiceAddStudentResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewAdminAddStudentInfoResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -18140,7 +17936,7 @@ func (p *AdminServiceAddStudentResult) ReadField0(iprot thrift.TProtocol) error 
 	return nil
 }
 
-func (p *AdminServiceAddStudentResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddStudentResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("AddStudent_result"); err != nil {
 		goto WriteStructBeginError
@@ -18169,7 +17965,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddStudentResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddStudentResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -18188,14 +17984,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *AdminServiceAddStudentResult) String() string {
+func (p *ServiceAddStudentResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceAddStudentResult(%+v)", *p)
+	return fmt.Sprintf("ServiceAddStudentResult(%+v)", *p)
 }
 
-func (p *AdminServiceAddStudentResult) DeepEqual(ano *AdminServiceAddStudentResult) bool {
+func (p *ServiceAddStudentResult) DeepEqual(ano *ServiceAddStudentResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -18207,7 +18003,7 @@ func (p *AdminServiceAddStudentResult) DeepEqual(ano *AdminServiceAddStudentResu
 	return true
 }
 
-func (p *AdminServiceAddStudentResult) Field0DeepEqual(src *AdminAddStudentInfoResponse) bool {
+func (p *ServiceAddStudentResult) Field0DeepEqual(src *AdminAddStudentInfoResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -18215,35 +18011,35 @@ func (p *AdminServiceAddStudentResult) Field0DeepEqual(src *AdminAddStudentInfoR
 	return true
 }
 
-type AdminServiceDeleteStudentArgs struct {
+type ServiceDeleteStudentArgs struct {
 	Req *AdminDeleteStudentInfoRequest `thrift:"req,1" json:"req"`
 }
 
-func NewAdminServiceDeleteStudentArgs() *AdminServiceDeleteStudentArgs {
-	return &AdminServiceDeleteStudentArgs{}
+func NewServiceDeleteStudentArgs() *ServiceDeleteStudentArgs {
+	return &ServiceDeleteStudentArgs{}
 }
 
-var AdminServiceDeleteStudentArgs_Req_DEFAULT *AdminDeleteStudentInfoRequest
+var ServiceDeleteStudentArgs_Req_DEFAULT *AdminDeleteStudentInfoRequest
 
-func (p *AdminServiceDeleteStudentArgs) GetReq() (v *AdminDeleteStudentInfoRequest) {
+func (p *ServiceDeleteStudentArgs) GetReq() (v *AdminDeleteStudentInfoRequest) {
 	if !p.IsSetReq() {
-		return AdminServiceDeleteStudentArgs_Req_DEFAULT
+		return ServiceDeleteStudentArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *AdminServiceDeleteStudentArgs) SetReq(val *AdminDeleteStudentInfoRequest) {
+func (p *ServiceDeleteStudentArgs) SetReq(val *AdminDeleteStudentInfoRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_AdminServiceDeleteStudentArgs = map[int16]string{
+var fieldIDToName_ServiceDeleteStudentArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *AdminServiceDeleteStudentArgs) IsSetReq() bool {
+func (p *ServiceDeleteStudentArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *AdminServiceDeleteStudentArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteStudentArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -18292,7 +18088,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceDeleteStudentArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceDeleteStudentArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -18302,7 +18098,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteStudentArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ServiceDeleteStudentArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewAdminDeleteStudentInfoRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -18310,7 +18106,7 @@ func (p *AdminServiceDeleteStudentArgs) ReadField1(iprot thrift.TProtocol) error
 	return nil
 }
 
-func (p *AdminServiceDeleteStudentArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteStudentArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DeleteStudent_args"); err != nil {
 		goto WriteStructBeginError
@@ -18339,7 +18135,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteStudentArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteStudentArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -18356,14 +18152,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteStudentArgs) String() string {
+func (p *ServiceDeleteStudentArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceDeleteStudentArgs(%+v)", *p)
+	return fmt.Sprintf("ServiceDeleteStudentArgs(%+v)", *p)
 }
 
-func (p *AdminServiceDeleteStudentArgs) DeepEqual(ano *AdminServiceDeleteStudentArgs) bool {
+func (p *ServiceDeleteStudentArgs) DeepEqual(ano *ServiceDeleteStudentArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -18375,7 +18171,7 @@ func (p *AdminServiceDeleteStudentArgs) DeepEqual(ano *AdminServiceDeleteStudent
 	return true
 }
 
-func (p *AdminServiceDeleteStudentArgs) Field1DeepEqual(src *AdminDeleteStudentInfoRequest) bool {
+func (p *ServiceDeleteStudentArgs) Field1DeepEqual(src *AdminDeleteStudentInfoRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -18383,35 +18179,35 @@ func (p *AdminServiceDeleteStudentArgs) Field1DeepEqual(src *AdminDeleteStudentI
 	return true
 }
 
-type AdminServiceDeleteStudentResult struct {
+type ServiceDeleteStudentResult struct {
 	Success *AdminDeleteStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-func NewAdminServiceDeleteStudentResult() *AdminServiceDeleteStudentResult {
-	return &AdminServiceDeleteStudentResult{}
+func NewServiceDeleteStudentResult() *ServiceDeleteStudentResult {
+	return &ServiceDeleteStudentResult{}
 }
 
-var AdminServiceDeleteStudentResult_Success_DEFAULT *AdminDeleteStudentInfoResponse
+var ServiceDeleteStudentResult_Success_DEFAULT *AdminDeleteStudentInfoResponse
 
-func (p *AdminServiceDeleteStudentResult) GetSuccess() (v *AdminDeleteStudentInfoResponse) {
+func (p *ServiceDeleteStudentResult) GetSuccess() (v *AdminDeleteStudentInfoResponse) {
 	if !p.IsSetSuccess() {
-		return AdminServiceDeleteStudentResult_Success_DEFAULT
+		return ServiceDeleteStudentResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *AdminServiceDeleteStudentResult) SetSuccess(x interface{}) {
+func (p *ServiceDeleteStudentResult) SetSuccess(x interface{}) {
 	p.Success = x.(*AdminDeleteStudentInfoResponse)
 }
 
-var fieldIDToName_AdminServiceDeleteStudentResult = map[int16]string{
+var fieldIDToName_ServiceDeleteStudentResult = map[int16]string{
 	0: "success",
 }
 
-func (p *AdminServiceDeleteStudentResult) IsSetSuccess() bool {
+func (p *ServiceDeleteStudentResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *AdminServiceDeleteStudentResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteStudentResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -18460,7 +18256,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceDeleteStudentResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceDeleteStudentResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -18470,7 +18266,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteStudentResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ServiceDeleteStudentResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewAdminDeleteStudentInfoResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -18478,7 +18274,7 @@ func (p *AdminServiceDeleteStudentResult) ReadField0(iprot thrift.TProtocol) err
 	return nil
 }
 
-func (p *AdminServiceDeleteStudentResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteStudentResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DeleteStudent_result"); err != nil {
 		goto WriteStructBeginError
@@ -18507,7 +18303,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteStudentResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteStudentResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -18526,14 +18322,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteStudentResult) String() string {
+func (p *ServiceDeleteStudentResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceDeleteStudentResult(%+v)", *p)
+	return fmt.Sprintf("ServiceDeleteStudentResult(%+v)", *p)
 }
 
-func (p *AdminServiceDeleteStudentResult) DeepEqual(ano *AdminServiceDeleteStudentResult) bool {
+func (p *ServiceDeleteStudentResult) DeepEqual(ano *ServiceDeleteStudentResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -18545,7 +18341,7 @@ func (p *AdminServiceDeleteStudentResult) DeepEqual(ano *AdminServiceDeleteStude
 	return true
 }
 
-func (p *AdminServiceDeleteStudentResult) Field0DeepEqual(src *AdminDeleteStudentInfoResponse) bool {
+func (p *ServiceDeleteStudentResult) Field0DeepEqual(src *AdminDeleteStudentInfoResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -18553,35 +18349,35 @@ func (p *AdminServiceDeleteStudentResult) Field0DeepEqual(src *AdminDeleteStuden
 	return true
 }
 
-type AdminServiceAddTeacherArgs struct {
+type ServiceAddTeacherArgs struct {
 	Req *AdminAddTeacherInfoRequest `thrift:"req,1" json:"req"`
 }
 
-func NewAdminServiceAddTeacherArgs() *AdminServiceAddTeacherArgs {
-	return &AdminServiceAddTeacherArgs{}
+func NewServiceAddTeacherArgs() *ServiceAddTeacherArgs {
+	return &ServiceAddTeacherArgs{}
 }
 
-var AdminServiceAddTeacherArgs_Req_DEFAULT *AdminAddTeacherInfoRequest
+var ServiceAddTeacherArgs_Req_DEFAULT *AdminAddTeacherInfoRequest
 
-func (p *AdminServiceAddTeacherArgs) GetReq() (v *AdminAddTeacherInfoRequest) {
+func (p *ServiceAddTeacherArgs) GetReq() (v *AdminAddTeacherInfoRequest) {
 	if !p.IsSetReq() {
-		return AdminServiceAddTeacherArgs_Req_DEFAULT
+		return ServiceAddTeacherArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *AdminServiceAddTeacherArgs) SetReq(val *AdminAddTeacherInfoRequest) {
+func (p *ServiceAddTeacherArgs) SetReq(val *AdminAddTeacherInfoRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_AdminServiceAddTeacherArgs = map[int16]string{
+var fieldIDToName_ServiceAddTeacherArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *AdminServiceAddTeacherArgs) IsSetReq() bool {
+func (p *ServiceAddTeacherArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *AdminServiceAddTeacherArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceAddTeacherArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -18630,7 +18426,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceAddTeacherArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceAddTeacherArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -18640,7 +18436,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddTeacherArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ServiceAddTeacherArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewAdminAddTeacherInfoRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -18648,7 +18444,7 @@ func (p *AdminServiceAddTeacherArgs) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *AdminServiceAddTeacherArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddTeacherArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("AddTeacher_args"); err != nil {
 		goto WriteStructBeginError
@@ -18677,7 +18473,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddTeacherArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddTeacherArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -18694,14 +18490,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *AdminServiceAddTeacherArgs) String() string {
+func (p *ServiceAddTeacherArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceAddTeacherArgs(%+v)", *p)
+	return fmt.Sprintf("ServiceAddTeacherArgs(%+v)", *p)
 }
 
-func (p *AdminServiceAddTeacherArgs) DeepEqual(ano *AdminServiceAddTeacherArgs) bool {
+func (p *ServiceAddTeacherArgs) DeepEqual(ano *ServiceAddTeacherArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -18713,7 +18509,7 @@ func (p *AdminServiceAddTeacherArgs) DeepEqual(ano *AdminServiceAddTeacherArgs) 
 	return true
 }
 
-func (p *AdminServiceAddTeacherArgs) Field1DeepEqual(src *AdminAddTeacherInfoRequest) bool {
+func (p *ServiceAddTeacherArgs) Field1DeepEqual(src *AdminAddTeacherInfoRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -18721,35 +18517,35 @@ func (p *AdminServiceAddTeacherArgs) Field1DeepEqual(src *AdminAddTeacherInfoReq
 	return true
 }
 
-type AdminServiceAddTeacherResult struct {
+type ServiceAddTeacherResult struct {
 	Success *AdminAddTeacherInfoResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-func NewAdminServiceAddTeacherResult() *AdminServiceAddTeacherResult {
-	return &AdminServiceAddTeacherResult{}
+func NewServiceAddTeacherResult() *ServiceAddTeacherResult {
+	return &ServiceAddTeacherResult{}
 }
 
-var AdminServiceAddTeacherResult_Success_DEFAULT *AdminAddTeacherInfoResponse
+var ServiceAddTeacherResult_Success_DEFAULT *AdminAddTeacherInfoResponse
 
-func (p *AdminServiceAddTeacherResult) GetSuccess() (v *AdminAddTeacherInfoResponse) {
+func (p *ServiceAddTeacherResult) GetSuccess() (v *AdminAddTeacherInfoResponse) {
 	if !p.IsSetSuccess() {
-		return AdminServiceAddTeacherResult_Success_DEFAULT
+		return ServiceAddTeacherResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *AdminServiceAddTeacherResult) SetSuccess(x interface{}) {
+func (p *ServiceAddTeacherResult) SetSuccess(x interface{}) {
 	p.Success = x.(*AdminAddTeacherInfoResponse)
 }
 
-var fieldIDToName_AdminServiceAddTeacherResult = map[int16]string{
+var fieldIDToName_ServiceAddTeacherResult = map[int16]string{
 	0: "success",
 }
 
-func (p *AdminServiceAddTeacherResult) IsSetSuccess() bool {
+func (p *ServiceAddTeacherResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *AdminServiceAddTeacherResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceAddTeacherResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -18798,7 +18594,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceAddTeacherResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceAddTeacherResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -18808,7 +18604,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddTeacherResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ServiceAddTeacherResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewAdminAddTeacherInfoResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -18816,7 +18612,7 @@ func (p *AdminServiceAddTeacherResult) ReadField0(iprot thrift.TProtocol) error 
 	return nil
 }
 
-func (p *AdminServiceAddTeacherResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddTeacherResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("AddTeacher_result"); err != nil {
 		goto WriteStructBeginError
@@ -18845,7 +18641,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddTeacherResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddTeacherResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -18864,14 +18660,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *AdminServiceAddTeacherResult) String() string {
+func (p *ServiceAddTeacherResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceAddTeacherResult(%+v)", *p)
+	return fmt.Sprintf("ServiceAddTeacherResult(%+v)", *p)
 }
 
-func (p *AdminServiceAddTeacherResult) DeepEqual(ano *AdminServiceAddTeacherResult) bool {
+func (p *ServiceAddTeacherResult) DeepEqual(ano *ServiceAddTeacherResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -18883,7 +18679,7 @@ func (p *AdminServiceAddTeacherResult) DeepEqual(ano *AdminServiceAddTeacherResu
 	return true
 }
 
-func (p *AdminServiceAddTeacherResult) Field0DeepEqual(src *AdminAddTeacherInfoResponse) bool {
+func (p *ServiceAddTeacherResult) Field0DeepEqual(src *AdminAddTeacherInfoResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -18891,35 +18687,35 @@ func (p *AdminServiceAddTeacherResult) Field0DeepEqual(src *AdminAddTeacherInfoR
 	return true
 }
 
-type AdminServiceDeleteTeacherArgs struct {
+type ServiceDeleteTeacherArgs struct {
 	Req *AdminDeleteTeacherInfoRequest `thrift:"req,1" json:"req"`
 }
 
-func NewAdminServiceDeleteTeacherArgs() *AdminServiceDeleteTeacherArgs {
-	return &AdminServiceDeleteTeacherArgs{}
+func NewServiceDeleteTeacherArgs() *ServiceDeleteTeacherArgs {
+	return &ServiceDeleteTeacherArgs{}
 }
 
-var AdminServiceDeleteTeacherArgs_Req_DEFAULT *AdminDeleteTeacherInfoRequest
+var ServiceDeleteTeacherArgs_Req_DEFAULT *AdminDeleteTeacherInfoRequest
 
-func (p *AdminServiceDeleteTeacherArgs) GetReq() (v *AdminDeleteTeacherInfoRequest) {
+func (p *ServiceDeleteTeacherArgs) GetReq() (v *AdminDeleteTeacherInfoRequest) {
 	if !p.IsSetReq() {
-		return AdminServiceDeleteTeacherArgs_Req_DEFAULT
+		return ServiceDeleteTeacherArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *AdminServiceDeleteTeacherArgs) SetReq(val *AdminDeleteTeacherInfoRequest) {
+func (p *ServiceDeleteTeacherArgs) SetReq(val *AdminDeleteTeacherInfoRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_AdminServiceDeleteTeacherArgs = map[int16]string{
+var fieldIDToName_ServiceDeleteTeacherArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *AdminServiceDeleteTeacherArgs) IsSetReq() bool {
+func (p *ServiceDeleteTeacherArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *AdminServiceDeleteTeacherArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteTeacherArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -18968,7 +18764,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceDeleteTeacherArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceDeleteTeacherArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -18978,7 +18774,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteTeacherArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ServiceDeleteTeacherArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewAdminDeleteTeacherInfoRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -18986,7 +18782,7 @@ func (p *AdminServiceDeleteTeacherArgs) ReadField1(iprot thrift.TProtocol) error
 	return nil
 }
 
-func (p *AdminServiceDeleteTeacherArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteTeacherArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DeleteTeacher_args"); err != nil {
 		goto WriteStructBeginError
@@ -19015,7 +18811,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteTeacherArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteTeacherArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -19032,14 +18828,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteTeacherArgs) String() string {
+func (p *ServiceDeleteTeacherArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceDeleteTeacherArgs(%+v)", *p)
+	return fmt.Sprintf("ServiceDeleteTeacherArgs(%+v)", *p)
 }
 
-func (p *AdminServiceDeleteTeacherArgs) DeepEqual(ano *AdminServiceDeleteTeacherArgs) bool {
+func (p *ServiceDeleteTeacherArgs) DeepEqual(ano *ServiceDeleteTeacherArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -19051,7 +18847,7 @@ func (p *AdminServiceDeleteTeacherArgs) DeepEqual(ano *AdminServiceDeleteTeacher
 	return true
 }
 
-func (p *AdminServiceDeleteTeacherArgs) Field1DeepEqual(src *AdminDeleteTeacherInfoRequest) bool {
+func (p *ServiceDeleteTeacherArgs) Field1DeepEqual(src *AdminDeleteTeacherInfoRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -19059,35 +18855,35 @@ func (p *AdminServiceDeleteTeacherArgs) Field1DeepEqual(src *AdminDeleteTeacherI
 	return true
 }
 
-type AdminServiceDeleteTeacherResult struct {
+type ServiceDeleteTeacherResult struct {
 	Success *AdminDeleteStudentInfoResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-func NewAdminServiceDeleteTeacherResult() *AdminServiceDeleteTeacherResult {
-	return &AdminServiceDeleteTeacherResult{}
+func NewServiceDeleteTeacherResult() *ServiceDeleteTeacherResult {
+	return &ServiceDeleteTeacherResult{}
 }
 
-var AdminServiceDeleteTeacherResult_Success_DEFAULT *AdminDeleteStudentInfoResponse
+var ServiceDeleteTeacherResult_Success_DEFAULT *AdminDeleteStudentInfoResponse
 
-func (p *AdminServiceDeleteTeacherResult) GetSuccess() (v *AdminDeleteStudentInfoResponse) {
+func (p *ServiceDeleteTeacherResult) GetSuccess() (v *AdminDeleteStudentInfoResponse) {
 	if !p.IsSetSuccess() {
-		return AdminServiceDeleteTeacherResult_Success_DEFAULT
+		return ServiceDeleteTeacherResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *AdminServiceDeleteTeacherResult) SetSuccess(x interface{}) {
+func (p *ServiceDeleteTeacherResult) SetSuccess(x interface{}) {
 	p.Success = x.(*AdminDeleteStudentInfoResponse)
 }
 
-var fieldIDToName_AdminServiceDeleteTeacherResult = map[int16]string{
+var fieldIDToName_ServiceDeleteTeacherResult = map[int16]string{
 	0: "success",
 }
 
-func (p *AdminServiceDeleteTeacherResult) IsSetSuccess() bool {
+func (p *ServiceDeleteTeacherResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *AdminServiceDeleteTeacherResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteTeacherResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -19136,7 +18932,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceDeleteTeacherResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceDeleteTeacherResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -19146,7 +18942,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteTeacherResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ServiceDeleteTeacherResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewAdminDeleteStudentInfoResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -19154,7 +18950,7 @@ func (p *AdminServiceDeleteTeacherResult) ReadField0(iprot thrift.TProtocol) err
 	return nil
 }
 
-func (p *AdminServiceDeleteTeacherResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteTeacherResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DeleteTeacher_result"); err != nil {
 		goto WriteStructBeginError
@@ -19183,7 +18979,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteTeacherResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteTeacherResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -19202,14 +18998,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteTeacherResult) String() string {
+func (p *ServiceDeleteTeacherResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceDeleteTeacherResult(%+v)", *p)
+	return fmt.Sprintf("ServiceDeleteTeacherResult(%+v)", *p)
 }
 
-func (p *AdminServiceDeleteTeacherResult) DeepEqual(ano *AdminServiceDeleteTeacherResult) bool {
+func (p *ServiceDeleteTeacherResult) DeepEqual(ano *ServiceDeleteTeacherResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -19221,7 +19017,7 @@ func (p *AdminServiceDeleteTeacherResult) DeepEqual(ano *AdminServiceDeleteTeach
 	return true
 }
 
-func (p *AdminServiceDeleteTeacherResult) Field0DeepEqual(src *AdminDeleteStudentInfoResponse) bool {
+func (p *ServiceDeleteTeacherResult) Field0DeepEqual(src *AdminDeleteStudentInfoResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -19229,35 +19025,35 @@ func (p *AdminServiceDeleteTeacherResult) Field0DeepEqual(src *AdminDeleteStuden
 	return true
 }
 
-type AdminServiceAddCourseArgs struct {
+type ServiceAddCourseArgs struct {
 	Req *AdminAddCourseInfoRequest `thrift:"req,1" json:"req"`
 }
 
-func NewAdminServiceAddCourseArgs() *AdminServiceAddCourseArgs {
-	return &AdminServiceAddCourseArgs{}
+func NewServiceAddCourseArgs() *ServiceAddCourseArgs {
+	return &ServiceAddCourseArgs{}
 }
 
-var AdminServiceAddCourseArgs_Req_DEFAULT *AdminAddCourseInfoRequest
+var ServiceAddCourseArgs_Req_DEFAULT *AdminAddCourseInfoRequest
 
-func (p *AdminServiceAddCourseArgs) GetReq() (v *AdminAddCourseInfoRequest) {
+func (p *ServiceAddCourseArgs) GetReq() (v *AdminAddCourseInfoRequest) {
 	if !p.IsSetReq() {
-		return AdminServiceAddCourseArgs_Req_DEFAULT
+		return ServiceAddCourseArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *AdminServiceAddCourseArgs) SetReq(val *AdminAddCourseInfoRequest) {
+func (p *ServiceAddCourseArgs) SetReq(val *AdminAddCourseInfoRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_AdminServiceAddCourseArgs = map[int16]string{
+var fieldIDToName_ServiceAddCourseArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *AdminServiceAddCourseArgs) IsSetReq() bool {
+func (p *ServiceAddCourseArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *AdminServiceAddCourseArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceAddCourseArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -19306,7 +19102,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceAddCourseArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceAddCourseArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -19316,7 +19112,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddCourseArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ServiceAddCourseArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewAdminAddCourseInfoRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -19324,7 +19120,7 @@ func (p *AdminServiceAddCourseArgs) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *AdminServiceAddCourseArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddCourseArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("AddCourse_args"); err != nil {
 		goto WriteStructBeginError
@@ -19353,7 +19149,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -19370,14 +19166,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *AdminServiceAddCourseArgs) String() string {
+func (p *ServiceAddCourseArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceAddCourseArgs(%+v)", *p)
+	return fmt.Sprintf("ServiceAddCourseArgs(%+v)", *p)
 }
 
-func (p *AdminServiceAddCourseArgs) DeepEqual(ano *AdminServiceAddCourseArgs) bool {
+func (p *ServiceAddCourseArgs) DeepEqual(ano *ServiceAddCourseArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -19389,7 +19185,7 @@ func (p *AdminServiceAddCourseArgs) DeepEqual(ano *AdminServiceAddCourseArgs) bo
 	return true
 }
 
-func (p *AdminServiceAddCourseArgs) Field1DeepEqual(src *AdminAddCourseInfoRequest) bool {
+func (p *ServiceAddCourseArgs) Field1DeepEqual(src *AdminAddCourseInfoRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -19397,35 +19193,35 @@ func (p *AdminServiceAddCourseArgs) Field1DeepEqual(src *AdminAddCourseInfoReque
 	return true
 }
 
-type AdminServiceAddCourseResult struct {
+type ServiceAddCourseResult struct {
 	Success *AdminAddCourseInfoResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-func NewAdminServiceAddCourseResult() *AdminServiceAddCourseResult {
-	return &AdminServiceAddCourseResult{}
+func NewServiceAddCourseResult() *ServiceAddCourseResult {
+	return &ServiceAddCourseResult{}
 }
 
-var AdminServiceAddCourseResult_Success_DEFAULT *AdminAddCourseInfoResponse
+var ServiceAddCourseResult_Success_DEFAULT *AdminAddCourseInfoResponse
 
-func (p *AdminServiceAddCourseResult) GetSuccess() (v *AdminAddCourseInfoResponse) {
+func (p *ServiceAddCourseResult) GetSuccess() (v *AdminAddCourseInfoResponse) {
 	if !p.IsSetSuccess() {
-		return AdminServiceAddCourseResult_Success_DEFAULT
+		return ServiceAddCourseResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *AdminServiceAddCourseResult) SetSuccess(x interface{}) {
+func (p *ServiceAddCourseResult) SetSuccess(x interface{}) {
 	p.Success = x.(*AdminAddCourseInfoResponse)
 }
 
-var fieldIDToName_AdminServiceAddCourseResult = map[int16]string{
+var fieldIDToName_ServiceAddCourseResult = map[int16]string{
 	0: "success",
 }
 
-func (p *AdminServiceAddCourseResult) IsSetSuccess() bool {
+func (p *ServiceAddCourseResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *AdminServiceAddCourseResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceAddCourseResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -19474,7 +19270,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceAddCourseResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceAddCourseResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -19484,7 +19280,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddCourseResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ServiceAddCourseResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewAdminAddCourseInfoResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -19492,7 +19288,7 @@ func (p *AdminServiceAddCourseResult) ReadField0(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *AdminServiceAddCourseResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddCourseResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("AddCourse_result"); err != nil {
 		goto WriteStructBeginError
@@ -19521,7 +19317,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceAddCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ServiceAddCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -19540,14 +19336,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *AdminServiceAddCourseResult) String() string {
+func (p *ServiceAddCourseResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceAddCourseResult(%+v)", *p)
+	return fmt.Sprintf("ServiceAddCourseResult(%+v)", *p)
 }
 
-func (p *AdminServiceAddCourseResult) DeepEqual(ano *AdminServiceAddCourseResult) bool {
+func (p *ServiceAddCourseResult) DeepEqual(ano *ServiceAddCourseResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -19559,7 +19355,7 @@ func (p *AdminServiceAddCourseResult) DeepEqual(ano *AdminServiceAddCourseResult
 	return true
 }
 
-func (p *AdminServiceAddCourseResult) Field0DeepEqual(src *AdminAddCourseInfoResponse) bool {
+func (p *ServiceAddCourseResult) Field0DeepEqual(src *AdminAddCourseInfoResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -19567,35 +19363,35 @@ func (p *AdminServiceAddCourseResult) Field0DeepEqual(src *AdminAddCourseInfoRes
 	return true
 }
 
-type AdminServiceDeleteCourseArgs struct {
+type ServiceDeleteCourseArgs struct {
 	Req *AdminDeleteCourseInfoRequest `thrift:"req,1" json:"req"`
 }
 
-func NewAdminServiceDeleteCourseArgs() *AdminServiceDeleteCourseArgs {
-	return &AdminServiceDeleteCourseArgs{}
+func NewServiceDeleteCourseArgs() *ServiceDeleteCourseArgs {
+	return &ServiceDeleteCourseArgs{}
 }
 
-var AdminServiceDeleteCourseArgs_Req_DEFAULT *AdminDeleteCourseInfoRequest
+var ServiceDeleteCourseArgs_Req_DEFAULT *AdminDeleteCourseInfoRequest
 
-func (p *AdminServiceDeleteCourseArgs) GetReq() (v *AdminDeleteCourseInfoRequest) {
+func (p *ServiceDeleteCourseArgs) GetReq() (v *AdminDeleteCourseInfoRequest) {
 	if !p.IsSetReq() {
-		return AdminServiceDeleteCourseArgs_Req_DEFAULT
+		return ServiceDeleteCourseArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *AdminServiceDeleteCourseArgs) SetReq(val *AdminDeleteCourseInfoRequest) {
+func (p *ServiceDeleteCourseArgs) SetReq(val *AdminDeleteCourseInfoRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_AdminServiceDeleteCourseArgs = map[int16]string{
+var fieldIDToName_ServiceDeleteCourseArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *AdminServiceDeleteCourseArgs) IsSetReq() bool {
+func (p *ServiceDeleteCourseArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *AdminServiceDeleteCourseArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteCourseArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -19644,7 +19440,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceDeleteCourseArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceDeleteCourseArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -19654,7 +19450,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteCourseArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ServiceDeleteCourseArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewAdminDeleteCourseInfoRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -19662,7 +19458,7 @@ func (p *AdminServiceDeleteCourseArgs) ReadField1(iprot thrift.TProtocol) error 
 	return nil
 }
 
-func (p *AdminServiceDeleteCourseArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteCourseArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DeleteCourse_args"); err != nil {
 		goto WriteStructBeginError
@@ -19691,7 +19487,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -19708,14 +19504,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteCourseArgs) String() string {
+func (p *ServiceDeleteCourseArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceDeleteCourseArgs(%+v)", *p)
+	return fmt.Sprintf("ServiceDeleteCourseArgs(%+v)", *p)
 }
 
-func (p *AdminServiceDeleteCourseArgs) DeepEqual(ano *AdminServiceDeleteCourseArgs) bool {
+func (p *ServiceDeleteCourseArgs) DeepEqual(ano *ServiceDeleteCourseArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -19727,7 +19523,7 @@ func (p *AdminServiceDeleteCourseArgs) DeepEqual(ano *AdminServiceDeleteCourseAr
 	return true
 }
 
-func (p *AdminServiceDeleteCourseArgs) Field1DeepEqual(src *AdminDeleteCourseInfoRequest) bool {
+func (p *ServiceDeleteCourseArgs) Field1DeepEqual(src *AdminDeleteCourseInfoRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -19735,35 +19531,35 @@ func (p *AdminServiceDeleteCourseArgs) Field1DeepEqual(src *AdminDeleteCourseInf
 	return true
 }
 
-type AdminServiceDeleteCourseResult struct {
+type ServiceDeleteCourseResult struct {
 	Success *AdminDeleteCourseInfoResponse `thrift:"success,0" json:"success,omitempty"`
 }
 
-func NewAdminServiceDeleteCourseResult() *AdminServiceDeleteCourseResult {
-	return &AdminServiceDeleteCourseResult{}
+func NewServiceDeleteCourseResult() *ServiceDeleteCourseResult {
+	return &ServiceDeleteCourseResult{}
 }
 
-var AdminServiceDeleteCourseResult_Success_DEFAULT *AdminDeleteCourseInfoResponse
+var ServiceDeleteCourseResult_Success_DEFAULT *AdminDeleteCourseInfoResponse
 
-func (p *AdminServiceDeleteCourseResult) GetSuccess() (v *AdminDeleteCourseInfoResponse) {
+func (p *ServiceDeleteCourseResult) GetSuccess() (v *AdminDeleteCourseInfoResponse) {
 	if !p.IsSetSuccess() {
-		return AdminServiceDeleteCourseResult_Success_DEFAULT
+		return ServiceDeleteCourseResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *AdminServiceDeleteCourseResult) SetSuccess(x interface{}) {
+func (p *ServiceDeleteCourseResult) SetSuccess(x interface{}) {
 	p.Success = x.(*AdminDeleteCourseInfoResponse)
 }
 
-var fieldIDToName_AdminServiceDeleteCourseResult = map[int16]string{
+var fieldIDToName_ServiceDeleteCourseResult = map[int16]string{
 	0: "success",
 }
 
-func (p *AdminServiceDeleteCourseResult) IsSetSuccess() bool {
+func (p *ServiceDeleteCourseResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *AdminServiceDeleteCourseResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteCourseResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -19812,7 +19608,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AdminServiceDeleteCourseResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ServiceDeleteCourseResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -19822,7 +19618,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteCourseResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ServiceDeleteCourseResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewAdminDeleteCourseInfoResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -19830,7 +19626,7 @@ func (p *AdminServiceDeleteCourseResult) ReadField0(iprot thrift.TProtocol) erro
 	return nil
 }
 
-func (p *AdminServiceDeleteCourseResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteCourseResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DeleteCourse_result"); err != nil {
 		goto WriteStructBeginError
@@ -19859,7 +19655,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ServiceDeleteCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -19878,14 +19674,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *AdminServiceDeleteCourseResult) String() string {
+func (p *ServiceDeleteCourseResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("AdminServiceDeleteCourseResult(%+v)", *p)
+	return fmt.Sprintf("ServiceDeleteCourseResult(%+v)", *p)
 }
 
-func (p *AdminServiceDeleteCourseResult) DeepEqual(ano *AdminServiceDeleteCourseResult) bool {
+func (p *ServiceDeleteCourseResult) DeepEqual(ano *ServiceDeleteCourseResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -19897,7 +19693,7 @@ func (p *AdminServiceDeleteCourseResult) DeepEqual(ano *AdminServiceDeleteCourse
 	return true
 }
 
-func (p *AdminServiceDeleteCourseResult) Field0DeepEqual(src *AdminDeleteCourseInfoResponse) bool {
+func (p *ServiceDeleteCourseResult) Field0DeepEqual(src *AdminDeleteCourseInfoResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

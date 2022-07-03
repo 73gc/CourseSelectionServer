@@ -19,11 +19,6 @@ struct ChangePasswordReponse {
     1: required string Message
 }
 
-service UserService {
-    LoginResponse Login(1: LoginRequest req) // 登录
-    ChangePasswordReponse ChangePassword(1: ChangePasswordRequenst req) // 退出
-}
-
 struct SelectCourseRequest {
     1: required string CourseId
     2: required string StudentId
@@ -80,14 +75,6 @@ struct StudentEvaluateResponse {
     1: required string Message
 }
 
-service StudentService {
-    StudentShowCourseReponse ShowCourse(1: StudentShowCourseRequest req) // 展示课程信息，供选课
-    SelectCourseResponse SelectCourse(1: SelectCourseRequest req) // 选课
-    StudentQueryScoreResponse QueryScore(1: StudentQueryScoreRequest req) // 查询课程成绩
-    StudentQuerySelectionResponse QuerySelection(1: StudentQuerySelectionRequest req) // 查看选课
-    StudentEvaluateResponse EvaluateRequest(1: StudentEvaluateRequest req) // 评教
-}
-
 struct ShowCourse2Teacher {
     1: string CourseId
     2: string CourseName
@@ -134,19 +121,6 @@ struct TeacherModifyScoreRequest {
 
 struct TeacherModifyScoreResponse {
     1: required string Message
-}
-
-service TeacherService {
-    TeacherQueryCourseResponse ShowCourseToTeacher(1: TeacherQueryCourseRequest req) // 显示课程
-    ShowStudentInfoResponse ShowStudentInfo(1: ShowStudentInfoRequest req) // 显示学生
-    TeacherInputScoreResponse InputScore(1: TeacherInputScoreRequest req) // 输入成绩
-    TeacherQueryCourseResponse ModifyShowCourse(1: TeacherQueryCourseRequest req)
-    ShowStudentInfoResponse ModifyShowStudent(1: ShowStudentInfoRequest req)
-    TeacherModifyScoreResponse ModifyScore(1: TeacherModifyScoreRequest req) // 修改成绩
-    TeacherQueryCourseResponse QueryCourse(1: TeacherQueryCourseRequest req)
-    ShowStudentInfoResponse ShowStudentScore(1: ShowStudentInfoRequest req) // 查看学生成绩
-    TeacherQueryCourseResponse ShowCourseSelection(1: TeacherQueryCourseRequest req)
-    ShowStudentInfoResponse StudentCourseSelection(1: ShowStudentInfoRequest req) // 查看选课学生
 }
 
 struct StudentInfo {
@@ -233,7 +207,27 @@ struct AdminDeleteCourseInfoResponse {
     1: required string Message
 }
 
-service AdminService {
+service Service {
+    LoginResponse Login(1: LoginRequest req) // 登录
+    ChangePasswordReponse ChangePassword(1: ChangePasswordRequenst req) // 退出
+
+    StudentShowCourseReponse ShowCourse(1: StudentShowCourseRequest req) // 展示课程信息，供选课
+    SelectCourseResponse SelectCourse(1: SelectCourseRequest req) // 选课
+    StudentQueryScoreResponse QueryScore(1: StudentQueryScoreRequest req) // 查询课程成绩
+    StudentQuerySelectionResponse QuerySelection(1: StudentQuerySelectionRequest req) // 查看选课
+    StudentEvaluateResponse EvaluateRequest(1: StudentEvaluateRequest req) // 评教
+
+    TeacherQueryCourseResponse ShowCourseToTeacher(1: TeacherQueryCourseRequest req) // 显示课程
+    ShowStudentInfoResponse ShowStudentInfo(1: ShowStudentInfoRequest req) // 显示学生
+    TeacherInputScoreResponse InputScore(1: TeacherInputScoreRequest req) // 输入成绩
+    TeacherQueryCourseResponse ModifyShowCourse(1: TeacherQueryCourseRequest req)
+    ShowStudentInfoResponse ModifyShowStudent(1: ShowStudentInfoRequest req)
+    TeacherModifyScoreResponse ModifyScore(1: TeacherModifyScoreRequest req) // 修改成绩
+    TeacherQueryCourseResponse QueryCourse(1: TeacherQueryCourseRequest req)
+    ShowStudentInfoResponse ShowStudentScore(1: ShowStudentInfoRequest req) // 查看学生成绩
+    TeacherQueryCourseResponse ShowCourseSelection(1: TeacherQueryCourseRequest req)
+    ShowStudentInfoResponse StudentCourseSelection(1: ShowStudentInfoRequest req) // 查看选课学生
+
     AdminQueryStudentInfoResponse QueryStudentInfo() // 显示学生信息
     AdminQueryTeacherInfoResponse QueryTeacherInfo() // 显示教师信息
     AdminQueryCourseInfoResponse QueryCourseInfo() // 显示课程信息
