@@ -261,13 +261,13 @@ func (s *ServiceImpl) AddStudent(ctx context.Context, req *server0.AdminAddStude
 	// TODO: Your code here...
 	query := fmt.Sprintf("INSERT INTO studentinfo (studentid, studentname, studentclass) VALUES ('%s', '%s', '%s') ON DUPLICATE KEY UPDATE studentclass='%s'", req.StudentId, req.StudentName, req.ClassAndGrade, req.ClassAndGrade)
 	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewAdminAddStudentInfoResponse()
 	if err_ != nil {
 		resp.Message = "出错了，请稍后重试"
 		return
 	}
 	query = fmt.Sprintf("INSERT INTO userinfo (userid, passwd) VALUES ('%s', '%s') ON DUPLICATE KEY UPDATE passwd='%s'", req.StudentId, req.StudentId, req.StudentId)
 	_, err_ = sqlcontroller.Db.Exec(query)
-	resp = server0.NewAdminAddStudentInfoResponse()
 	if err_ != nil {
 		resp.Message = "出错了，请稍后重试"
 		return
@@ -280,18 +280,63 @@ func (s *ServiceImpl) AddStudent(ctx context.Context, req *server0.AdminAddStude
 // DeleteStudent implements the ServiceImpl interface.
 func (s *ServiceImpl) DeleteStudent(ctx context.Context, req *server0.AdminDeleteStudentInfoRequest) (resp *server0.AdminDeleteStudentInfoResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("DELETE FROM studentinfo WHERE studentid='%s'", req.StudentId)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewAdminDeleteStudentInfoResponse()
+	if err_ != nil {
+		resp.Message = "出错了，请稍后重试"
+		return
+	}
+	query = fmt.Sprintf("DELETE FROM userinfo WHERE userid='%s'", req.StudentId)
+	_, err_ = sqlcontroller.Db.Exec(query)
+	if err_ != nil {
+		resp.Message = "出错了，请稍后重试"
+		return
+	}
+	resp.Message = "删除成功"
+	err = nil
 	return
 }
 
 // AddTeacher implements the ServiceImpl interface.
 func (s *ServiceImpl) AddTeacher(ctx context.Context, req *server0.AdminAddTeacherInfoRequest) (resp *server0.AdminAddTeacherInfoResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("INSERT INTO studentinfo (teacherid, teachername) VALUES ('%s', '%s') ON DUPLICATE KEY UPDATE teachername='%s'", req.TeacherId, req.TeacherName, req.TeacherName)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewAdminAddTeacherInfoResponse()
+	if err_ != nil {
+		resp.Message = "出错了，请稍后重试"
+		return
+	}
+	query = fmt.Sprintf("INSERT INTO userinfo (userid, passwd) VALUES ('%s', '%s') ON DUPLICATE KEY UPDATE passwd='%s'", req.TeacherId, req.TeacherId, req.TeacherId)
+	_, err_ = sqlcontroller.Db.Exec(query)
+	if err_ != nil {
+		resp.Message = "出错了，请稍后重试"
+		return
+	}
+	resp.Message = "添加成功"
+	err = nil
 	return
 }
 
 // DeleteTeacher implements the ServiceImpl interface.
 func (s *ServiceImpl) DeleteTeacher(ctx context.Context, req *server0.AdminDeleteTeacherInfoRequest) (resp *server0.AdminDeleteStudentInfoResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("DELETE FROM teacherinfo WHERE teacherid='%s'", req.TeacherId)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewAdminDeleteStudentInfoResponse()
+	if err_ != nil {
+		resp.Message = "出错了，请稍后重试"
+		return
+	}
+	query = fmt.Sprintf("DELETE FROM userinfo WHERE userid='%s'", req.TeacherId)
+	_, err_ = sqlcontroller.Db.Exec(query)
+	if err_ != nil {
+		resp.Message = "出错了，请稍后重试"
+		return
+	}
+	resp.Message = "删除成功"
+	err = nil
 	return
 }
 
