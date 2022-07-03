@@ -343,7 +343,7 @@ func (s *ServiceImpl) DeleteTeacher(ctx context.Context, req *server0.AdminDelet
 // AddCourse implements the ServiceImpl interface.
 func (s *ServiceImpl) AddCourse(ctx context.Context, req *server0.AdminAddCourseInfoRequest) (resp *server0.AdminAddCourseInfoResponse, err error) {
 	// TODO: Your code here...
-	query := fmt.Sprintf("INSERT INTO courseinfo (courseid, coursename, teacherid, credit) VALUES ('%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE teacherid='%s'", req.CourseId, req.CourseName, req.TeacherId, req.Credit, req.TeacherId)
+	query := fmt.Sprintf("INSERT INTO courseinfo (courseid, coursename, teacherid, credit) VALUES ('%s', '%s', '%s', '%g') ON DUPLICATE KEY UPDATE teacherid='%s'", req.CourseId, req.CourseName, req.TeacherId, req.Credit, req.TeacherId)
 	_, err_ := sqlcontroller.Db.Exec(query)
 	resp = server0.NewAdminAddCourseInfoResponse()
 	if err_ != nil {
