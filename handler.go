@@ -203,19 +203,65 @@ func (s *ServiceImpl) QuerySelection(ctx context.Context, req *server0.StudentQu
 // EvaluateRequest implements the ServiceImpl interface.
 func (s *ServiceImpl) EvaluateRequest(ctx context.Context, req *server0.StudentEvaluateRequest) (resp *server0.StudentEvaluateResponse, err error) {
 	// TODO: Your code here...
-	query := fmt.Sprintf("UPDATE commentinfo SET score=%g WHERE ")
+	query := fmt.Sprintf("UPDATE commentinfo SET score=%g WHERE courseid='%s' AND studentid='%s'", req.Score, req.CourseId, req.StudentId)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewStudentEvaluateResponse()
+	if err_ != nil {
+		resp.Message = "出错了，稍后重试"
+		return
+	}
+	resp.Message = "评教成功"
+	err = nil
 	return
 }
 
 // ShowCourseToTeacher implements the ServiceImpl interface.
 func (s *ServiceImpl) ShowCourseToTeacher(ctx context.Context, req *server0.TeacherQueryCourseRequest) (resp *server0.TeacherQueryCourseResponse, err error) {
 	// TODO: Your code here...
+	// 此函数用于录入成绩时显示未录入成绩的课程
+	query := fmt.Sprintf("SELECT courseid, coursename, credit FROM courseinfo WHERE teacherid='%s' AND courseid NOT IN (SELECT selectioninfo.courseid FROM selectioninfo WHERE selectioninfo.score IS NOT NULL)", req.TeacherId)
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("出错了，请稍后重试")
+		return
+	}
+	resp = server0.NewTeacherQueryCourseResponse()
+	resp.Courses = make([]*server0.ShowCourse2Teacher, 0)
+	for sqlResp.Next() {
+		var courseId, courseName, credit string
+		sqlResp.Scan(&courseId, &courseName, &credit)
+		resp.Courses = append(resp.Courses, &server0.ShowCourse2Teacher{
+			CourseId:   courseId,
+			CourseName: courseName,
+			Credit:     credit,
+		})
+	}
+	err = nil
 	return
 }
 
 // ShowStudentInfo implements the ServiceImpl interface.
 func (s *ServiceImpl) ShowStudentInfo(ctx context.Context, req *server0.ShowStudentInfoRequest) (resp *server0.ShowStudentInfoResponse, err error) {
 	// TODO: Your code here...
+	// 此函数用于录入成绩时显示未录入成绩的学生
+	query := fmt.Sprintf("SELECT selectioninfo.studentid, studentinfo.studentname FROM selectioninfo, studentinfo WHERE selectioninfo.studentid=studentinfo.studentid AND courseid='%s' AND score IS NULL", req.CourseId)
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("出错了，请稍后重试")
+		return
+	}
+	resp = server0.NewShowStudentInfoResponse()
+	resp.Students = make([]*server0.StudentCourseInfo, 0)
+	for sqlResp.Next() {
+		var studentId, studentName string
+		sqlResp.Scan(&studentId, &studentName)
+		resp.Students = append(resp.Students, &server0.StudentCourseInfo{
+			StudentId:   studentId,
+			StudentName: studentName,
+			Score:       -1, // 这里-1表示未录入成绩
+		})
+	}
+	err = nil
 	return
 }
 
