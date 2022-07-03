@@ -320,11 +320,11 @@ func (s *ServiceImpl) AddTeacher(ctx context.Context, req *server0.AdminAddTeach
 }
 
 // DeleteTeacher implements the ServiceImpl interface.
-func (s *ServiceImpl) DeleteTeacher(ctx context.Context, req *server0.AdminDeleteTeacherInfoRequest) (resp *server0.AdminDeleteStudentInfoResponse, err error) {
+func (s *ServiceImpl) DeleteTeacher(ctx context.Context, req *server0.AdminDeleteTeacherInfoRequest) (resp *server0.AdminDeleteTeacherInfoResponse, err error) {
 	// TODO: Your code here...
 	query := fmt.Sprintf("DELETE FROM teacherinfo WHERE teacherid='%s'", req.TeacherId)
 	_, err_ := sqlcontroller.Db.Exec(query)
-	resp = server0.NewAdminDeleteStudentInfoResponse()
+	resp = server0.NewAdminDeleteTeacherInfoResponse()
 	if err_ != nil {
 		resp.Message = "出错了，请稍后重试"
 		return
