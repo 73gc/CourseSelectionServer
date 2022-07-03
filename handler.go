@@ -301,7 +301,7 @@ func (s *ServiceImpl) DeleteStudent(ctx context.Context, req *server0.AdminDelet
 // AddTeacher implements the ServiceImpl interface.
 func (s *ServiceImpl) AddTeacher(ctx context.Context, req *server0.AdminAddTeacherInfoRequest) (resp *server0.AdminAddTeacherInfoResponse, err error) {
 	// TODO: Your code here...
-	query := fmt.Sprintf("INSERT INTO studentinfo (teacherid, teachername) VALUES ('%s', '%s') ON DUPLICATE KEY UPDATE teachername='%s'", req.TeacherId, req.TeacherName, req.TeacherName)
+	query := fmt.Sprintf("INSERT INTO teacherinfo (teacherid, teachername) VALUES ('%s', '%s') ON DUPLICATE KEY UPDATE teachername='%s'", req.TeacherId, req.TeacherName, req.TeacherName)
 	_, err_ := sqlcontroller.Db.Exec(query)
 	resp = server0.NewAdminAddTeacherInfoResponse()
 	if err_ != nil {
