@@ -97,12 +97,41 @@ func (s *ServiceImpl) ChangePassword(ctx context.Context, req *server0.ChangePas
 // ShowCourse implements the ServiceImpl interface.
 func (s *ServiceImpl) ShowCourse(ctx context.Context, req *server0.StudentShowCourseRequest) (resp *server0.StudentShowCourseReponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("SELECT courseinfo.courseid,courseinfo.coursename,teacherinfo.teachername,courseinfo.credit FROM courseinfo,teacherinfo WHERE courseinfo.teacherid = teacherinfo.teacherid AND courseinfo.courseid NOT IN (SELECT courseid FROM selectioninfo WHERE studentid='%s')", *req.StudentId)
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("出错了，稍后重试")
+		return
+	}
+	resp = server0.NewStudentShowCourseReponse()
+	resp.Courses = make([]*server0.ShowCourseResponse, 0)
+	for sqlResp.Next() {
+		var courseId, courseName, teacherName string
+		var credit float64
+		sqlResp.Scan(&courseId, &courseName, &teacherName, &credit)
+		resp.Courses = append(resp.Courses, &server0.ShowCourseResponse{
+			CourseId:    courseId,
+			CourseName:  courseName,
+			TeacherName: teacherName,
+			Credit:      credit,
+		})
+	}
+	err = nil
 	return
 }
 
 // SelectCourse implements the ServiceImpl interface.
 func (s *ServiceImpl) SelectCourse(ctx context.Context, req *server0.SelectCourseRequest) (resp *server0.SelectCourseResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("INSERT INTO selectioninfo (studentid, courseid) VALUES ('%s', '%s')", req.StudentId, req.CourseId)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewSelectCourseResponse()
+	if err_ != nil {
+		resp.Message = "出错了，稍后重试"
+		return
+	}
+	resp.Message = "添加成功"
+	err = nil
 	return
 }
 
