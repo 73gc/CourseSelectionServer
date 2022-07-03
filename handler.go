@@ -283,18 +283,64 @@ func (s *ServiceImpl) InputScore(ctx context.Context, req *server0.TeacherInputS
 // ModifyShowCourse implements the ServiceImpl interface.
 func (s *ServiceImpl) ModifyShowCourse(ctx context.Context, req *server0.TeacherQueryCourseRequest) (resp *server0.TeacherQueryCourseResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("SELECT courseid, coursename, credit FROM courseinfo WHERE teacherid='%s' AND courseid IN (SELECT selectioninfo.courseid FROM selectioninfo WHERE selectioninfo.score IS NOT NULL)", req.TeacherId)
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("出错了，请稍后重试")
+		return
+	}
+	resp = server0.NewTeacherQueryCourseResponse()
+	resp.Courses = make([]*server0.ShowCourse2Teacher, 0)
+	for sqlResp.Next() {
+		var courseId, courseName, credit string
+		sqlResp.Scan(&courseId, &courseName, &credit)
+		resp.Courses = append(resp.Courses, &server0.ShowCourse2Teacher{
+			CourseId:   courseId,
+			CourseName: courseName,
+			Credit:     credit,
+		})
+	}
+	err = nil
 	return
 }
 
 // ModifyShowStudent implements the ServiceImpl interface.
 func (s *ServiceImpl) ModifyShowStudent(ctx context.Context, req *server0.ShowStudentInfoRequest) (resp *server0.ShowStudentInfoResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("SELECT selectioninfo.studentid, studentinfo.studentname, selectioninfo.score FROM selectioninfo, studentinfo WHERE selectioninfo.studentid=studentinfo.studentid AND courseid='%s' AND score IS NOT NULL", req.CourseId)
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("出错了，请稍后重试")
+		return
+	}
+	resp = server0.NewShowStudentInfoResponse()
+	resp.Students = make([]*server0.StudentCourseInfo, 0)
+	for sqlResp.Next() {
+		var studentId, studentName string
+		var score float64
+		sqlResp.Scan(&studentId, &studentName, &score)
+		resp.Students = append(resp.Students, &server0.StudentCourseInfo{
+			StudentId:   studentId,
+			StudentName: studentName,
+			Score:       score, // 这里-1表示未录入成绩
+		})
+	}
+	err = nil
 	return
 }
 
 // ModifyScore implements the ServiceImpl interface.
 func (s *ServiceImpl) ModifyScore(ctx context.Context, req *server0.TeacherModifyScoreRequest) (resp *server0.TeacherModifyScoreResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("UPDATE selectioninfo SET score=%g WHERE studentid='%s' AND courseid='%s'", req.Score, req.StudentId, req.CourseId)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewTeacherModifyScoreResponse()
+	if err_ != nil {
+		resp.Message = "出错了，请稍后再试"
+		return
+	}
+	resp.Message = "操作成功"
+	err = nil
 	return
 }
 
