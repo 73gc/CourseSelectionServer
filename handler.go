@@ -4,6 +4,7 @@ import (
 	"context"
 	server0 "courseselection/kitex_gen/Server"
 	"courseselection/sqlcontroller"
+	"errors"
 	"fmt"
 	"log"
 )
@@ -78,11 +79,13 @@ func (s *ServiceImpl) ChangePassword(ctx context.Context, req *server0.ChangePas
 	// TODO: Your code here...
 	query := fmt.Sprintf("UPDATE userinfo SET passwd='%s' WHERE userid=%s", req.NewPassword_, req.Username)
 	sqlResp, err_ := sqlcontroller.Db.Exec(query)
+	resp = server0.NewChangePasswordReponse()
 	if err_ != nil {
 		resp.Message = "发生错误，请稍后重试"
 		return
 	}
-	if n, _ := sqlResp.RowsAffected(); n != 0 {
+	n, _ := sqlResp.RowsAffected()
+	if n != 0 {
 		resp.Message = "修改成功"
 	} else {
 		resp.Message = "新密码和原密码相同"
@@ -184,24 +187,93 @@ func (s *ServiceImpl) StudentCourseSelection(ctx context.Context, req *server0.S
 // QueryStudentInfo implements the ServiceImpl interface.
 func (s *ServiceImpl) QueryStudentInfo(ctx context.Context) (resp *server0.AdminQueryStudentInfoResponse, err error) {
 	// TODO: Your code here...
+	resp = server0.NewAdminQueryStudentInfoResponse()
+	query := "SELECT * FROM studentinfo"
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("请求出错")
+		return
+	}
+	resp.Students = make([]*server0.StudentInfo, 0)
+	for sqlResp.Next() {
+		var studentId, studentName, studentClass string
+		sqlResp.Scan(&studentId, &studentName, &studentClass)
+		resp.Students = append(resp.Students, &server0.StudentInfo{
+			StudentId:     studentId,
+			StudentName:   studentName,
+			ClassAndGrade: studentClass,
+		})
+	}
+	err = nil
 	return
 }
 
 // QueryTeacherInfo implements the ServiceImpl interface.
 func (s *ServiceImpl) QueryTeacherInfo(ctx context.Context) (resp *server0.AdminQueryTeacherInfoResponse, err error) {
 	// TODO: Your code here...
+	resp = server0.NewAdminQueryTeacherInfoResponse()
+	query := "SELECT * FROM teacherinfo"
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("请求出错")
+		return
+	}
+	resp.Teachers = make([]*server0.TeacherInfo, 0)
+	for sqlResp.Next() {
+		var teacherId, teacherName string
+		sqlResp.Scan(&teacherId, &teacherName)
+		resp.Teachers = append(resp.Teachers, &server0.TeacherInfo{
+			TeacherId:   teacherId,
+			TeacherName: teacherName,
+		})
+	}
+	err = nil
 	return
 }
 
 // QueryCourseInfo implements the ServiceImpl interface.
 func (s *ServiceImpl) QueryCourseInfo(ctx context.Context) (resp *server0.AdminQueryCourseInfoResponse, err error) {
 	// TODO: Your code here...
+	resp = server0.NewAdminQueryCourseInfoResponse()
+	query := "SELECT * FROM courseinfo"
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("请求出错")
+		return
+	}
+	resp.Courses = make([]*server0.CourseInfo, 0)
+	for sqlResp.Next() {
+		var courseId, courseName, teacherId, credit string
+		sqlResp.Scan(&courseId, &courseName, &teacherId, &credit)
+		resp.Courses = append(resp.Courses, &server0.CourseInfo{
+			CourseId:    courseId,
+			CourseName:  courseName,
+			TeacherName: teacherId,
+			Credit:      credit,
+		})
+	}
+	err = nil
 	return
 }
 
 // AddStudent implements the ServiceImpl interface.
 func (s *ServiceImpl) AddStudent(ctx context.Context, req *server0.AdminAddStudentInfoRequest) (resp *server0.AdminAddStudentInfoResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("INSERT INTO studentinfo (studentid, studentname, studentclass) VALUES ('%s', '%s', '%s') ON DUPLICATE KEY UPDATE studentclass='%s'", req.StudentId, req.StudentName, req.ClassAndGrade, req.ClassAndGrade)
+	_, err_ := sqlcontroller.Db.Exec(query)
+	if err_ != nil {
+		resp.Message = "出错了，请稍后重试"
+		return
+	}
+	query = fmt.Sprintf("INSERT INTO userinfo (userid, passwd) VALUES ('%s', '%s') ON DUPLICATE KEY UPDATE passwd='%s'", req.StudentId, req.StudentId, req.StudentId)
+	_, err_ = sqlcontroller.Db.Exec(query)
+	resp = server0.NewAdminAddStudentInfoResponse()
+	if err_ != nil {
+		resp.Message = "出错了，请稍后重试"
+		return
+	}
+	resp.Message = "添加成功"
+	err = nil
 	return
 }
 
