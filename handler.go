@@ -15,7 +15,7 @@ type ServiceImpl struct{}
 // Login implements the ServiceImpl interface.
 func (s *ServiceImpl) Login(ctx context.Context, req *server0.LoginRequest) (resp *server0.LoginResponse, err error) {
 	// TODO: Your code here...
-	query := fmt.Sprintf("SELECT passwd FROM userinfo WHERE userid=%s", req.Password)
+	query := fmt.Sprintf("SELECT passwd FROM userinfo WHERE userid=%s", req.Username)
 	queryResp, err_ := sqlcontroller.Db.Query(query)
 	resp = server0.NewLoginResponse()
 	if err_ != nil {
@@ -396,12 +396,47 @@ func (s *ServiceImpl) ShowStudentScore(ctx context.Context, req *server0.ShowStu
 // ShowCourseSelection implements the ServiceImpl interface.
 func (s *ServiceImpl) ShowCourseSelection(ctx context.Context, req *server0.TeacherQueryCourseRequest) (resp *server0.TeacherQueryCourseResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("SELECT courseid, coursename, credit FROM courseinfo WHERE teacherid='%s'", req.TeacherId)
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("出错了，请稍后重试")
+		return
+	}
+	resp = server0.NewTeacherQueryCourseResponse()
+	resp.Courses = make([]*server0.ShowCourse2Teacher, 0)
+	for sqlResp.Next() {
+		var courseId, courseName, credit string
+		sqlResp.Scan(&courseId, &courseName, &credit)
+		resp.Courses = append(resp.Courses, &server0.ShowCourse2Teacher{
+			CourseId:   courseId,
+			CourseName: courseName,
+			Credit:     credit,
+		})
+	}
+	err = nil
 	return
 }
 
 // StudentCourseSelection implements the ServiceImpl interface.
 func (s *ServiceImpl) StudentCourseSelection(ctx context.Context, req *server0.ShowStudentInfoRequest) (resp *server0.ShowStudentInfoResponse, err error) {
 	// TODO: Your code here...
+	query := fmt.Sprintf("SELECT selectioninfo.studentid, studentinfo.studentname FROM selectioninfo, studentinfo WHERE selectioninfo.studentid=studentinfo.studentid AND courseid='%s'", req.CourseId)
+	sqlResp, err_ := sqlcontroller.Db.Query(query)
+	if err_ != nil {
+		err = errors.New("出错了，请稍后重试")
+		return
+	}
+	resp = server0.NewShowStudentInfoResponse()
+	resp.Students = make([]*server0.StudentCourseInfo, 0)
+	for sqlResp.Next() {
+		var studentId, studentName string
+		sqlResp.Scan(&studentId, &studentName)
+		resp.Students = append(resp.Students, &server0.StudentCourseInfo{
+			StudentId:   studentId,
+			StudentName: studentName,
+		})
+	}
+	err = nil
 	return
 }
 
